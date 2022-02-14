@@ -65,6 +65,6 @@ func main() {
 	*/
 
 	router := mux.NewRouter()
-	router.HandleFunc("/auth", MiddleWare()) //http.HandleFuncと同じ役割
+	router.HandleFunc("/auth", MiddleWare(VerifyCheck)) //http.HandleFuncと同じ役割
 	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(allowOrigins, allowMethods, allowHeaders)(router)))
 }
