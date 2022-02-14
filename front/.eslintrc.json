@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:import/warnings",
+    // 追記
+    "plugin:tailwindcss/recommended"
+  ],
+  // 追記
+  // tailwind.config.js などの config ファイル、ESLint の対象外にする
+  "ignorePatterns": [
+    "*.config.js"
+  ],
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ]
+  }
+}
