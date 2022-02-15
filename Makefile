@@ -13,6 +13,10 @@ db/up:
 db/down:
 	$(DC) down -v db
 
+db/recreate:
+	$(DC) down -v db
+	$(DC) up -d db
+
 db/console:
 	$(DC) exec db mysql -udocker -pdocker
 

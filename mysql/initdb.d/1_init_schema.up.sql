@@ -11,7 +11,7 @@ create table if not exists events(
   description text,
   document text not null,
   datetime datetime not null,
-  capacity bigint unsigned,
+  stream_url varchar(255) not null,
   orgnizer bigint unsigned not null,
   foreign key (orgnizer) references users(id)
 );
