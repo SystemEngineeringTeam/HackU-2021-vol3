@@ -1,0 +1,33 @@
+.input_1_1 {
+    position: relative;
+    width: 80%;
+    margin: 40px 3%;
+}
+
+.input_1_1 input[type="text"] {
+    font: 15px/24px sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    padding-left: 10px;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    color: #000000;
+    border: 1px solid rgba(0, 0, 0, .7);
+    border-radius: 4px;
+}
+
+.input_1_2 input[type='text']:focus {
+    border: 1px solid #da3c41;
+    outline: none;
+    box-shadow: 0 0 5px 1px rgba(218, 60, 65, .5);
+}
+
+.input_title {
+    position: relative;
+    top: 28px;
+    left: 10px;
+    font-weight: bold;
+    color: #252525;
+}
