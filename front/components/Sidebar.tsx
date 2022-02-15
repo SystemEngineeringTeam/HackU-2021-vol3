@@ -8,14 +8,34 @@ export default function Example() {
   };
 
   return (
-    <div className="px-4 pt-16 w-full">
+    <div className="px-4 pt-8 w-full">
       <div className="p-2 mx-auto w-full max-w-md bg-white rounded-2xl">
         <div className="mb-6">
           <div className="font-bold">KEYWORD SEARCH</div>
-          <input
-            type="text"
-            className="p-2 w-full bg-original-white rounded-lg shadow-lg"
-          />
+          <div className="relative">
+            <input
+              type="text"
+              className="p-2 w-full bg-original-white rounded-lg shadow-inner"
+            />
+            <button className="absolute top-1 right-2">
+              <svg
+                className="w-8 h-8 text-black"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {" "}
+                <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                <circle cx="10" cy="10" r="7" />{" "}
+                <line x1="21" y1="21" x2="15" y2="15" />
+              </svg>
+            </button>
+          </div>
         </div>
         <Disclosure>
           {({ open }) => (
