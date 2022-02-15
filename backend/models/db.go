@@ -1,9 +1,9 @@
 package models
 
 type User struct {
-	ID           int    `gorm:"id"`
-	FirebaseUUID string `gorm:"firebase_uuid"`
-	Name         string `gorm:"name"`
+	ID          int    `gorm:"id"`
+	FirebaseUID string `gorm:"firebase_uid"`
+	Name        string `gorm:"name"`
 }
 
 type Event struct {
