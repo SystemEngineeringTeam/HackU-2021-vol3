@@ -37,7 +37,7 @@ export default function Example() {
             </button>
           </div>
         </div>
-        <Disclosure>
+        <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex justify-between py-2 px-4 w-full text-sm font-medium text-left bg-original-black focus:outline-none focus-visible:ring hover:opacity-90">
