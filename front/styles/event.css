@@ -1,13 +1,36 @@
-.input_1_1 {
-    position: relative;
-    width: 80%;
-    margin: 40px 3%;
+.container {
+    margin: 0 auto;
+    margin-left: 20%;
 }
+
+.all_title {
+    margin-top: 60px;
+}
+
+.h1_title {
+    font-size: 2.8em;
+    font-weight: bold;
+    color: #252525;
+    margin-bottom: 10px;
+    margin-top: 60px;
+    display: inline;
+}
+
+.button_save {
+    background-color: #689BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
 
 .input_1_1 input[type="text"] {
     font: 15px/24px sans-serif;
     box-sizing: border-box;
-    width: 100%;
+    width: 70%;
     padding-top: 2em;
     padding-bottom: 1em;
     padding-left: 10px;
