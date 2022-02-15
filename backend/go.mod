@@ -2,14 +2,19 @@ module github.com/SystemEngineeringTeam/HackU-2021-vol3
 
 go 1.17
 
+require github.com/jinzhu/gorm v1.9.16
+<<<<<<< HEAD
+=======
+
 require (
+	github.com/go-sql-driver/mysql v1.5.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+
 	firebase.google.com/go v3.13.0+incompatible
 	github.com/gorilla/mux v1.8.0
 	github.com/joho/godotenv v1.4.0
 	google.golang.org/api v0.68.0
-)
 
-require (
 	cloud.google.com/go v0.100.2 // indirect
 	cloud.google.com/go/compute v1.3.0 // indirect
 	cloud.google.com/go/firestore v1.6.1 // indirect
@@ -30,3 +35,4 @@ require (
 	google.golang.org/grpc v1.44.0 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 )
+>>>>>>> bfc420d383f3bca7321e828c5f4b758283dc411c
