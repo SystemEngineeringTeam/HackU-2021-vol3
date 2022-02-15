@@ -2,6 +2,7 @@ import Image from "next/image";
 import Event from "./Event";
 import Header from "./Header";
 import Layout from "./Layout";
+import Sidebar from "./Sidebar";
 
 const Home = () => {
   return (
@@ -24,10 +25,8 @@ const Home = () => {
         </div>
         <div className="border-4"></div>
         <div className="flex flex-col justify-center w-96">
-          <div className="text-center bg-original-deep-gray">
-            KYEWORD SEARCH
-            <div>CATEGORYS</div>
-            <div>SERVERT</div>
+          <div className=" bg-original-deep-gray">
+            <Sidebar />
           </div>
         </div>
       </div>
