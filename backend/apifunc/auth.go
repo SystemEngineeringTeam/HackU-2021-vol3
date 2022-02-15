@@ -26,6 +26,9 @@ func VerifyCheck(w http.ResponseWriter, r *http.Request) {
 	}
 	credentials := os.Getenv("CREDENTIALS")
 	//envファイルからcredentials(秘密鍵)を取得
+	/*CREDENTIALSはfirebaseの設定で作成したjsonファイルのパス,以下のような感じでcredentials.envにCREDENTIALSを記述
+	CREDENTIALS=/Users/<ユーザ名>/firebase/<Firebase SDKの秘密鍵の名前>.json
+	*/
 
 	context := context.Background()
 
