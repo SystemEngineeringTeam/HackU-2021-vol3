@@ -5,7 +5,7 @@ import Login from "./Login";
 const Header = () => {
   return (
     <div>
-      <header className="flex justify-between items-center py-4 bg-original-green md:py-4 ">
+      <header className="flex justify-between items-center py-2 bg-original-green ">
         <div className="ml-5 ">
           <Link href="/">
             <a
@@ -25,23 +25,26 @@ const Header = () => {
 
         <nav className="hidden gap-12 lg:flex">
           <Link href="/">
-            <a className="text-lg font-semibold text-gray-600 hover:text-indigo-500 active:text-indigo-700 transition duration-100">
-              <Image src="/home.png" alt="" width="30px" height="30px" />
+            <a className="text-lg font-semibold text-gray-600 transition duration-100 ">
+              <Image src="/home.png" alt="" width="35px" height="35px" />
             </a>
           </Link>
           <Link href="/calendar">
-            <a className="text-lg font-semibold text-gray-600 hover:text-indigo-500 active:text-indigo-700 transition duration-100">
-              <Image src="/calendar.png" alt="" width="30px" height="30px" />
+            <a className="text-lg font-semibold text-gray-600 transition duration-100">
+              <Image src="/calendar.png" alt="" width="35px" height="35px" />
             </a>
           </Link>
           <Link href="/mail">
-            <a className="text-lg font-semibold text-gray-600 hover:text-indigo-500 active:text-indigo-700 transition duration-100">
-              <Image src="/mail.png" alt="" width="30px" height="30px" />
+            <a className="text-lg font-semibold text-gray-600 transition duration-100">
+              <Image src="/mail.png" alt="" width="40px" height="40px" />
             </a>
           </Link>
         </nav>
 
-        <div className="hidden flex-col gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start">
+        <div className="hidden gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start">
+          <button className="py-2 px-6 font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
+            Add
+          </button>
           <Login />
         </div>
 
