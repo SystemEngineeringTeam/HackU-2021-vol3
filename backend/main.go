@@ -5,9 +5,13 @@ import (
 	"net/http"
 
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/apifunc"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	http.HandleFunc("/auth", apifunc.VerifyCheck) //VerifyCheckをハンドラに登録
+	router := mux.NewRouter()
+	//ルーターの定義
+	router.HandleFunc("/auth", apifunc.VerifyCheck)
+	//VerifyCheckをハンドラに登録,http.HandlerFuncとほぼ同じ動作.
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
