@@ -30,6 +30,7 @@ const SelectSort = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
+            {/* eslint-disable-next-line */}
             <Listbox.Options className="overflow-auto absolute py-1 mt-1 w-full max-h-60 text-base bg-white rounded-md focus:outline-none ring-1 ring-black ring-opacity-5 shadow-lg sm:text-sm">
               {people.map((person, personIdx) => (
                 <Listbox.Option
