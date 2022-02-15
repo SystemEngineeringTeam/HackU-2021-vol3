@@ -292,3 +292,6 @@ dist
 .pnp.*
 
 */tmp
+
+#Visual Studio Code Workspace
+.code-workspace
