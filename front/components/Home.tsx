@@ -16,7 +16,7 @@ const Home = () => {
               <SelectSort />
             </div>
           </div>
-          <div className="my-4 border-4"></div>
+          <div className="my-4 border-4" />
           <div className="grid grid-cols-12 gap-4">
             <Event />
             <Event />
@@ -29,8 +29,8 @@ const Home = () => {
             <Event />
           </div>
         </div>
-        <div className="border-4"></div>
-        <div className="flex flex-col justify-start w-96 ">
+        <div className="border-4" />
+        <div className="flex flex-col justify-start w-3/12 ">
           <div className=" ">
             <Sidebar />
           </div>

@@ -22,6 +22,24 @@
           "order": "asc"
         }
       }
-    ]
+    ],
+    "react/jsx-boolean-value": "error",
+
+    "react/self-closing-comp": [
+    "error",
+      {
+        "component": true,
+        "html": true
+      }
+    ],
+
+
+    "react/jsx-pascal-case":[
+      "error",
+      {
+        "allowAllCaps": true,
+        "ignore": []
+      }
+    ]        
   }
 }
