@@ -37,7 +37,7 @@ export default function Example() {
             </button>
           </div>
         </div>
-        <Disclosure defaultOpen={true}>
+        <Disclosure defaultOpen>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex justify-between py-2 px-4 w-full text-sm font-medium text-left bg-original-black focus:outline-none focus-visible:ring hover:opacity-90">
@@ -105,13 +105,13 @@ export default function Example() {
                 </Disclosure.Panel>
               </button>
 
-              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black"></Disclosure.Panel>
-              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black"></Disclosure.Panel>
-              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black"></Disclosure.Panel>
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
             </>
           )}
         </Disclosure>
-        <Disclosure as="div" className="mt-2" defaultOpen={true}>
+        <Disclosure as="div" className="mt-2" defaultOpen>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex justify-between py-2 px-4 w-full text-sm font-medium text-left bg-original-black focus:outline-none hover:opacity-90">
@@ -141,9 +141,9 @@ export default function Example() {
                   </div>
                 </Disclosure.Panel>
               </button>
-              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black"></Disclosure.Panel>
-              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black"></Disclosure.Panel>
-              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black"></Disclosure.Panel>
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
             </>
           )}
         </Disclosure>
