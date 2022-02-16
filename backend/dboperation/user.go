@@ -19,3 +19,17 @@ func Auth(firebaseUID string) error {
 	// user found
 	return nil
 }
+
+func CreateUser(name, profileImageURL, firebaseUID string) error {
+	db := connect()
+	defer db.Close()
+
+	var user models.User
+	user.Name = name
+	user.ProfileImageURL = profileImageURL
+	user.FirebaseUID = firebaseUID
+	if err := db.Create(&user).Error; err != nil {
+		return err
+	}
+	return nil
+}
