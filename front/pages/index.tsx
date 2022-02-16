@@ -7,7 +7,7 @@ import styles from "../styles/Home.module.css";
 
 const Index: NextPage = () => {
   return (
-    <div className={styles.container}>
+    <div>
       <Home />
     </div>
   );

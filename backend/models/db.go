@@ -1,9 +1,10 @@
 package models
 
 type User struct {
-	ID          int    `gorm:"id"`
-	FirebaseUID string `gorm:"firebase_uid"`
-	Name        string `gorm:"name"`
+	ID              int    `gorm:"id"`
+	FirebaseUID     string `gorm:"firebase_uid"`
+	Name            string `gorm:"name"`
+	ProfileImageURL string `gorm:"profile_image_url"`
 }
 
 type Event struct {
@@ -36,4 +37,9 @@ type Tags struct {
 type Badges struct {
 	ID    int    `gorm:"id"`
 	Badge string `gorm:"badge"`
+}
+
+type Image struct {
+	ID       int    `gorm:"id"`
+	ImageURL string `gorm:"image_url"`
 }

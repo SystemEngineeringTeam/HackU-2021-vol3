@@ -11,7 +11,9 @@ import (
 func main() {
 	router := mux.NewRouter()
 	//ルーターの定義
+
 	router.HandleFunc("/auth", apifunc.Auth)
+
 	//VerifyCheckをハンドラに登録,http.HandlerFuncとほぼ同じ動作.
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
