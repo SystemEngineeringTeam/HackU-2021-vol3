@@ -13,10 +13,16 @@ import (
 	"google.golang.org/api/option"
 )
 
-func VerifyCheck(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Authorization")
-	w.Header().Set("Access-Control-Allow-Methods", "GET")
+func Auth(w http.ResponseWriter, r *http.Request) {
+	uid, err := verifyCheck(r)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(uid)
+}
+
+func verifyCheck(r *http.Request) (string, error) {
+
 	//Access-ControlをVerifyCheck内にも適用
 
 	//Firebase SDKの初期化
@@ -47,21 +53,19 @@ func VerifyCheck(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("Cannot initialize firebase auth: %v\n", err)
 	}
 
-	header := r.Header.Get("Authorization") //クライアントからJWTを取得する
-	token_id := strings.Replace(header, "Bearer ", "", 1)
+	header := r.Header.Get("X-auth-token") //クライアントからJWTを取得する
+	tokenID := strings.Replace(header, "Bearer ", "", 1)
 	//fmt.Println(token_id)
 	//JWTのベリファイ
-	token, err := auth.VerifyIDToken(ctx, token_id)
+	gotToken, err := auth.VerifyIDToken(ctx, tokenID)
 	if err != nil { //認証に失敗した場合(JWTが不正な場合)は、401エラーを返す
 		fmt.Printf("Cannot verify token_id: %v\n", err)
-		w.WriteHeader(http.StatusUnauthorized)
-		return
+		return "", err
 	}
-	log.Printf("Verified ID token: %v\n", token)
+	log.Printf("Verified ID token: %v\n", gotToken)
 
-	uid := token.Claims["user_id"]
+	uid := gotToken.UID //認証に成功した場合はuidを取得する
 	log.Printf("Verified user_id: %v\n", uid)
 
-	w.Write([]byte("OK\n"))
-	w.WriteHeader(http.StatusOK)
+	return uid, nil
 }
