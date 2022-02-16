@@ -14,14 +14,6 @@ const Home = () => {
 
   console.log(currentUser);
 
-  const logOut = () => {
-    const auth = getAuth(firebaseApp);
-
-    signOut(auth).then(() => {
-      console.log("logout");
-    });
-  };
-
   return (
     <Layout>
       <div className="flex">
@@ -29,7 +21,6 @@ const Home = () => {
           <div className="flex justify-between">
             <div> 直近開催イベント</div>
             <div>
-              <button onClick={logOut}>ログアウト</button>
               <SelectSort />
             </div>
           </div>
