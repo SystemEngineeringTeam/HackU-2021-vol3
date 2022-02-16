@@ -58,8 +58,6 @@ const LoginDetail: FC = () => {
       <button onClick={logOut} className="rounded-2xl border border-black">
         ログアウトする
       </button>
-      <h1>{process.env.NEXT_PUBLIC_PROJECT_ID}</h1>
-      <h1>{process.env.NEXT_PUBLIC_API_KEY}</h1>
     </div>
   );
 };
