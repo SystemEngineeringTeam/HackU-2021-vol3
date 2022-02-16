@@ -15,3 +15,8 @@ type UserPostRequest struct {
 type UserPutRequest struct {
 	Name string `json:"name"`
 }
+
+type ImageGetResponse struct {
+	ID  int    `json:"id"`
+	URL string `json:"url"`
+}
