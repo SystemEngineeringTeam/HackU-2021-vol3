@@ -20,6 +20,8 @@ const LoginDetail: FC = () => {
   //   currentUser && Router.push("/");
   // }, [currentUser]);
 
+  //
+
   useEffect(() => {
     if (currentUser != null) {
       getIdToken(currentUser, true).then((idToken) => {
