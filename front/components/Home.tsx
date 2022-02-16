@@ -1,4 +1,4 @@
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, getIdToken, signOut } from "firebase/auth";
 import Image from "next/image";
 import { useContext } from "react";
 import { firebaseApp } from "../utils/firebase";
@@ -21,6 +21,10 @@ const Home = () => {
       console.log("success");
     });
   };
+
+  if (currentUser != null) {
+    getIdToken(currentUser, true).then((idToken) => {});
+  }
 
   return (
     <Layout>
