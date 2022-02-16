@@ -15,14 +15,15 @@ func IdGetHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	var user models.UserPostRequest
+	var user models.UserIdGetResponse
 	if err := json.Unmarshal(b, &user); err != nil {
 		fmt.Println(err)
 	}
 
 	fmt.Println(user.Id)
 	fmt.Println(user.Name)
-	fmt.Println(user.Budge)
+	fmt.Println(user.ProfileImageURL)
+	fmt.Println(user.Badge)
 }
 
 func UserPostHandler(w http.ResponseWriter, r *http.Request) {
@@ -48,7 +49,7 @@ func UserPutHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	var user models.UserPostRequest
+	var user models.UserPutRequest
 	if err := json.Unmarshal(b, &user); err != nil {
 		fmt.Println(err)
 	}
