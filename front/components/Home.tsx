@@ -1,4 +1,8 @@
+import { getAuth, signOut } from "firebase/auth";
 import Image from "next/image";
+import { useContext } from "react";
+import { firebaseApp } from "../utils/firebase";
+import { AuthContext } from "./Auth";
 import Event from "./Event";
 import Header from "./Header";
 import Layout from "./Layout";
@@ -6,6 +10,18 @@ import SelectSort from "./SelectSort";
 import Sidebar from "./Sidebar";
 
 const Home = () => {
+  const { currentUser } = useContext(AuthContext);
+
+  console.log(currentUser);
+
+  const logOut = () => {
+    const auth = getAuth(firebaseApp);
+
+    signOut(auth).then(() => {
+      console.log("success");
+    });
+  };
+
   return (
     <Layout>
       <div className="flex">
@@ -13,6 +29,7 @@ const Home = () => {
           <div className="flex justify-between">
             <div> 直近開催イベント</div>
             <div>
+              <button onClick={logOut}>ss</button>
               <SelectSort />
             </div>
           </div>

@@ -1,5 +1,7 @@
+import { getAuth, signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
+import { firebaseApp } from "../utils/firebase";
 import Login from "./Login";
 
 const Header = () => {

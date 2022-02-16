@@ -1,27 +1,33 @@
-import { getAuth, signInWithRedirect } from "firebase/auth";
+import {
+  signInWithRedirect,
+  GoogleAuthProvider,
+  getAuth,
+  getRedirectResult,
+} from "firebase/auth";
 import Router from "next/router";
 import { FC, useEffect, useContext } from "react";
-import firebase from "../utils/firebase";
+
+import { firebaseApp } from "../utils/firebase";
 import { AuthContext } from "./Auth";
 
 const LoginDetail: FC = () => {
   const { currentUser } = useContext(AuthContext);
-
-  console.log(new firebase.auth.GoogleAuthProvider());
 
   useEffect(() => {
     currentUser && Router.push("/");
   }, [currentUser]);
 
   const login = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const auth = getAuth();
+    const auth = getAuth(firebaseApp);
+    const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
-    // firebase.auth().signInWithRedirect(provider);
   };
+
   return (
     <div className="container">
       <button onClick={login}>googleでログインする</button>
+      <h1>{process.env.NEXT_PUBLIC_PROJECT_ID}</h1>
+      <h1>{process.env.NEXT_PUBLIC_API_KEY}</h1>
     </div>
   );
 };
