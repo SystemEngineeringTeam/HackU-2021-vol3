@@ -2,14 +2,21 @@ import Image from "next/image";
 import Event from "./Event";
 import Header from "./Header";
 import Layout from "./Layout";
+import SelectSort from "./SelectSort";
+import Sidebar from "./Sidebar";
 
 const Home = () => {
   return (
     <Layout>
       <div className="flex">
         <div className="flex-col flex-1 my-6 ml-6 text-4xl font-bold">
-          直近開催イベント
-          <div className="border-4 "></div>
+          <div className="flex justify-between">
+            <div> 直近開催イベント</div>
+            <div>
+              <SelectSort />
+            </div>
+          </div>
+          <div className="my-4 border-4" />
           <div className="grid grid-cols-12 gap-4">
             <Event />
             <Event />
@@ -22,12 +29,10 @@ const Home = () => {
             <Event />
           </div>
         </div>
-        <div className="border-4"></div>
-        <div className="flex flex-col justify-center w-96">
-          <div className="text-center bg-original-deep-gray">
-            KYEWORD SEARCH
-            <div>CATEGORYS</div>
-            <div>SERVERT</div>
+        <div className="border-4" />
+        <div className="flex flex-col justify-start w-96 ">
+          <div className=" ">
+            <Sidebar />
           </div>
         </div>
       </div>

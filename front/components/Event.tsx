@@ -3,12 +3,19 @@ import Header from "./Header";
 import Layout from "./Layout";
 
 const Event = () => {
+  const log = () => {
+    console.log("log");
+  };
+
   return (
-    <div className="col-span-7 col-start-3 mt-2 h-20 bg-original-gray rounded-lg shadow-md">
+    <button
+      className="col-span-7 col-start-3 mt-2 h-20 bg-original-gray rounded-lg shadow-md"
+      onClick={log}
+    >
       <div className="flex justify-between mt-2 h-16 rounded-lg">
-        <div className="flex bg-white rounded-lg shadow-sm">
+        <div className="flex basis-4/6 bg-white rounded-lg shadow-sm">
           <Image src="/infra.png" alt="" width="75px" height="40px" />
-          <div className="flex flex-col pr-72">
+          <div className="flex flex-col text-left ">
             <div className="flex-auto text-2xl">インフラ勉強会</div>
             <div className="text-sm">2022年2月10日 16:00</div>
           </div>
@@ -20,7 +27,7 @@ const Event = () => {
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

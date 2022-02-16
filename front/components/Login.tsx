@@ -32,7 +32,7 @@ const Login = () => {
                     className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none opacity-5"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="block w-6 h-6 text-2xl text-black bg-transparent outline-none focus:outline-none opacity-5"></span>
+                    <span className="block w-6 h-6 text-2xl text-black bg-transparent outline-none focus:outline-none opacity-5" />
                   </button>
                 </div>
                 <div className="flex relative py-3 px-10 my-4 mx-auto bg-original-login-blue rounded-2xl drop-shadow-lg">
@@ -78,7 +78,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
+          <div className="fixed inset-0 z-40 bg-black opacity-25" />
         </>
       ) : null}
     </>
