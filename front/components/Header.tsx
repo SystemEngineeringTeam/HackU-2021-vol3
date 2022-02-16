@@ -1,10 +1,21 @@
-import { getAuth, signOut } from "firebase/auth";
+import axios from "axios";
+import { getAuth, signOut, getIdToken } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
 import { firebaseApp } from "../utils/firebase";
+import { AuthContext } from "./Auth";
 import Login from "./Login";
 
 const Header = () => {
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser != null) {
+    getIdToken(currentUser, true).then((idToken) => {
+      console.log(idToken);
+    });
+  }
+
   return (
     <div>
       <header className="flex justify-between items-center py-2 bg-original-green ">

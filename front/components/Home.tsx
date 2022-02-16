@@ -18,13 +18,9 @@ const Home = () => {
     const auth = getAuth(firebaseApp);
 
     signOut(auth).then(() => {
-      console.log("success");
+      console.log("logout");
     });
   };
-
-  if (currentUser != null) {
-    getIdToken(currentUser, true).then((idToken) => {});
-  }
 
   return (
     <Layout>
@@ -33,7 +29,7 @@ const Home = () => {
           <div className="flex justify-between">
             <div> 直近開催イベント</div>
             <div>
-              <button onClick={logOut}>ss</button>
+              <button onClick={logOut}>ログアウト</button>
               <SelectSort />
             </div>
           </div>
