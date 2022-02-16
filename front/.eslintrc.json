@@ -24,22 +24,35 @@
       }
     ],
     "react/jsx-boolean-value": "error",
+<<<<<<< HEAD
 
     "react/self-closing-comp": [
     "error",
+=======
+    "react/self-closing-comp": [
+      "error",
+>>>>>>> cde7ad870834df82bfb2ff960817012fa7522472
       {
         "component": true,
         "html": true
       }
     ],
+<<<<<<< HEAD
 
 
     "react/jsx-pascal-case":[
+=======
+    "react/jsx-pascal-case": [
+>>>>>>> cde7ad870834df82bfb2ff960817012fa7522472
       "error",
       {
         "allowAllCaps": true,
         "ignore": []
       }
+<<<<<<< HEAD
     ]        
+=======
+    ]
+>>>>>>> cde7ad870834df82bfb2ff960817012fa7522472
   }
 }
