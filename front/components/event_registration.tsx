@@ -47,11 +47,36 @@ const event_registration = () => {
                         </div>
                         <div className="image_upload_icon">
                             <div className="flavor_text_upload_icon">
-                                クリックして画像の選択
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                </svg>
                             </div>
                         </div>
                         <input type="text" readOnly />
                     </label>
+                </div>
+                <div className="input_5_1">
+                    <label className="input_5_2">
+                        <div className="input_title_5">
+                            <p className="input_title_5_1">日時の選択</p>
+                            <p className="input_title_5_2">(必須)</p>
+                        </div>
+                        <div className="datetime_input">
+                            <input type="date" name="date" id="date" />
+                            <input type="time" name="time" id="time" />
+                        </div>
+                        <input type="text" readOnly />
+                    </label>
+                </div>
+                <div className="tag">
+                    <div className="">
+                        <div className="tag_text">
+                            タグの追加　
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 tag_svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
