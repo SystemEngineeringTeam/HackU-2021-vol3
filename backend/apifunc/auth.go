@@ -35,7 +35,10 @@ func VerifyCheck(w http.ResponseWriter, r *http.Request) {
 	}
 
 	opt := option.WithCredentialsFile(os.Getenv("CREDENTIALS"))
-	app, err := firebase.NewApp(ctx, nil, opt)
+	conf := &firebase.Config{ProjectID: os.Getenv("PROJECT_ID")}
+	//OAuth2.0更新トークン対応用
+	app, err := firebase.NewApp(ctx, conf, opt)
+	//OAuth2.0を用いない場合はconfをnilにする
 	if err != nil {
 		fmt.Printf("Cannot initialize firebase app: %v\n", err)
 	}
@@ -46,7 +49,7 @@ func VerifyCheck(w http.ResponseWriter, r *http.Request) {
 
 	header := r.Header.Get("Authorization") //クライアントからJWTを取得する
 	token_id := strings.Replace(header, "Bearer ", "", 1)
-	fmt.Println(token_id)
+	//fmt.Println(token_id)
 	//JWTのベリファイ
 	token, err := auth.VerifyIDToken(ctx, token_id)
 	if err != nil { //認証に失敗した場合(JWTが不正な場合)は、401エラーを返す
