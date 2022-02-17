@@ -1,20 +1,45 @@
+import { render } from "@headlessui/react/dist/utils/render";
 import axios from "axios";
 import { getAuth, signOut, getIdToken } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+
+import { useContext, useEffect } from "react";
 import { firebaseApp } from "../utils/firebase";
 import { AuthContext } from "./Auth";
 import Login from "./Login";
+import ProfilePopOver from "./ProfilePopOver";
 
 const Header = () => {
   const { currentUser } = useContext(AuthContext);
 
-  if (currentUser != null) {
-    getIdToken(currentUser, true).then((idToken) => {
-      console.log(idToken);
-    });
-  }
+  useEffect(() => {
+    if (currentUser != null) {
+      getIdToken(currentUser, true).then((idToken) => {
+        console.log(idToken);
+      });
+    }
+  });
+
+  const profile = (
+    <div className="flex ml-2">
+      <div className="mt-4 mr-6 ">
+        <Image
+          src="/notification.png"
+          alt="notification"
+          height="20px"
+          width="20px"
+        />
+      </div>
+      <div className="mt-3 mr-4">
+        <ProfilePopOver
+          profileImg={
+            currentUser?.photoURL ? currentUser.photoURL : "/white.png"
+          }
+        />
+      </div>
+    </div>
+  );
 
   return (
     <div>
@@ -53,12 +78,20 @@ const Header = () => {
             </a>
           </Link>
         </nav>
-
-        <div className="hidden gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start">
-          <button className="py-2 px-6 font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
-            Add
-          </button>
-          <Login />
+        {/* <div className="hidden gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start" /> */}
+        <div className="flex justify-between">
+          <div>
+            <button className="py-2 px-6 mr-4 text-lg font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
+              Add
+            </button>
+          </div>
+          {currentUser ? (
+            <div>{profile}</div>
+          ) : (
+            <div>
+              <Login />
+            </div>
+          )}
         </div>
 
         <button
