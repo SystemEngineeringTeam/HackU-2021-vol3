@@ -25,6 +25,13 @@ func IdGetHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(user.Name)
 	fmt.Println(user.ProfileImageURL)
 	fmt.Println(user.Badge)
+
+	err = dboperation.Auth("firebaseID")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
 }
 
 func UserPostHandler(w http.ResponseWriter, r *http.Request) {
