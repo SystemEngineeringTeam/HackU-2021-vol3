@@ -1,14 +1,15 @@
-import Header from "../../components/Header";
+import Layout from "../../components/Layout";
 import BeforeScreenToReturn from "../../components/BeforeScreenToReturn";
 import EventRegistration from "../../components/EventRegistration";
 const event = () => {
   return (
     <>
-      <Header />
-      <div className="absolute top-28 left-20">
-        <BeforeScreenToReturn />
-      </div>
-      <EventRegistration />
+      <Layout>
+        <div className="absolute top-28 left-20">
+          <BeforeScreenToReturn />
+        </div>
+        <EventRegistration />
+      </Layout>
     </>
   );
 };
