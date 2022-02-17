@@ -1,8 +1,25 @@
+import {
+  getAuth,
+  signOut,
+  signInWithRedirect,
+  GoogleAuthProvider,
+  getRedirectResult,
+} from "firebase/auth";
 import Image from "next/image";
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { axiosInstance as axios } from "../utils/api";
+import { firebaseApp } from "../utils/firebase";
+import { AuthContext } from "./Auth";
 
 const Login = () => {
   const [showModal, setShowModal] = React.useState(false);
+
+  const loginGoogle = () => {
+    const auth = getAuth(firebaseApp);
+    const provider = new GoogleAuthProvider();
+    signInWithRedirect(auth, provider);
+  };
+
   return (
     <>
       <button
@@ -45,7 +62,7 @@ const Login = () => {
                     />
                   </div>
                   <div className="flex-initial">
-                    <button>Googleでログイン</button>
+                    <button onClick={loginGoogle}>Googleでログイン</button>
                   </div>
                 </div>
                 <div className="flex relative py-3 px-10 mx-auto mb-4 bg-original-login-blue rounded-2xl drop-shadow-lg">

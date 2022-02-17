@@ -11,9 +11,7 @@
   ],
   // 追記
   // tailwind.config.js などの config ファイル、ESLint の対象外にする
-  "ignorePatterns": [
-    "*.config.js"
-  ],
+  "ignorePatterns": ["*.config.js"],
   "rules": {
     "import/order": [
       "error",
@@ -24,6 +22,7 @@
       }
     ],
     "react/jsx-boolean-value": "error",
+
     "react/self-closing-comp": [
       "error",
       {
@@ -31,6 +30,7 @@
         "html": true
       }
     ],
+
     "react/jsx-pascal-case": [
       "error",
       {
