@@ -1,4 +1,8 @@
+import { getAuth, getIdToken, signOut } from "firebase/auth";
 import Image from "next/image";
+import { useContext } from "react";
+import { firebaseApp } from "../utils/firebase";
+import { AuthContext } from "./Auth";
 import Event from "./Event";
 import Header from "./Header";
 import Layout from "./Layout";
@@ -6,6 +10,10 @@ import SelectSort from "./SelectSort";
 import Sidebar from "./Sidebar";
 
 const Home = () => {
+  const { currentUser } = useContext(AuthContext);
+
+  console.log(currentUser);
+
   return (
     <Layout>
       <div className="flex">
@@ -30,7 +38,7 @@ const Home = () => {
           </div>
         </div>
         <div className="border-4" />
-        <div className="flex flex-col justify-start w-96 ">
+        <div className="flex flex-col justify-start w-3/12 ">
           <div className=" ">
             <Sidebar />
           </div>

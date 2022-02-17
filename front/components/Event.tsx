@@ -16,7 +16,9 @@ const Event = () => {
         <div className="flex basis-4/6 bg-white rounded-lg shadow-sm">
           <Image src="/infra.png" alt="" width="75px" height="40px" />
           <div className="flex flex-col text-left ">
-            <div className="flex-auto text-2xl">インフラ勉強会</div>
+            <div className="flex-auto md:text-lg lg:text-2xl">
+              インフラ勉強会
+            </div>
             <div className="text-sm">2022年2月10日 16:00</div>
           </div>
         </div>
