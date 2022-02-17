@@ -1,3 +1,5 @@
+*/firebase
+
 # Logs
 logs
 *.log
@@ -292,3 +294,6 @@ dist
 .pnp.*
 
 */tmp
+
+#Visual Studio Code Workspace
+.code-workspace

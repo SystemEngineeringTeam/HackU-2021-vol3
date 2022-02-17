@@ -6,7 +6,7 @@ const Login = () => {
   return (
     <>
       <button
-        className="py-2 px-6 font-bold text-black bg-white hover:bg-gray-100 rounded-md "
+        className="py-2 px-6 font-bold text-black bg-white hover:bg-gray-300 rounded-md "
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -16,7 +16,7 @@ const Login = () => {
         <>
           <div className="flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 justify-center items-center outline-none focus:outline-none">
             <div className="relative my-6 mx-auto w-auto max-w-3xl">
-              <div className="flex relative flex-col w-96 h-80 bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
+              <div className="flex relative flex-col w-96 h-96 bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
                 <div className="flex items-start mt-2 ml-2">
                   <button
                     className=""
@@ -32,10 +32,9 @@ const Login = () => {
                     className="float-right p-1 ml-auto text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none opacity-5"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="block w-6 h-6 text-2xl text-black bg-transparent outline-none focus:outline-none opacity-5"></span>
+                    <span className="block w-6 h-6 text-2xl text-black bg-transparent outline-none focus:outline-none opacity-5" />
                   </button>
                 </div>
-
                 <div className="flex relative py-3 px-10 my-4 mx-auto bg-original-login-blue rounded-2xl drop-shadow-lg">
                   <div className="flex-initial mr-2">
                     <Image
@@ -79,7 +78,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <div className="fixed inset-0 z-40 bg-black opacity-25"></div>
+          <div className="fixed inset-0 z-40 bg-black opacity-25" />
         </>
       ) : null}
     </>

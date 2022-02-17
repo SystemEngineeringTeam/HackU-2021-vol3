@@ -1,5 +1,5 @@
 
-const before_screen_to_return = () => {
+const BeforeScreenToReturn = () => {
   return (
     <div>
       <svg
@@ -15,4 +15,4 @@ const before_screen_to_return = () => {
   );
 };
 
-export default before_screen_to_return;
+export default BeforeScreenToReturn;
