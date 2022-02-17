@@ -1,6 +1,6 @@
-import Layout from "../../components/Layout";
 import BeforeScreenToReturn from "../../components/BeforeScreenToReturn";
 import EventRegistration from "../../components/EventRegistration";
+import Layout from "../../components/Layout";
 const event = () => {
   return (
     <>
