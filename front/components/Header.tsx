@@ -63,12 +63,17 @@ const Header = () => {
         <nav className="hidden gap-12 lg:flex">
           <Link href="/">
             <a className="text-lg font-semibold text-gray-600 transition duration-100 ">
-              <Image src="/home.png" alt="" width="35px" height="35px" />
+              <Image src="/home.png" alt="home" width="35px" height="35px" />
             </a>
           </Link>
           <Link href="/calendar">
             <a className="text-lg font-semibold text-gray-600 transition duration-100">
-              <Image src="/calendar.png" alt="" width="35px" height="35px" />
+              <Image
+                src="/calendar.png"
+                alt="calendar"
+                width="35px"
+                height="35px"
+              />
             </a>
           </Link>
           <Link href="/mail">
