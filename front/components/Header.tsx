@@ -3,6 +3,7 @@ import axios from "axios";
 import { getAuth, signOut, getIdToken } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
+
 import { useContext, useEffect } from "react";
 import { firebaseApp } from "../utils/firebase";
 import { AuthContext } from "./Auth";
