@@ -11,8 +11,9 @@ import (
 func main() {
 	router := mux.NewRouter()
 	//ルーターの定義
-	router.HandleFunc("/auth", apifunc.VerifyCheck)
-	router.HandleFunc("/hoge", apifunc.UserPostHandler)
+
+	router.HandleFunc("/auth", apifunc.Auth)
+
 	//VerifyCheckをハンドラに登録,http.HandlerFuncとほぼ同じ動作.
 	router.Methods("GET").Path("/images").HandlerFunc(apifunc.ImagesGetHandler)
 	log.Fatal(http.ListenAndServe(":8080", router))
