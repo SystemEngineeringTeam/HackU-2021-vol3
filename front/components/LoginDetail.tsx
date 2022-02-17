@@ -21,7 +21,6 @@ const LoginDetail: FC = () => {
   // }, [currentUser]);
 
   //
-
   useEffect(() => {
     if (currentUser != null) {
       getIdToken(currentUser, true).then((idToken) => {
