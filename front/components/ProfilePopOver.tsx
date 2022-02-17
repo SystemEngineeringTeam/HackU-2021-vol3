@@ -7,22 +7,22 @@ import { firebaseApp } from "../utils/firebase";
 
 const solutions = [
   {
-    name: "管理画面",
-    description: "Measure actions your users take",
+    name: "admin",
+    description: "管理画面",
     href: "/admin",
     img: "/admin.png",
     method: "",
   },
   {
-    name: "名前の変更",
-    description: "Create your own targeted content",
+    name: "changeName",
+    description: "名前の変更",
     href: "/test",
-    img: "/nameChange.png",
+    img: "/changeName.png",
     method: "",
   },
   {
-    name: "ログアウト",
-    description: "Keep track of your growth",
+    name: "logout",
+    description: "ログアウト",
     href: "/",
     img: "/logout.png",
   },
@@ -77,13 +77,13 @@ const ProfilePopOver = (props: Props) => {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute z-10 px-4 mt-3 w-44 max-w-sm -translate-x-1/2 sm:px-0 lg:max-w-md">
-                <div className="overflow-hidden mr-2 rounded-lg ring-1 ring-black ring-opacity-5 shadow-lg">
+                <div className="overflow-hidden mr-2 rounded-lg ring-1 ring-black shadow-lg">
                   <div className="grid relative gap-2 pl-4 bg-white lg:grid-cols-1">
                     {solutions.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
-                        className="flex items-center p-2 -m-3 hover:bg-gray-50 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 transition duration-150 ease-in-out"
+                        className="flex items-center p-2 -m-3 hover:bg-gray-50 rounded-lg focus:outline-none focus-visible:ring transition duration-150 ease-in-out"
                       >
                         <div className="flex shrink-0 justify-center items-center w-10 h-10 text-white sm:w-12 sm:h-12">
                           <Image
@@ -94,11 +94,19 @@ const ProfilePopOver = (props: Props) => {
                           />
                         </div>
                         <div className="ml-2">
-                          <button onClick={logOut}>
-                            <p className="text-sm font-medium text-gray-900">
-                              {item.name}
-                            </p>
-                          </button>
+                          {item.name === "logout" ? (
+                            <button onClick={logOut}>
+                              <p className="text-sm font-medium text-gray-900">
+                                {item.description}
+                              </p>
+                            </button>
+                          ) : (
+                            <button>
+                              <p className="text-sm font-medium text-gray-900">
+                                {item.description}
+                              </p>
+                            </button>
+                          )}
                         </div>
                       </a>
                     ))}
