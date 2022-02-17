@@ -11,3 +11,14 @@ func CreateEvent(e models.Event) error {
 	}
 	return nil
 }
+
+func UpdateEvent(e models.Event) error {
+	db := connect()
+	defer db.Close()
+
+	if err := db.Table("events").Where("id=?", e.ID).Update(&e).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
