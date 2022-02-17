@@ -16,6 +16,10 @@ func main() {
 
 	//VerifyCheckをハンドラに登録,http.HandlerFuncとほぼ同じ動作.
 	router.Methods("GET").Path("/images").HandlerFunc(apifunc.ImagesGetHandler)
+
 	router.Methods("GET").Path("/user").HandlerFunc(apifunc.IdGetHandler)
+	router.Methods("POST").Path("/user").HandlerFunc(apifunc.UserPostHandler)
+	router.Methods("PUT").Path("/user").HandlerFunc(apifunc.UserPutHandler)
+
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
