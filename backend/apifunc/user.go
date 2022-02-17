@@ -36,7 +36,8 @@ func UserPostHandler(w http.ResponseWriter, r *http.Request) {
 
 	var user models.UserPostRequest
 	if err := json.Unmarshal(b, &user); err != nil {
-		fmt.Println(err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
 	fmt.Println(user.Name)
@@ -59,17 +60,12 @@ func UserPutHandler(w http.ResponseWriter, r *http.Request) {
 
 	var user models.UserPutRequest
 	if err := json.Unmarshal(b, &user); err != nil {
-		fmt.Println(err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 	fmt.Println(user.Name)
 
-	/*
-		UserPostHandlerの時に使ったdboperation.CreateUserだとprofileImageURLが入らなくて
-		何を使えば良いかわからないので代用してあります
-		とってきても使わないという状態はマズイですか
-		あと、コメント文をどこに書けば良いのかわからないのでここに書いています
-	*/
-	err = dboperation.CreateUser(user.Name, "a", "firebaseUID")
+	err = dboperation.UpdateUser(user.Name, user.ProfileImageURL, "firebaseUID")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
