@@ -5,33 +5,37 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/dboperation"
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/models"
+	"github.com/gorilla/mux"
 )
 
 func IdGetHandler(w http.ResponseWriter, r *http.Request) {
-	b, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
 
-	var user models.UserIdGetResponse
-	if err := json.Unmarshal(b, &user); err != nil {
-		fmt.Println(err)
-	}
+	vars := mux.Vars(r) //パスパラメータ取得
 
-	fmt.Println(user.Id)
-	fmt.Println(user.Name)
-	fmt.Println(user.ProfileImageURL)
-	fmt.Println(user.Badge)
+	fmt.Println(vars["id"])
 
-	err = dboperation.Auth("firebaseID")
+	var i int
+	i, _ = strconv.Atoi(vars["id"])
+	fmt.Println(i)
+
+	user, err := dboperation.SelectUserByID(i)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	j, err := json.Marshal(user)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(j))
 	w.WriteHeader(http.StatusOK)
+
+	fmt.Fprint(w, string(j))
 }
 
 func UserPostHandler(w http.ResponseWriter, r *http.Request) {
