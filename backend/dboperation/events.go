@@ -21,3 +21,4 @@ func UpdateEvent(e models.Event) error {
 	}
 	return nil
 }
+
