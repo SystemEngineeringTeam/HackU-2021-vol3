@@ -78,7 +78,7 @@ const Header = () => {
           </Link>
           <Link href="/mail">
             <a className="text-lg font-semibold text-gray-600 transition duration-100">
-              <Image src="/mail.png" alt="" width="40px" height="40px" />
+              <Image src="/mail.png" alt="mail" width="40px" height="40px" />
             </a>
           </Link>
         </nav>
