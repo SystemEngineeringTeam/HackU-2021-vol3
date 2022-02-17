@@ -14,23 +14,23 @@ import (
 )
 
 func Auth(w http.ResponseWriter, r *http.Request) {
-	uid, err := verifyCheck(r)
+	uid, err := verifyCheck(w, r)
 	if err != nil {
 		log.Println(err)
 	}
 	fmt.Println(uid)
 }
 
-func verifyCheck(r *http.Request) (string, error) {
-
-	//Access-ControlをVerifyCheck内にも適用
+func verifyCheck(w http.ResponseWriter, r *http.Request) (string, error) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
 
 	//Firebase SDKの初期化
 	err := godotenv.Load("firebase/.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
 	//envファイルからcredentials(秘密鍵)を取得
 	/*CREDENTIALSはfirebaseの設定で作成したjsonファイルのパス,以下のような感じでcredentials.envにCREDENTIALSを記述
 	CREDENTIALS=/Users/<ユーザ名>/firebase/<Firebase SDKの秘密鍵の名前>.json
@@ -53,7 +53,7 @@ func verifyCheck(r *http.Request) (string, error) {
 		fmt.Printf("Cannot initialize firebase auth: %v\n", err)
 	}
 
-	header := r.Header.Get("X-auth-token") //クライアントからJWTを取得する
+	header := r.Header.Get("Authorization") //クライアントからJWTを取得する
 	tokenID := strings.Replace(header, "Bearer ", "", 1)
 	//fmt.Println(token_id)
 	//JWTのベリファイ
@@ -62,7 +62,6 @@ func verifyCheck(r *http.Request) (string, error) {
 		fmt.Printf("Cannot verify token_id: %v\n", err)
 		return "", err
 	}
-
 	log.Printf("Verified ID token: %v\n", gotToken)
 
 	uid := gotToken.UID //認証に成功した場合はuidを取得する
