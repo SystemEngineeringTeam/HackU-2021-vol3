@@ -34,7 +34,6 @@ func CreateUser(name, profileImageURL, firebaseUID string) error {
 	return nil
 }
 
-
 func UpdateUser(name, profileImageURL, firebaseUID string) error {
 	db := connect()
 	defer db.Close()
@@ -56,13 +55,22 @@ func UpdateUser(name, profileImageURL, firebaseUID string) error {
 	return nil
 }
 
-func SelectUserByID(id int) (models.User, error) {
+func SelectUserByID(id int) (models.UserIdGetResponse, error) {
 	db := connect()
 	defer db.Close()
 
-	var user models.User
-	if err := db.Where("id = ?", id).First(&user).Error; err != nil {
-		return user, err
+	var u models.User
+	var b models.Badges
+	if err := db.Table("users").Joins("join user_badges ub on users.id = ub.user_id join badges b on b.id = ub.badge_id").Where("user_id = ?", id).Select("users.id,name,profile_image_url,badge").First(&u).First(&b).Error; err != nil {
+		return models.UserIdGetResponse{}, err
 	}
+
+	user := models.UserIdGetResponse{
+		Id:              u.ID,
+		Name:            u.Name,
+		ProfileImageURL: u.ProfileImageURL,
+		Badge:           b.Badge,
+	}
+
 	return user, nil
 }
