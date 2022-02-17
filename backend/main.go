@@ -20,6 +20,8 @@ func main() {
 	router.Methods("GET").Path("/user").HandlerFunc(apifunc.IdGetHandler)
 	router.Methods("POST").Path("/user").HandlerFunc(apifunc.UserPostHandler)
 	router.Methods("PUT").Path("/user").HandlerFunc(apifunc.UserPutHandler)
+	router.HandleFunc("/user/{id}", apifunc.IdGetHandler)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
+
 }
