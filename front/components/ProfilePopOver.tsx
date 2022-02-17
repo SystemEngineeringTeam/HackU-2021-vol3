@@ -1,7 +1,9 @@
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { getAuth, getIdToken, signOut } from "firebase/auth";
 import Image from "next/image";
 import { Fragment } from "react";
+import { firebaseApp } from "../utils/firebase";
 
 const solutions = [
   {
@@ -24,16 +26,28 @@ const solutions = [
   },
 ];
 
-const ProfilePopOver = () => {
+type Props = {
+  profileImg: string;
+};
+
+const ProfilePopOver = (props: Props) => {
+  const logOut = () => {
+    const auth = getAuth(firebaseApp);
+
+    signOut(auth).then(() => {
+      console.log("logout");
+    });
+  };
+
   return (
-    <div className=" top-16 left-60 px-4 w-full max-w-sm">
+    <div className="top-16 left-60 px-4 w-full max-w-sm">
       <Popover className="relative">
         {({ open }) => (
           <>
             <Popover.Button
               className={`
                 ${open ? "" : "text-opacity-90"}
-                text-white group inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 rounded-full w-8 h-8 bg-black
+                text-white group inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 rounded-full w-8 h-8 
                 `}
             >
               <button
@@ -42,10 +56,10 @@ const ProfilePopOver = () => {
               >
                 <div>
                   <Image
-                    src="/infra.png"
+                    src={props.profileImg}
                     alt=""
-                    width="35px"
-                    height="35px"
+                    width="50px"
+                    height="50px"
                     className="rounded-full"
                   />
                 </div>
@@ -78,9 +92,11 @@ const ProfilePopOver = () => {
                           />
                         </div>
                         <div className="ml-2">
-                          <p className="text-sm font-medium text-gray-900">
-                            {item.name}
-                          </p>
+                          <button onClick={logOut}>
+                            <p className="text-sm font-medium text-gray-900">
+                              {item.name}
+                            </p>
+                          </button>
                         </div>
                       </a>
                     ))}

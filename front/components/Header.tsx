@@ -30,7 +30,7 @@ const Header = () => {
           width="20px"
         />
       </div>
-      <div className="mt-1 mr-4">
+      <div className="mt-3 mr-4">
         {/* <Image
           src={currentUser?.photoURL ? currentUser.photoURL : "/white.png"}
           alt="profile"
@@ -38,7 +38,11 @@ const Header = () => {
           width="40px"
           className="rounded-full"
         /> */}
-        <ProfilePopOver />
+        <ProfilePopOver
+          profileImg={
+            currentUser?.photoURL ? currentUser.photoURL : "/white.png"
+          }
+        />
       </div>
     </div>
   );

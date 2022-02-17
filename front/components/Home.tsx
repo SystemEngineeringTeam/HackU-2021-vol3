@@ -11,16 +11,7 @@ import Sidebar from "./Sidebar";
 
 const Home = () => {
   const { currentUser } = useContext(AuthContext);
-
   console.log(currentUser);
-
-  const logOut = () => {
-    const auth = getAuth(firebaseApp);
-
-    signOut(auth).then(() => {
-      console.log("logout");
-    });
-  };
 
   return (
     <Layout>
@@ -29,7 +20,6 @@ const Home = () => {
           <div className="flex justify-between">
             <div> 直近開催イベント</div>
             <div>
-              <button onClick={logOut}>ログアウト</button>
               <SelectSort />
             </div>
           </div>
