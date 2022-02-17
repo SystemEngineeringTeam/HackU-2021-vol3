@@ -1,3 +1,4 @@
+import { render } from "@headlessui/react/dist/utils/render";
 import axios from "axios";
 import { getAuth, signOut, getIdToken } from "firebase/auth";
 import Image from "next/image";
@@ -15,6 +16,21 @@ const Header = () => {
       console.log(idToken);
     });
   }
+
+  const profile = (
+    <div className="flex">
+      <button />
+      <div>ss</div>
+
+      <div className="">
+        <img
+          src="https://lh3.googleusercontent.com/a-/AOh14GiymahR6RP1EQWxI903C1KL089dD_SBewtNdicu=s96-c"
+          alt=""
+        />
+        <Image src="https://lh3.googleusercontent.com/a-/AOh14GiymahR6RP1EQWxI903C1KL089dD_SBewtNdicu=s96-c" />
+      </div>
+    </div>
+  );
 
   return (
     <div>
@@ -58,7 +74,8 @@ const Header = () => {
           <button className="py-2 px-6 font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
             Add
           </button>
-          <Login />
+          {/* <Login /> */}
+          {profile}
         </div>
 
         <button
