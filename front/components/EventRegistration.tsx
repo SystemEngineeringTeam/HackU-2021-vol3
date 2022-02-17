@@ -1,5 +1,5 @@
 import Confirm_addEvent from './Confirm_addEvent';
-const event_registration = () => {
+const EventRegistration = () => {
     return (
         <>
             <div className="container">
@@ -83,4 +83,4 @@ const event_registration = () => {
     );
 };
 
-export default event_registration;
+export default EventRegistration;
