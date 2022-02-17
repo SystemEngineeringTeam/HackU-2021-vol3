@@ -87,7 +87,7 @@ const Header = () => {
         {/* <div className="hidden gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start" /> */}
         <div className="flex justify-between">
           <div>
-            <button className="py-2 px-6 mt-1 mr-4 text-lg font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
+            <button className="py-2 px-6 mr-4 text-lg font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
               Add
             </button>
           </div>

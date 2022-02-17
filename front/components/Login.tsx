@@ -57,11 +57,11 @@ const Login = () => {
                     <Image
                       src="/google.png"
                       alt=""
-                      width="25px"
-                      height="25px"
+                      width="30px"
+                      height="30px"
                     />
                   </div>
-                  <div className="flex-initial">
+                  <div className="flex-initial mt-1">
                     <button onClick={loginGoogle}>Googleでログイン</button>
                   </div>
                 </div>
@@ -70,11 +70,11 @@ const Login = () => {
                     <Image
                       src="/twitter.png"
                       alt=""
-                      width="25px"
-                      height="20px"
+                      width="30px"
+                      height="25px"
                     />
                   </div>
-                  <div className="flex-initial">
+                  <div className="flex-initial mt-1">
                     <button>Twitterでログイン</button>
                   </div>
                 </div>
@@ -84,11 +84,11 @@ const Login = () => {
                     <Image
                       src="/github.png"
                       alt=""
-                      width="25px"
-                      height="25px"
+                      width="35px"
+                      height="35px"
                     />
                   </div>
-                  <div className="flex-initial">
+                  <div className="flex-initial mt-2">
                     <button>Githubでログイン</button>
                   </div>
                 </div>

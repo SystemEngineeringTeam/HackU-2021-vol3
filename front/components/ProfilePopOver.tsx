@@ -9,19 +9,21 @@ const solutions = [
   {
     name: "管理画面",
     description: "Measure actions your users take",
-    href: "##",
+    href: "/admin",
     img: "/admin.png",
+    method: "",
   },
   {
     name: "名前の変更",
     description: "Create your own targeted content",
-    href: "##",
+    href: "/test",
     img: "/nameChange.png",
+    method: "",
   },
   {
     name: "ログアウト",
     description: "Keep track of your growth",
-    href: "##",
+    href: "/",
     img: "/logout.png",
   },
 ];
