@@ -1,45 +1,46 @@
 package models
 
 type User struct {
-	ID              int    `gorm:"id"`
-	FirebaseUID     string `gorm:"firebase_uid"`
-	Name            string `gorm:"name"`
-	ProfileImageURL string `gorm:"profile_image_url"`
+	ID              int    `gorm:"column:id"`
+	FirebaseUID     string `gorm:"column:firebase_uid"`
+	Name            string `gorm:"column:name"`
+	ProfileImageURL string `gorm:"column:profile_image_url"`
 }
 
 type Event struct {
-	ID          int    `gorm:"id"`
-	Title       string `gorm:"title"`
-	Description string `gorm:"description"`
-	Document    string `gorm:"document"`
-	DateTime    string `gorm:"datetime"`
-	Limit       int    `gorm:"limit"`
+	ID          int    `gorm:"column:id"`
+	Title       string `gorm:"column:title"`
+	Description string `gorm:"column:description"`
+	Document    string `gorm:"column:document"`
+	DateTime    string `gorm:"column:datetime"`
+	Organizer   int    `gorm:"column:organizer"`
+	StreamURL   string `gorm:"column:stream_url"`
 }
 
 type FeedBack struct {
-	EventID int    `gorm:"event_id"`
-	UserID  int    `gorm:"user_id"`
-	Stars   int    `gorm:"stars"`
-	Comment string `gorm:"comment"`
+	EventID int    `gorm:"column:event_id"`
+	UserID  int    `gorm:"column:user_id"`
+	Stars   int    `gorm:"column:stars"`
+	Comment string `gorm:"column:comment"`
 }
 
 type Comments struct {
-	EventID int    `gorm:"event_id"`
-	UserID  int    `gorm:"user_id"`
-	Comment string `gorm:"comment"`
+	EventID int    `gorm:"column:event_id"`
+	UserID  int    `gorm:"column:user_id"`
+	Comment string `gorm:"column:comment"`
 }
 
 type Tags struct {
-	ID  int    `gorm:"id"`
-	Tag string `gorm:"tag"`
+	ID  int    `gorm:"column:id"`
+	Tag string `gorm:"column:tag"`
 }
 
 type Badges struct {
-	ID    int    `gorm:"id"`
-	Badge string `gorm:"badge"`
+	ID    int    `gorm:"column:id"`
+	Badge string `gorm:"column:badge"`
 }
 
 type Image struct {
-	ID       int    `gorm:"id"`
-	ImageURL string `gorm:"image_url"`
+	ID       int    `gorm:"column:id"`
+	ImageURL string `gorm:"column:image_url"`
 }
