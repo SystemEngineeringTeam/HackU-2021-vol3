@@ -13,7 +13,8 @@ type UserPostRequest struct {
 }
 
 type UserPutRequest struct {
-	Name string `json:"name"`
+	Name            string `json:"name"`
+	ProfileImageURL string `json:"profileImageURL"`
 }
 
 type ImageGetResponse struct {
