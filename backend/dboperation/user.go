@@ -34,6 +34,7 @@ func CreateUser(name, profileImageURL, firebaseUID string) error {
 	return nil
 }
 
+
 func UpdateUser(name, profileImageURL, firebaseUID string) error {
 	db := connect()
 	defer db.Close()
