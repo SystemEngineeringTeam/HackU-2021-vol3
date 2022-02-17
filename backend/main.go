@@ -15,5 +15,6 @@ func main() {
 	router.HandleFunc("/auth", apifunc.Auth)
 
 	//VerifyCheckをハンドラに登録,http.HandlerFuncとほぼ同じ動作.
+	router.Methods("GET").Path("/images").HandlerFunc(apifunc.ImagesGetHandler)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

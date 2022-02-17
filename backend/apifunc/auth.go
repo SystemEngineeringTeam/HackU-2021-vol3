@@ -62,6 +62,7 @@ func verifyCheck(r *http.Request) (string, error) {
 		fmt.Printf("Cannot verify token_id: %v\n", err)
 		return "", err
 	}
+
 	log.Printf("Verified ID token: %v\n", gotToken)
 
 	uid := gotToken.UID //認証に成功した場合はuidを取得する
