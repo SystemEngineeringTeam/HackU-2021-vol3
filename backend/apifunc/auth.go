@@ -25,12 +25,13 @@ func verifyCheck(w http.ResponseWriter, r *http.Request) (string, error) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+	// クライアントからのリクエストを受け取る
+
 	//Firebase SDKの初期化
 	err := godotenv.Load("firebase/.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
 	//envファイルからcredentials(秘密鍵)を取得
 	/*CREDENTIALSはfirebaseの設定で作成したjsonファイルのパス,以下のような感じでcredentials.envにCREDENTIALSを記述
 	CREDENTIALS=/Users/<ユーザ名>/firebase/<Firebase SDKの秘密鍵の名前>.json
