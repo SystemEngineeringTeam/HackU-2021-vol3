@@ -3,31 +3,42 @@ import axios from "axios";
 import { getAuth, signOut, getIdToken } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { firebaseApp } from "../utils/firebase";
 import { AuthContext } from "./Auth";
 import Login from "./Login";
+import ProfilePopOver from "./ProfilePopOver";
 
 const Header = () => {
   const { currentUser } = useContext(AuthContext);
 
-  if (currentUser != null) {
-    getIdToken(currentUser, true).then((idToken) => {
-      console.log(idToken);
-    });
-  }
+  useEffect(() => {
+    if (currentUser != null) {
+      getIdToken(currentUser, true).then((idToken) => {
+        console.log(idToken);
+      });
+    }
+  });
 
   const profile = (
-    <div className="flex">
-      <button />
-      <div>ss</div>
-
-      <div className="">
-        <img
-          src="https://lh3.googleusercontent.com/a-/AOh14GiymahR6RP1EQWxI903C1KL089dD_SBewtNdicu=s96-c"
-          alt=""
+    <div className="flex ml-2">
+      <div className="mt-4 mr-6 ">
+        <Image
+          src="/notification.png"
+          alt="notification"
+          height="20px"
+          width="20px"
         />
-        <Image src="https://lh3.googleusercontent.com/a-/AOh14GiymahR6RP1EQWxI903C1KL089dD_SBewtNdicu=s96-c" />
+      </div>
+      <div className="mt-1 mr-4">
+        {/* <Image
+          src={currentUser?.photoURL ? currentUser.photoURL : "/white.png"}
+          alt="profile"
+          height="40px"
+          width="40px"
+          className="rounded-full"
+        /> */}
+        <ProfilePopOver />
       </div>
     </div>
   );
@@ -69,13 +80,20 @@ const Header = () => {
             </a>
           </Link>
         </nav>
-
-        <div className="hidden gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start">
-          <button className="py-2 px-6 font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
-            Add
-          </button>
-          {/* <Login /> */}
-          {profile}
+        {/* <div className="hidden gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start" /> */}
+        <div className="flex justify-between">
+          <div>
+            <button className="py-2 px-6 mt-1 mr-4 text-lg font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
+              Add
+            </button>
+          </div>
+          {currentUser ? (
+            <div>{profile}</div>
+          ) : (
+            <div>
+              <Login />
+            </div>
+          )}
         </div>
 
         <button

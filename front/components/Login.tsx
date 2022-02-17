@@ -27,7 +27,7 @@ const Login = () => {
         type="button"
         onClick={() => setShowModal(true)}
       >
-        <div className="text-base">Login</div>
+        <div className="text-xl">Login</div>
       </button>
       {showModal ? (
         <>
