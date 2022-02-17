@@ -33,3 +33,35 @@ func CreateUser(name, profileImageURL, firebaseUID string) error {
 	}
 	return nil
 }
+
+func UpdateUser(name, profileImageURL, firebaseUID string) error {
+	db := connect()
+	defer db.Close()
+
+	var err error
+	// 名前のみ，プロフィール画像のみの変更に対応(必要ないかも)
+	if name == "" && profileImageURL != "" {
+		err = db.Model(&models.User{}).Where("firebase_uid = ?", firebaseUID).Update("profile_image_url", profileImageURL).Error
+	} else if name != "" && profileImageURL == "" {
+		err = db.Model(&models.User{}).Where("firebase_uid = ?", firebaseUID).Update("name", name).Error
+	} else if name != "" && profileImageURL != "" {
+		err = db.Model(&models.User{}).Where("firebase_uid = ?", firebaseUID).Updates(models.User{Name: name, ProfileImageURL: profileImageURL, FirebaseUID: firebaseUID}).Error
+	}
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func SelectUserByID(id int) (models.User, error) {
+	db := connect()
+	defer db.Close()
+
+	var user models.User
+	if err := db.Where("id = ?", id).First(&user).Error; err != nil {
+		return user, err
+	}
+	return user, nil
+}
