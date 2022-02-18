@@ -32,15 +32,29 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func EventPutHandler(w http.ResponseWriter, r *http.Request) {
+	b, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var event models.EventPutRequest
+
+	if err := json.Unmarshal(b, &event); err != nil {
+		fmt.Println(err)
+	}
+
 	vars := mux.Vars(r)
 	id, _ := strconv.Atoi(vars["id"])
 
 	//fmt.Println(vars, id)
 
-	eventID := models.Event{
+	e := models.Event{
 		ID: id,// get eventID
+		Title: event.Title,
+		Description: event.Description,
+		DateTime: event.DateTime,
+		StreamURL: event.StreamURL,
 	}
-	err := dboperation.UpdateEvent(eventID)
+	err = dboperation.UpdateEvent(e)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
