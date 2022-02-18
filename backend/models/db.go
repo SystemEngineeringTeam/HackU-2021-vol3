@@ -1,52 +1,55 @@
 package models
 
+import "github.com/jinzhu/gorm"
+
 type User struct {
-	ID              int    `gorm:"column:id"`
-	FirebaseUID     string `gorm:"column:firebase_uid"`
-	Name            string `gorm:"column:name"`
-	ProfileImageURL string `gorm:"column:profile_image_url"`
+	gorm.Model
+	FirebaseUID     string
+	Name            string
+	ProfileImageURL string
 }
 
 type Event struct {
-	ID          int    `gorm:"column:id"`
-	Title       string `gorm:"column:title"`
-	Description string `gorm:"column:description"`
-	Document    string `gorm:"column:document"`
-	DateTime    string `gorm:"column:datetime"`
-	Organizer   int    `gorm:"column:organizer"`
-	StreamURL   string `gorm:"column:stream_url"`
-	ImageID     int    `gorm:"column:image_id"`
+	gorm.Model
+	Title       string
+	Description string
+	Document    string
+	ImageID     uint
+	Image       Image
+	OrganizerID uint
+	Organizer   User
+	DateTime    string
+	StreamURL   string
+	Tags        []Tag `gorm:"many2many:event_tags;"`
 }
 
-type FeedBack struct {
-	EventID int    `gorm:"column:event_id"`
-	UserID  int    `gorm:"column:user_id"`
-	Stars   int    `gorm:"column:stars"`
-	Comment string `gorm:"column:comment"`
-}
+// type FeedBack struct {
+//  gorm.Model
+// 	EventID int
+// 	UserID  int
+// 	Stars   int
+// 	Comment string
+// }
 
-type Comments struct {
-	EventID int    `gorm:"column:event_id"`
-	UserID  int    `gorm:"column:user_id"`
-	Comment string `gorm:"column:comment"`
-}
+// type Comments struct {
+//  gorm.Model
+// 	EventID int
+// 	UserID  int
+// 	Comment string
+// }
 
-type Tags struct {
-	ID  int    `gorm:"column:id"`
-	Tag string `gorm:"column:tag"`
+type Tag struct {
+	gorm.Model
+	Tag string
 }
 
 type Badges struct {
-	ID    int    `gorm:"column:id"`
-	Badge string `gorm:"column:badge"`
+	gorm.Model
+
+	Badge string
 }
 
 type Image struct {
-	ID       int    `gorm:"column:id"`
-	ImageURL string `gorm:"column:image_url"`
-}
-
-type EventTags struct {
-	EventID int `gorm:"column:event_id"`
-	TagID   int `gorm:"column:tag_id"`
+	gorm.Model
+	ImageURL string
 }
