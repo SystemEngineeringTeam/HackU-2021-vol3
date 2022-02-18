@@ -150,6 +150,7 @@
     position: absolute;
     padding-top: 18px;
     padding-left: 5px;
+
 }
 
 
@@ -173,6 +174,8 @@
     width: 20em;
     height: 170px;
     background: #C4C4C4;
+    cursor: pointer;
+
 }
 
 .flavor_text_upload {
