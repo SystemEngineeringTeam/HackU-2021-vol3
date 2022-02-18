@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 import { axiosInstance as axios } from "../utils/api";
 import { AuthContext } from "./Auth";
+import BeforeScreenToReturn from "./BeforeScreenToReturn";
 
 type Event = {
   id: string;
@@ -53,7 +54,6 @@ const EventDetail = () => {
           if (idToken && request.headers != null) {
             request.headers.Authorization = `Bearer ${idToken}`;
           }
-
           return request;
         });
         axios
@@ -70,15 +70,10 @@ const EventDetail = () => {
 
   return (
     <div className="flex justify-center ">
-      <div className="mr-28 ">
+      <div className="mt-12 mr-28">
         <Link href="/">
           <a>
-            <Image
-              src="/leftArrow.png"
-              height="100px"
-              width="115px"
-              alt="infra"
-            />
+            <BeforeScreenToReturn />
           </a>
         </Link>
       </div>
@@ -88,7 +83,7 @@ const EventDetail = () => {
             <Image
               src={`/${event.image}`}
               height="100px"
-              width="120px"
+              width="120 px"
               alt="infra"
             />
           </div>
