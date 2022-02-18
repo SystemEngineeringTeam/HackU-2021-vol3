@@ -15,6 +15,7 @@ type Event struct {
 	DateTime    string `gorm:"column:datetime"`
 	Organizer   int    `gorm:"column:organizer"`
 	StreamURL   string `gorm:"column:stream_url"`
+	ImageID     int    `gorm:"column:image_id"`
 }
 
 type FeedBack struct {
