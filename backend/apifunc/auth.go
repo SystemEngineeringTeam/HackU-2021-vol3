@@ -61,7 +61,7 @@ func verifyCheck(r *http.Request) (string, error) {
 		fmt.Printf("Cannot initialize firebase auth: %v\n", err)
 	}
 
-	header := r.Header.Get("X-auth-token") //クライアントからJWTを取得する
+	header := r.Header.Get("Authorization") //クライアントからJWTを取得する
 	tokenID := strings.Replace(header, "Bearer ", "", 1)
 	//fmt.Println(token_id)
 	//JWTのベリファイ
