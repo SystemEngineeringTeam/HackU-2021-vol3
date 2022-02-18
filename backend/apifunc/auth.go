@@ -22,14 +22,14 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	uid, err := verifyCheck(w, r)
+	uid, err := verifyCheck(r)
 	if err != nil {
 		log.Println(err)
 	}
 	fmt.Println(uid)
 }
 
-func verifyCheck(w http.ResponseWriter, r *http.Request) (string, error) {
+func verifyCheck(r *http.Request) (string, error) {
 
 	//Access-ControlをVerifyCheck内にも適用
 
