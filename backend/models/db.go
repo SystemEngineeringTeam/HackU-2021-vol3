@@ -44,3 +44,8 @@ type Image struct {
 	ID       int    `gorm:"column:id"`
 	ImageURL string `gorm:"column:image_url"`
 }
+
+type EventTags struct {
+	EventID int `gorm:"column:event_id"`
+	TagID   int `gorm:"column:tag_id"`
+}

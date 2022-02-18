@@ -20,6 +20,17 @@ func Auth(firebaseUID string) error {
 	return nil
 }
 
+func getUserByFirebaseUID(firebaseUID string) (models.User, error) {
+	db := connect()
+	defer db.Close()
+
+	var user models.User
+	if err := db.Where("firebase_uid = ?", firebaseUID).First(&user).Error; err != nil {
+		return models.User{}, err
+	}
+	return user, nil
+}
+
 func CreateUser(name, profileImageURL, firebaseUID string) error {
 	db := connect()
 	defer db.Close()
