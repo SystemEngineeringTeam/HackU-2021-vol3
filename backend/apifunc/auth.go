@@ -14,14 +14,22 @@ import (
 )
 
 func Auth(w http.ResponseWriter, r *http.Request) {
-	uid, err := verifyCheck(r)
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	uid, err := verifyCheck(w, r)
 	if err != nil {
 		log.Println(err)
 	}
 	fmt.Println(uid)
 }
 
-func verifyCheck(r *http.Request) (string, error) {
+func verifyCheck(w http.ResponseWriter, r *http.Request) (string, error) {
 
 	//Access-ControlをVerifyCheck内にも適用
 
@@ -31,15 +39,15 @@ func verifyCheck(r *http.Request) (string, error) {
 		log.Fatal("Error loading .env file")
 	}
 
-	//envファイルからcredentials(秘密鍵)を取得
+	//envファイルからcredentials(秘密鍵),Project_idを取得
 	/*CREDENTIALSはfirebaseの設定で作成したjsonファイルのパス,以下のような感じでcredentials.envにCREDENTIALSを記述
 	CREDENTIALS=/Users/<ユーザ名>/firebase/<Firebase SDKの秘密鍵の名前>.json
-	*/
+	PROJECT_ID=<Firebaseのプロジェクト名>*/
 	ctx := r.Context()
 	if ctx == nil {
 		ctx = context.Background()
 	}
-	
+
 	opt := option.WithCredentialsFile(os.Getenv("CREDENTIALS"))
 	conf := &firebase.Config{ProjectID: os.Getenv("PROJECT_ID")}
 	//OAuth2.0更新トークン対応用
