@@ -109,6 +109,20 @@
     display: inline-block;
 }
 
+.InputTextArea {
+    margin-top: 15px;
+    width: 70%;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .3);
+    font-size: 14px;
+    outline: none;
+    line-height: 1.6;
+    resize: vertical;
+}
 
 .input_3_1 input[type="text"] {
     margin-top: 15px;

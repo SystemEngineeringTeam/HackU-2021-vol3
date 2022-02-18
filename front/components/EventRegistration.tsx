@@ -22,7 +22,7 @@ const EventRegistration = () => {
                             <p className="input_title_2_1">説明</p>
                             <p className="input_title_2_2">(必須)</p>
                         </div>
-                        <input type="text" placeholder="勉強会について説明する内容を紹介しましょう" />
+                        <textarea className="InputTextArea" placeholder="勉強会について説明する内容を紹介しましょう" />
                     </label>
                 </div>
                 <div className="input_3_1">
