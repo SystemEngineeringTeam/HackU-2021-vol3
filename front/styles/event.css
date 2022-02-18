@@ -323,3 +323,9 @@
 .tag_svg {
     display: inline;
 }
+
+
+#widthSelect {
+    width: 33em;
+    height: 30em;
+}

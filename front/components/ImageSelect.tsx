@@ -1,4 +1,5 @@
 import React from "react";
+import BeforeScreenToReturn from "./BeforeScreenToReturn";
 
 const ImageSelect = () => {
     const [addEventShowModal, setShowModal] = React.useState(false);
@@ -22,8 +23,10 @@ const ImageSelect = () => {
                 <>
                     <div className="flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 justify-center items-center outline-none focus:outline-none">
                         <div className="relative my-6 mx-auto w-auto max-w-3xl">
-                            <div className="flex relative flex-col w-96 h-96 bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
-                                <div className="flex items-start mt-2 ml-2" />
+                            <div id="widthSelect" className="flex relative flex-col bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
+                                <div className="flex items-start mt-2 ml-2" >
+                                    <BeforeScreenToReturn />
+                                </div>
                             </div>
                         </div>
                     </div>
