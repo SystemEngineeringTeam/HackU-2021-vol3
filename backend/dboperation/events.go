@@ -21,6 +21,7 @@ func CreateEvent(e models.EventPostAndDeleteRequest, firebaseUID string) error {
 		DateTime:    e.DateTime,
 		Organizer:   u.ID,
 		StreamURL:   e.StreamURL,
+		ImageID:     e.ImageID,
 	}
 
 	if err := db.Create(&event).Error; err != nil {
@@ -40,11 +41,20 @@ func CreateEvent(e models.EventPostAndDeleteRequest, firebaseUID string) error {
 	return nil
 }
 
-func UpdateEvent(e models.Event) error {
+func UpdateEvent(e models.EventPutRequest, id int) error {
 	db := connect()
 	defer db.Close()
 
-	if err := db.Table("events").Where("id=?", e.ID).Update(&e).Error; err != nil {
+	event := models.Event{
+		ID:          id,
+		Title:       e.Title,
+		Description: e.Description,
+		DateTime:    e.DateTime,
+		StreamURL:   e.StreamURL,
+		ImageID:     e.ImageID,
+	}
+
+	if err := db.Table("events").Where("id=?", id).Update(&event).Error; err != nil {
 		return err
 	}
 	return nil
