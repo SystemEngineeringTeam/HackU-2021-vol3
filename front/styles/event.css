@@ -326,6 +326,53 @@
 
 
 #widthSelect {
-    width: 33em;
+    width: 53em;
     height: 30em;
+}
+
+
+.ImageSelectText {
+    font-weight: bold;
+    font-size: large;
+    color: #252525;
+
+}
+
+#cp_ipselect {
+    width: 100%;
+    text-align: center;
+}
+
+.cp_ipselect select {
+    padding-right: 1em;
+    cursor: pointer;
+    text-indent: 0.01px;
+    outline: none;
+    background: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.cp_ipselect.cp_sl01 {
+    position: relative;
+    border: 1px solid #7a7a7a;
+    border-radius: 1.5px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+.cp_ipselect.cp_sl01::before {
+    position: absolute;
+    top: 1.2em;
+    right: 0.9em;
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #666666;
+    pointer-events: none;
+}
+
+.cp_ipselect.cp_sl01 select {
+    padding: 10px 150px 10px 10px;
+    color: #666666;
 }

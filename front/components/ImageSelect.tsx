@@ -25,7 +25,24 @@ const ImageSelect = () => {
                         <div className="relative my-6 mx-auto w-auto max-w-3xl">
                             <div id="widthSelect" className="flex relative flex-col bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
                                 <div className="flex items-start mt-2 ml-2" >
-                                    <BeforeScreenToReturn />
+                                    <div>
+                                        <p className="ImageSelectText">画像の選択</p>
+                                        <div className="cp_ipselect cp_sl01">
+                                            <select required>
+                                                <option value="" hidden />
+                                                <option value="1">フロントエンド</option>
+                                                <option value="2">バックエンド</option>
+                                                <option value="3">インフラ</option>
+                                                <option value="4">ネットワーク</option>
+                                                <option value="5">セキュリティー</option>
+                                                <option value="6">モバイル</option>
+                                                <option value="7">デザイン</option>
+                                                <option value="8">クラウド</option>
+                                                <option value="9">ハードウェア</option>
+                                                <option value="10">DEVOPS</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
