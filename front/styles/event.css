@@ -376,3 +376,35 @@
     padding: 10px 150px 10px 10px;
     color: #666666;
 }
+
+#image_display_1 {
+    position: relative;
+    margin-top: 65%;
+    margin-left: 20%;
+}
+
+#image_display_2 {
+    position: absolute;
+    margin-top: 14%;
+    margin-left: 55%;
+}
+
+#image_display_3 {
+    position: absolute;
+    margin-top: 50%;
+    margin-left: 80%;
+    font-weight: bold;
+    background-color: #3E3E3E;
+    color: #fff;
+    font-size: 20px;
+    height: 32px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#image_display_3_1 {
+    padding-left: 23%;
+    padding-top: 2%;
+}

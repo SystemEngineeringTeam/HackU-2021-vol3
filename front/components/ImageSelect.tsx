@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useEffect } from "react";
+import React from "react";
 import NoneImage from '../public/EventImage/None.png'
 import CloudServiceImage from "../public/EventImage/cloud-service.png";
 import ComputerImage from "../public/EventImage/computer.png";
@@ -88,10 +88,6 @@ const ImageSelect = () => {
                 setImage(image);
             }
         });
-        //1秒後にimageをconsole.logで表示
-        setTimeout(() => {
-            console.log(image);
-        }, 1000);
         setImageList(e.target.value);
     };
 
@@ -120,7 +116,7 @@ const ImageSelect = () => {
                             <div id="widthSelect" className="flex relative flex-col bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
                                 <div className="flex items-start mt-2 ml-2" >
                                     <div className="flex">
-                                        <div>
+                                        <div id="image_display_1">
                                             <p className="ImageSelectText">画像の選択</p>
                                             <div className="cp_ipselect cp_sl01">
                                                 <select id="SelectorImage" value={imageList} onChange={handleChange} required>
@@ -137,11 +133,13 @@ const ImageSelect = () => {
                                                     <option value="10">DEVOPS</option>
                                                 </select>
                                             </div>
-                                            <div>
-                                                <Image src={image.src} alt={image.alt} width="100" height="100" />
-                                            </div>
                                         </div>
-
+                                        <div id="image_display_2">
+                                            <Image src={image.src} alt={image.alt} width="200" height="200" />
+                                        </div>
+                                        <div id="image_display_3" onClick={() => setShowModal(false)}>
+                                            <p id="image_display_3_1">決定</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
