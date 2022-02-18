@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React, { useEffect } from "react";
+import NoneImage from '../public/EventImage/None.png'
 import CloudServiceImage from "../public/EventImage/cloud-service.png";
 import ComputerImage from "../public/EventImage/computer.png";
 import DatabaseImage from "../public/EventImage/database-storage.png";
@@ -13,64 +14,63 @@ import WebImage from "../public/EventImage/web.png";
 const ImageSelect = () => {
     type ImageType = {
         key: string,
-        src: string;
+        src: StaticImageData;
         alt: string;
-
     }
     const images: ImageType[] = [
         {
             key: "0",
-            src: "",
+            src: WebImage,
             alt: "",
         },
         {
             key: "1",
-            src: "WebImage",
+            src: WebImage,
             alt: "Web",
         },
         {
             key: "2",
-            src: "DatabaseImage",
+            src: DatabaseImage,
             alt: "Database",
         },
         {
             key: "3",
-            src: "ServerImage",
+            src: ServerImage,
             alt: "Server",
         },
         {
             key: "4",
-            src: "ComputerImage",
+            src: ComputerImage,
             alt: "NetWork",
         },
         {
             key: "5",
-            src: "Security",
+            src: Security,
             alt: "Security",
         },
         {
             key: "6",
-            src: "SmartPhone",
+            src: SmartPhone,
             alt: "SmartPhone",
         },
         {
             key: "7",
-            src: "GraphicDesign",
+            src: GraphicDesign,
             alt: "GraphicDesign",
         },
         {
             key: "8",
-            src: "CloudServiceImage",
+            src: CloudServiceImage,
             alt: "CloudService",
         },
         {
             key: "9",
-            src: "Microchip",
+            src: Microchip,
             alt: "Microchip",
         },
         {
             key: "10",
-            src: "DevOpsImage",
+            src: DevOpsImage,
             alt: "DevOps",
         },
     ];
@@ -79,16 +79,19 @@ const ImageSelect = () => {
     const [imageList, setImageList] = React.useState<string>("0");
     const [image, setImage] = React.useState<ImageType>({
         key: "0",
-        src: "",
+        src: NoneImage,
         alt: ""
     });
     function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
         images.find(image => {
             if (image.key === e.target.value) {
                 setImage(image);
-
             }
         });
+        //1秒後にimageをconsole.logで表示
+        setTimeout(() => {
+            console.log(image);
+        }, 1000);
         setImageList(e.target.value);
     };
 
@@ -135,7 +138,7 @@ const ImageSelect = () => {
                                                 </select>
                                             </div>
                                             <div>
-                                                <Image src={CloudServiceImage} alt="CloudServiceImage" width="100" height="100" />
+                                                <Image src={image.src} alt={image.alt} width="100" height="100" />
                                             </div>
                                         </div>
 
