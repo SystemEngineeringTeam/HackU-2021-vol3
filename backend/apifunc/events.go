@@ -107,11 +107,11 @@ func CommentGetHandler(w http.ResponseWriter, r *http.Request) {
 
 	*/
 
-	//comments, err := dboperation.GetAllComments()
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
+	comments, err := dboperation.GetAllComments()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	vars := mux.Vars(r)
 	eventID, _ := strconv.Atoi(vars["id"])
@@ -119,14 +119,15 @@ func CommentGetHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(vars, eventID)
 
 	response := make([]models.CommentGetAndPostRequest, 0)
-	// for _, comm := range comments {
-	// 	if eventID == dboperation.GetAllComments() {
-	// 		r := models.CommentGetAndPostRequest{
-	// 			Comment: comm,
-	// 		}
-	// 		response = append(response, r)
-	// 	}
-	// }
+
+	for _, comm := range comments {
+		if eventID == comm.EventID {
+			r := models.CommentGetAndPostRequest{
+				Comment: comm,
+			}
+			response = append(response, r)
+		}
+	}
 
 	b, err := json.Marshal(response)
 	if err != nil {
