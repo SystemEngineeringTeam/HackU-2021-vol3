@@ -1,9 +1,8 @@
-import { async } from "@firebase/util";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { axiosInstance as axios } from "../utils/api";
-import Layout from "./Layout";
 
 type Event = {
   id: string;
@@ -58,7 +57,16 @@ const EventDetail = () => {
   return (
     <div className="flex justify-center ">
       <div className="mr-28 ">
-        <Image src="/leftArrow.png" height="100px" width="115px" alt="infra" />
+        <Link href="/">
+          <a>
+            <Image
+              src="/leftArrow.png"
+              height="100px"
+              width="115px"
+              alt="infra"
+            />
+          </a>
+        </Link>
       </div>
       <div className="flex flex-col justify-around items-center mt-16 mr-56 w-3/6 h-[750px] rounded-xl border-4 border-black">
         <div className="flex justify-between items-center w-11/12 ">
