@@ -6,7 +6,7 @@ import EventDetail from "../../components/EventDetail";
 import Layout from "../../components/Layout";
 import { axiosInstance as axios } from "../../utils/api";
 
-const Post = () => {
+const ViewEvent = () => {
   return (
     <Layout>
       <EventDetail />
@@ -14,4 +14,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default ViewEvent;
