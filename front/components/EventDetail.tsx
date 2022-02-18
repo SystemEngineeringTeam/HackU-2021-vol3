@@ -17,9 +17,6 @@ type Event = {
 };
 
 const EventDetail = () => {
-  const router = useRouter();
-  const { pid } = router.query;
-
   const [event, setEvent] = useState<Event>({
     id: "",
     title: "インフラ勉強会",
@@ -32,18 +29,30 @@ const EventDetail = () => {
     tags: [],
   });
 
-  console.log(pid);
+  const router = useRouter();
+  const { pid } = router.query;
 
   useEffect(() => {
-    axios.get(`event/${pid}`).then((res) => {
-      setEvent(res.data);
-    });
-  });
+    axios
+      .get(`event/${pid}`)
+      .then((res) => {
+        setEvent(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // eslint-disable-next-line
+  }, []);
 
   const registration = () => {
-    axios.post(`/event/register/${pid}`).then((res) => {
-      console.log(res.statusText);
-    });
+    axios
+      .post(`/event/register/${pid}`)
+      .then((res) => {
+        console.log(res.statusText);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -98,7 +107,10 @@ const EventDetail = () => {
           </div>
         </div>
         <div>
-          <button className="p-4 text-white bg-blue-400 rounded-md">
+          <button
+            className="p-4 text-white bg-blue-400 rounded-md"
+            onClick={registration}
+          >
             イベントに参加登録
           </button>
         </div>
