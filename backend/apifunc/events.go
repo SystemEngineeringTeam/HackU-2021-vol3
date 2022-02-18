@@ -109,18 +109,20 @@ func CommentGetHandler(w http.ResponseWriter, r *http.Request) {
 	// }
 
 	vars := mux.Vars(r)
-	CommentID, _ := strconv.Atoi(vars["id"])
+	eventID, _ := strconv.Atoi(vars["id"])
 
-	fmt.Println(vars, CommentID)
+	fmt.Println(vars, eventID)
 
 	response := make([]models.CommentGetAndPostRequest, 0)
-
-	// for _, c := range comments {
-	// 	r := models.CommentGetAndPostRequest{
-	// 		Comment: c.Comment,
+	// for _, comm := range comments {
+	// 	if eventID == dboperation.GetAllComments() {
+	// 		r := models.CommentGetAndPostRequest{
+	// 			Comment: comm,
+	// 		}
+	// 		response = append(response, r)
 	// 	}
-	// 	response = append(response, r)
 	// }
+
 	b, err := json.Marshal(response)
 	if err != nil {
 		fmt.Println(err)
@@ -136,27 +138,16 @@ func CommentPostHandler(w http.ResponseWriter, r *http.Request) {
 
 	*/
 
-
-	// b, err := ioutil.ReadAll(r.Body)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// var comm models.CommentGetAndPostRequest
-
-	// if err := json.Unmarshal(b, &comm); err != nil {
-	// 	fmt.Println(err)
-	// }
-	// fmt.Println(comm.Comment)
-
 	vars := mux.Vars(r)
-	CommentID, _ := strconv.Atoi(vars["id"])
+	eventID, _ := strconv.Atoi(vars["id"])
 
-	fmt.Println(vars, CommentID)
+	fmt.Println(vars, eventID)
 
-	// err = dboperation.CreateComment(comm.Comment)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
+	// e := models.Comments{
+	// 	EventID: eventID,
+	// 	UserID: 1,// wip
+	// 	Comment: "aaa",
 	// }
+
 	w.WriteHeader(http.StatusCreated)
 }
