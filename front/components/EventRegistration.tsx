@@ -1,4 +1,5 @@
 import ConfirmAddEvent from './ConfirmAddEvent';
+import ImageSelect from './ImageSelect';
 const EventRegistration = () => {
     return (
         <>
@@ -25,20 +26,7 @@ const EventRegistration = () => {
                         <textarea className="InputTextArea" placeholder="勉強会について説明する内容を紹介しましょう" />
                     </label>
                 </div>
-                <div className="input_3_1">
-                    <label className="input_3_2">
-                        <div className="input_title_3">
-                            <p className="input_title_3_1">画像の選択</p>
-                            <p className="input_title_3_2">(必須)</p>
-                        </div>
-                        <div className="image_upload">
-                            <div className="flavor_text_upload">
-                                クリックして画像の選択
-                            </div>
-                        </div>
-                        <input type="text" readOnly />
-                    </label>
-                </div>
+                <ImageSelect />
                 <div className="input_4_1">
                     <label className="input_4_2">
                         <div className="input_title_4">
