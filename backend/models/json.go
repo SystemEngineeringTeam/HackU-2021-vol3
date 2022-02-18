@@ -22,20 +22,20 @@ type ImageGetResponse struct {
 }
 
 type EventPostAndDeleteRequest struct {
-	Title    string   `json:"title"`
-	Detail   string   `json:"detail"`
-	Document string   `json:"document"`
-	ImageID  int      `json:"imageID"`
-	Date     string   `json:"date"`
-	Tags     []string `json:"tags"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Document    string `json:"document"`
+	ImageID     int    `json:"imageID"`
+	DateTime    string `json:"datetime"`
+	Tags        []int  `json:"tags"`
 }
 
 type EventPutRequest struct {
-	Title   string   `json:"title"`
-	Detail  string   `json:"detail"`
-	ImageID int      `json:"imageID"`
-	Date    string   `json:"date"`
-	Tags    []string `json:"tags"`
+	Title   string `json:"title"`
+	Detail  string `json:"detail"`
+	ImageID int    `json:"imageID"`
+	Date    string `json:"date"`
+	Tags    []int  `json:"tags"`
 }
 
 type FeedbackPostRequest struct {
