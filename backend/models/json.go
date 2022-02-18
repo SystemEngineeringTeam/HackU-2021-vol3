@@ -31,11 +31,11 @@ type EventPostAndDeleteRequest struct {
 }
 
 type EventPutRequest struct {
-	Title   string `json:"title"`
-	Detail  string `json:"detail"`
-	ImageID int    `json:"imageID"`
-	Date    string `json:"date"`
-	Tags    []int  `json:"tags"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	ImageID     int    `json:"imageID"`
+	DateTime    string `json:"datetime"`
+	Tags        []int  `json:"tags"`
 }
 
 type FeedbackPostRequest struct {
