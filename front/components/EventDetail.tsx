@@ -1,8 +1,10 @@
+import { getIdToken } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { axiosInstance as axios } from "../utils/api";
+import { AuthContext } from "./Auth";
 
 type Event = {
   id: string;
@@ -30,6 +32,7 @@ const EventDetail = () => {
 
   const router = useRouter();
   const { pid } = router.query;
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -44,14 +47,25 @@ const EventDetail = () => {
   }, []);
 
   const registration = () => {
-    axios
-      .post(`/event/register/${pid}`)
-      .then((res) => {
-        console.log(res.statusText);
-      })
-      .catch((err) => {
-        console.log(err);
+    if (currentUser != null) {
+      getIdToken(currentUser, true).then((idToken) => {
+        axios.interceptors.request.use((request) => {
+          if (idToken && request.headers != null) {
+            request.headers.Authorization = `Bearer ${idToken}`;
+          }
+
+          return request;
+        });
+        axios
+          .post(`/event/register/${pid}`)
+          .then((res) => {
+            console.log(res.statusText);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
+    }
   };
 
   return (
