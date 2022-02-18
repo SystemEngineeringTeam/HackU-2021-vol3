@@ -66,12 +66,14 @@ const EventDetail = () => {
             <Image
               src={`/${event.image}`}
               height="100px"
-              width="115px"
+              width="120px"
               alt="infra"
             />
           </div>
           <div className="text-5xl ">{event.title}</div>
-          <div className="mb-auto text-sm">参加人数 {event.parcitipants}</div>
+          <div className="mb-auto text-sm">
+            参加人数 {event.parcitipants} 人
+          </div>
         </div>
         <div className="flex flex-col w-3/6 text-2xl ">
           <div>開催日時</div>
