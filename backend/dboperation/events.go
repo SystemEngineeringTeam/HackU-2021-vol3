@@ -36,7 +36,9 @@ func CreateEvent(e models.EventPostAndDeleteRequest, firebaseUID string) error {
 		})
 	}
 
-	gormbulk.BulkInsert(db, eventTags, 3000)
+	if err := gormbulk.BulkInsert(db, eventTags, 3000); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -54,8 +56,25 @@ func UpdateEvent(e models.EventPutRequest, id int) error {
 		ImageID:     e.ImageID,
 	}
 
+	if err := db.Table("event_tags").Where("event_id = ?", id).Delete(&models.EventTags{}).Error; err != nil {
+		return err
+	}
+
 	if err := db.Table("events").Where("id=?", id).Update(&event).Error; err != nil {
 		return err
 	}
+
+	eventTags := make([]interface{}, 0)
+	for _, t := range e.Tags {
+		eventTags = append(eventTags, models.EventTags{
+			EventID: event.ID,
+			TagID:   t,
+		})
+	}
+
+	if err := gormbulk.BulkInsert(db, eventTags, 3000); err != nil {
+		return err
+	}
+
 	return nil
 }
