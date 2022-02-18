@@ -39,7 +39,7 @@ func verifyCheck(r *http.Request) (string, error) {
 	if ctx == nil {
 		ctx = context.Background()
 	}
-
+	
 	opt := option.WithCredentialsFile(os.Getenv("CREDENTIALS"))
 	conf := &firebase.Config{ProjectID: os.Getenv("PROJECT_ID")}
 	//OAuth2.0更新トークン対応用
