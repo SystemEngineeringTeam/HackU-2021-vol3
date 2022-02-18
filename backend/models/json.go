@@ -27,6 +27,7 @@ type EventPostAndDeleteRequest struct {
 	Document    string `json:"document"`
 	ImageID     int    `json:"imageID"`
 	DateTime    string `json:"datetime"`
+	StreamURL   string `json:"streamURL"`
 	Tags        []int  `json:"tags"`
 }
 
@@ -35,6 +36,7 @@ type EventPutRequest struct {
 	Description string `json:"description"`
 	ImageID     int    `json:"imageID"`
 	DateTime    string `json:"datetime"`
+	StreamURL   string `json:"streamURL"`
 	Tags        []int  `json:"tags"`
 }
 
