@@ -13,11 +13,36 @@ type UserPostRequest struct {
 }
 
 type UserPutRequest struct {
-	Name            string `json:"name"`
-	ProfileImageURL string `json:"profileImageURL"`
+	Name string `json:"name"`
 }
 
 type ImageGetResponse struct {
 	ID  int    `json:"id"`
 	URL string `json:"url"`
+}
+
+type EventPostAndDeleteRequest struct {
+	Title    string   `json:"title"`
+	Detail   string   `json:"detail"`
+	Document string   `json:"document"`
+	ImageID  int      `json:"imageID"`
+	Date     string   `json:"date"`
+	Tags     []string `json:"tags"`
+}
+
+type EventPutRequest struct {
+	Title   string   `json:"title"`
+	Detail  string   `json:"detail"`
+	ImageID int      `json:"imageID"`
+	Date    string   `json:"date"`
+	Tags    []string `json:"tags"`
+}
+
+type FeedbackPostRequest struct {
+	Comment string `json:"comment"`
+	Stars   int    `json:"stars"`
+}
+
+type CommentGetAndPostRequest struct {
+	Comment string `json:"comment"`
 }
