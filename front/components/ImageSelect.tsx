@@ -1,8 +1,99 @@
-import React from "react";
-import BeforeScreenToReturn from "./BeforeScreenToReturn";
-
+import Image from 'next/image'
+import React, { useEffect } from "react";
+import CloudServiceImage from "../public/EventImage/cloud-service.png";
+import ComputerImage from "../public/EventImage/computer.png";
+import DatabaseImage from "../public/EventImage/database-storage.png";
+import DevOpsImage from "../public/EventImage/devops.png";
+import GraphicDesign from "../public/EventImage/graphic-design.png";
+import Microchip from "../public/EventImage/microchip.png";
+import Security from "../public/EventImage/security.png";
+import ServerImage from "../public/EventImage/server.png";
+import SmartPhone from "../public/EventImage/smartphone.png";
+import WebImage from "../public/EventImage/web.png";
 const ImageSelect = () => {
-    const [addEventShowModal, setShowModal] = React.useState(false);
+    type ImageType = {
+        key: string,
+        src: string;
+        alt: string;
+
+    }
+    const images: ImageType[] = [
+        {
+            key: "0",
+            src: "",
+            alt: "",
+        },
+        {
+            key: "1",
+            src: "WebImage",
+            alt: "Web",
+        },
+        {
+            key: "2",
+            src: "DatabaseImage",
+            alt: "Database",
+        },
+        {
+            key: "3",
+            src: "ServerImage",
+            alt: "Server",
+        },
+        {
+            key: "4",
+            src: "ComputerImage",
+            alt: "NetWork",
+        },
+        {
+            key: "5",
+            src: "Security",
+            alt: "Security",
+        },
+        {
+            key: "6",
+            src: "SmartPhone",
+            alt: "SmartPhone",
+        },
+        {
+            key: "7",
+            src: "GraphicDesign",
+            alt: "GraphicDesign",
+        },
+        {
+            key: "8",
+            src: "CloudServiceImage",
+            alt: "CloudService",
+        },
+        {
+            key: "9",
+            src: "Microchip",
+            alt: "Microchip",
+        },
+        {
+            key: "10",
+            src: "DevOpsImage",
+            alt: "DevOps",
+        },
+    ];
+
+    const [addEventShowModal, setShowModal] = React.useState<boolean>(false);
+    const [imageList, setImageList] = React.useState<string>("0");
+    const [image, setImage] = React.useState<ImageType>({
+        key: "0",
+        src: "",
+        alt: ""
+    });
+    function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        images.find(image => {
+            if (image.key === e.target.value) {
+                setImage(image);
+
+            }
+        });
+        setImageList(e.target.value);
+    };
+
+
+
     return (
         <>
             <div className="input_3_1">
@@ -25,23 +116,29 @@ const ImageSelect = () => {
                         <div className="relative my-6 mx-auto w-auto max-w-3xl">
                             <div id="widthSelect" className="flex relative flex-col bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
                                 <div className="flex items-start mt-2 ml-2" >
-                                    <div>
-                                        <p className="ImageSelectText">画像の選択</p>
-                                        <div className="cp_ipselect cp_sl01">
-                                            <select required>
-                                                <option value="" hidden />
-                                                <option value="1">フロントエンド</option>
-                                                <option value="2">バックエンド</option>
-                                                <option value="3">インフラ</option>
-                                                <option value="4">ネットワーク</option>
-                                                <option value="5">セキュリティー</option>
-                                                <option value="6">モバイル</option>
-                                                <option value="7">デザイン</option>
-                                                <option value="8">クラウド</option>
-                                                <option value="9">ハードウェア</option>
-                                                <option value="10">DEVOPS</option>
-                                            </select>
+                                    <div className="flex">
+                                        <div>
+                                            <p className="ImageSelectText">画像の選択</p>
+                                            <div className="cp_ipselect cp_sl01">
+                                                <select id="SelectorImage" value={imageList} onChange={handleChange} required>
+                                                    <option value="0" hidden />
+                                                    <option value="1">フロントエンド</option>
+                                                    <option value="2">バックエンド</option>
+                                                    <option value="3">インフラ</option>
+                                                    <option value="4">ネットワーク</option>
+                                                    <option value="5">セキュリティー</option>
+                                                    <option value="6">モバイル</option>
+                                                    <option value="7">デザイン</option>
+                                                    <option value="8">クラウド</option>
+                                                    <option value="9">ハードウェア</option>
+                                                    <option value="10">DEVOPS</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <Image src={CloudServiceImage} alt="CloudServiceImage" width="100" height="100" />
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -53,6 +150,6 @@ const ImageSelect = () => {
             ) : null}
         </>
     );
-};
 
+}
 export default ImageSelect;
