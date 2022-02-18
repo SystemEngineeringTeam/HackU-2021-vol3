@@ -67,10 +67,16 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	var feedback models.FeedbackPostRequest
+	var user models.UserIdGetResponse
 
 	if err := json.Unmarshal(b, &feedback); err != nil {
 		fmt.Println(err)
 	}
+	if err := json.Unmarshal(b, &user); err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(user.Id)
 	fmt.Println(feedback.Comment)
 	fmt.Println(feedback.Stars)
 
@@ -79,18 +85,18 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(vars, eventID)
 
-	// e := models.FeedBack{
-	// 	EventID: eventID,
-	// 	// UserID:  1,
-	// 	Stars:  feedback.Stars,
-	// 	Comment: feedback.Comment,
-	// }
+	e := models.FeedBack{
+		EventID: eventID,
+		UserID:  user.Id,
+		Stars:  feedback.Stars,
+		Comment: feedback.Comment,
+	}
 
-	// err = dboperation.CreateFeedback(feedback.Comment, feedback.Stars)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
+	err = dboperation.CreateFeedback(e)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusCreated)
 }
 
@@ -142,8 +148,13 @@ func CommentPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var comm models.CommentGetAndPostRequest
+	var user models.UserIdGetResponse
 
 	if err := json.Unmarshal(b, &comm); err != nil {
+		fmt.Println(err)
+	}
+
+	if err := json.Unmarshal(b, &user); err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(comm.Comment)
@@ -153,11 +164,17 @@ func CommentPostHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(vars, eventID)
 
-	// e := models.Comments{
-	//  	EventID: eventID,
-	//  	//UserID: 1,// wip
-	//  	Comment: comm.Comment,
-	// }
+	e := models.Comments{
+	 	EventID: eventID,
+	 	UserID: user.Id,
+	 	Comment: comm.Comment,
+	}
+
+	err = dboperation.PostComment(e)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
 	w.WriteHeader(http.StatusCreated)
 }
