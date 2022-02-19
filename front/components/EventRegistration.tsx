@@ -1,6 +1,9 @@
+import React from 'react';
 import ConfirmAddEvent from './ConfirmAddEvent';
 import ImageSelect from './ImageSelect';
 const EventRegistration = () => {
+
+
     return (
         <>
             <div className="container">

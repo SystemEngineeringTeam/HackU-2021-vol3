@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React from "react";
+import React, { useRef } from "react";
 import NoneImage from '../public/EventImage/None.png'
 import CloudServiceImage from "../public/EventImage/cloud-service.png";
 import ComputerImage from "../public/EventImage/computer.png";
@@ -76,12 +76,23 @@ const ImageSelect = () => {
     ];
 
     const [addEventShowModal, setShowModal] = React.useState<boolean>(false);
+    const [ImageShow, setImageShow] = React.useState<boolean>(true);
+    const ref = useRef<boolean>(true);
     const [imageList, setImageList] = React.useState<string>("0");
     const [image, setImage] = React.useState<ImageType>({
         key: "0",
         src: NoneImage,
         alt: ""
     });
+    //imageが変更された場合、ImageShowがfalseになるuseEffect
+    React.useEffect(() => {
+        if (ref.current) {
+            ref.current = false;
+            return;
+        }
+        setImageShow(false);
+    }, [imageList]);
+
     function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
         images.find(image => {
             if (image.key === e.target.value) {
@@ -91,24 +102,35 @@ const ImageSelect = () => {
         setImageList(e.target.value);
     };
 
-
-
     return (
         <>
-            <div className="input_3_1">
-                <label className="input_3_2" onClick={() => setShowModal(true)}>
-                    <div className="input_title_3" >
-                        <p className="input_title_3_1">画像の選択</p>
-                        <p className="input_title_3_2">(必須)</p>
-                    </div>
-                    <div className="image_upload">
-                        <div className="flavor_text_upload">
-                            クリックして画像の選択
+            {ImageShow ? (
+                <div className="input_3_1">
+                    <label className="input_3_2" onClick={() => setShowModal(true)}>
+                        <div className="input_title_3" >
+                            <p className="input_title_3_1">画像の選択</p>
+                            <p className="input_title_3_2">(必須)</p>
                         </div>
-                    </div>
-                    <input type="text" readOnly />
-                </label>
-            </div>
+                        <div className="image_upload">
+                            <div className="flavor_text_upload">
+                                クリックして画像の選択
+                            </div>
+                        </div>
+                        <input type="text" readOnly />
+                    </label>
+                </div>) : (<>
+                    <div className="input_3_1">
+                        <label className="input_3_2" onClick={() => setShowModal(true)}>
+                            <div className="input_title_3" >
+                                <p className="input_title_3_1">画像の選択</p>
+                                <p className="input_title_3_2">(必須)</p>
+                            </div>
+                            <div className="image_upload_2">
+                                <Image src={image.src} alt={image.alt} width="180" height="180" />
+                            </div>
+                            <input type="text" readOnly />
+                        </label>
+                    </div> </>)}
             {addEventShowModal ? (
                 <>
                     <div className="flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 justify-center items-center outline-none focus:outline-none">

@@ -178,6 +178,17 @@
 
 }
 
+.image_upload_2 {
+    position: absolute;
+    left: 40%;
+    margin-top: 60px;
+    border-radius: 5px;
+    width: 20em;
+    height: 170px;
+    cursor: pointer;
+
+}
+
 .flavor_text_upload {
     position: relative;
     left: 20%;
