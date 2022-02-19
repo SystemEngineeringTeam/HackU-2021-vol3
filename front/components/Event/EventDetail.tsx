@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
-import { axiosInstance as axios } from "../utils/api";
-import { AuthContext } from "./Auth";
-import BeforeScreenToReturn from "./BeforeScreenToReturn";
+import { axiosInstance as axios } from "../../utils/api";
+import { AuthContext } from "../Auth";
+import BeforeScreenToReturn from "../BeforeScreenToReturn";
 
 type Event = {
   id: string;
