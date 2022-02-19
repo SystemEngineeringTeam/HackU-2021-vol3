@@ -59,3 +59,20 @@ type EventGetResponse struct {
 	DateTime  string   `json:"datetime"`
 	Tags      []string `json:"tags"`
 }
+
+type EventWithIDGetResponse struct {
+	ID          uint   `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Document    string `json:"document"`
+	ImageURL    string `json:"imageURL"`
+	Organizer   struct {
+		ID              uint   `json:"id"`
+		Name            string `json:"name"`
+		ProfileImageURL string `json:"profileImageURL"`
+	} `json:"organizer"`
+	DateTime     string   `json:"datetime"`
+	Parcitipants uint     `json:"participants"`
+	StreamURL    string   `json:"streamURL"`
+	Tags         []string `json:"tags"`
+}

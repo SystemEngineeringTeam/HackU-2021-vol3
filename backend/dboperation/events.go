@@ -101,3 +101,39 @@ func SelectEvents() ([]models.EventGetResponse, error) {
 
 	return eventsResponse, nil
 }
+
+func SelectEvent(id int) (models.EventWithIDGetResponse, error) {
+	db := connect()
+
+	var event models.Event
+	if err := db.Model(&event).Joins("Organizer").Preload("Tags").Where("events.id = ?", id).First(&event).Error; err != nil {
+		return models.EventWithIDGetResponse{}, err
+	}
+
+	var tags []string
+	for _, t := range event.Tags {
+		tags = append(tags, t.Tag)
+	}
+
+	response := models.EventWithIDGetResponse{
+		ID:          event.ID,
+		Title:       event.Title,
+		Description: event.Description,
+		Document:    event.Document,
+		ImageURL:    event.Image.ImageURL,
+		Organizer: struct {
+			ID              uint   `json:"id"`
+			Name            string `json:"name"`
+			ProfileImageURL string `json:"profileImageURL"`
+		}{
+			ID:              event.Organizer.ID,
+			Name:            event.Organizer.Name,
+			ProfileImageURL: event.Organizer.ProfileImageURL,
+		},
+		DateTime:  event.DateTime,
+		StreamURL: event.StreamURL,
+		Tags:      tags,
+	}
+
+	return response, nil
+}
