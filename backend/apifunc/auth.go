@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	firebase "firebase.google.com/go"
+
 	"github.com/joho/godotenv"
 	"google.golang.org/api/option"
 )
@@ -22,14 +23,14 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	uid, err := verifyCheck(r)
+	user, err := verifyCheck(r)
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(uid)
+	fmt.Println(user)
 }
 
-func verifyCheck(r *http.Request) (string, error) {
+func verifyCheck(r *http.Request) ([]string, error) {
 
 	//Access-ControlをVerifyCheck内にも適用
 
@@ -68,7 +69,7 @@ func verifyCheck(r *http.Request) (string, error) {
 	gotToken, err := auth.VerifyIDToken(ctx, tokenID)
 	if err != nil { //認証に失敗した場合(JWTが不正な場合)は、401エラーを返す
 		fmt.Printf("Cannot verify token_id: %v\n", err)
-		return "", err
+		return nil, err
 	}
 
 	log.Printf("Verified ID token: %v\n", gotToken)
@@ -76,5 +77,12 @@ func verifyCheck(r *http.Request) (string, error) {
 	uid := gotToken.UID //認証に成功した場合はuidを取得する
 	log.Printf("Verified user_id: %v\n", uid)
 
-	return uid, nil
+	user, err := auth.GetUser(ctx, uid)
+	if err != nil {
+		log.Printf("Cannot get user: %v\n", err)
+		return nil, err
+	}
+	log.Println(user.DisplayName,user.PhotoURL)
+
+	return []string{user.DisplayName,user.PhotoURL,uid}, nil
 }
