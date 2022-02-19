@@ -2,51 +2,51 @@ import React from "react";
 import ConfirmAddEvent from "./Event/ConfirmAddEvent";
 import ImageSelect from "./ImageSelect";
 const EventRegistration = () => {
-  const [file, setFile] = React.useState<File | null>(null);
-  const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-    if (e.target.files) {
-      setFile(e.target.files[0]);
+    type TagProps = {
+        key: number,
+        value: string,
     }
-  };
-  return (
-    <>
-      <div className="container">
-        <div className="all_title">
-          <h1 className="h1_title">イベントの詳細</h1>
-          <ConfirmAddEvent />
-        </div>
-        <div className="input_1_1">
-          <label className="input_1_2">
-            <div className="input_title_1">
-              <p className="input_title_1_1">タイトル</p>
-              <p className="input_title_1_2">(必須)</p>
-            </div>
-            <input
-              type="text"
-              placeholder="勉強会について説明するタイトルを描きましょう"
-            />
-          </label>
-        </div>
-        <div className="input_2_1">
-          <label className="input_2_2">
-            <div className="input_title_2">
-              <p className="input_title_2_1">説明</p>
-              <p className="input_title_2_2">(必須)</p>
-            </div>
-            <textarea
-              className="InputTextArea"
-              placeholder="勉強会について説明する内容を紹介しましょう"
-            />
-          </label>
-        </div>
-        <ImageSelect />
-        <div className="input_4_1">
-          <label className="input_4_2">
-            <div className="input_title_4">
-              <p className="input_title_4_1">資料の提出</p>
-              <p className="input_title_4_2">(必須)</p>
-            </div>
+    const [tags, setTags] = React.useState<TagProps[]>([
+    ]);
+    const [file, setFile] = React.useState<File | null>(null);
+    const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.files);
+        if (e.target.files) {
+            setFile(e.target.files[0]);
+        }
+    };
+    return (
+        <>
+            <div className="container">
+                <div className="all_title">
+                    <h1 className="h1_title">イベントの詳細</h1>
+                    <ConfirmAddEvent />
+                </div>
+                <div className="input_1_1">
+                    <label className="input_1_2">
+                        <div className="input_title_1">
+                            <p className="input_title_1_1">タイトル</p>
+                            <p className="input_title_1_2">(必須)</p>
+                        </div>
+                        <input type="text" placeholder="勉強会について説明するタイトルを描きましょう" />
+                    </label>
+                </div>
+                <div className="input_2_1">
+                    <label className="input_2_2">
+                        <div className="input_title_2">
+                            <p className="input_title_2_1">説明</p>
+                            <p className="input_title_2_2">(必須)</p>
+                        </div>
+                        <textarea className="InputTextArea" placeholder="勉強会について説明する内容を紹介しましょう" />
+                    </label>
+                </div>
+                <ImageSelect />
+                <div className="input_4_1">
+                    <label className="input_4_2">
+                        <div className="input_title_4">
+                            <p className="input_title_4_1">資料の提出</p>
+                            <p className="input_title_4_2">(必須)</p>
+                        </div>
 
             <div className="image_upload_icon">
               <label>
@@ -66,12 +66,35 @@ const EventRegistration = () => {
                     />
                   </svg>
                 </div>
-                <input
-                  type="file"
-                  id="onFileInputChange"
-                  onChange={onFileInputChange}
-                />
-              </label>
+                <div className="input_5_1">
+                    <label className="input_5_2">
+                        <div className="input_title_5">
+                            <p className="input_title_5_1">日時の選択</p>
+                            <p className="input_title_5_2">(必須)</p>
+                        </div>
+                        <div className="datetime_input">
+                            <input type="date" name="date" id="date" />
+                            <input type="time" name="time" id="time" />
+                        </div>
+                        <input type="text" readOnly />
+                    </label>
+                </div>
+                <div />
+                <div>
+                    <div className="tag">
+                        <div className="">
+                            <div className="tag_text">
+                                タグの追加
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 tag_svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
             <div id="LookFile">{file && <p>{file.name}</p>}</div>
             <input type="text" readOnly />
