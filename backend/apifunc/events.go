@@ -23,7 +23,7 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	err = dboperation.CreateEvent(event, "") //create event
+	err = dboperation.CreateEvent(event, "firebaseuid") //create event
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -44,10 +44,10 @@ func EventPutHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	id, _ := strconv.Atoi(vars["id"])
-
+	//get pathparameter
 	//fmt.Println(vars, id)
 
-	err = dboperation.UpdateEvent(event,id)
+	err = dboperation.UpdateEvent(event, id)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -74,7 +74,7 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if err := json.Unmarshal(b, &user); err != nil {
 		fmt.Println(err)
-	}
+	} //UserIDをどうやって取得するか？
 
 	fmt.Println(user.Id)
 	fmt.Println(feedback.Comment)
@@ -88,7 +88,7 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	e := models.FeedBack{
 		EventID: eventID,
 		UserID:  user.Id,
-		Stars:  feedback.Stars,
+		Stars:   feedback.Stars,
 		Comment: feedback.Comment,
 	}
 
@@ -111,7 +111,7 @@ func CommentGetHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
-	}
+	} //どうやってコメントを取得するか？
 
 	vars := mux.Vars(r)
 	eventID, _ := strconv.Atoi(vars["id"])
@@ -159,16 +159,17 @@ func CommentPostHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	fmt.Println(comm.Comment)
-
+	fmt.Println(user.Id)
+	//Userが取得できているかチェック
 	vars := mux.Vars(r)
 	eventID, _ := strconv.Atoi(vars["id"])
 
 	fmt.Println(vars, eventID)
 
 	e := models.Comments{
-	 	EventID: eventID,
-	 	UserID: user.Id,
-	 	Comment: comm.Comment,
+		EventID: eventID,
+		UserID:  user.Id,
+		Comment: comm.Comment,
 	}
 
 	err = dboperation.PostComment(e)
