@@ -15,6 +15,7 @@ import (
 )
 
 func Auth(w http.ResponseWriter, r *http.Request) {
+	//CORS設定
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
@@ -30,10 +31,7 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(user)
 }
 
-func verifyCheck(r *http.Request) ([]string, error) {
-
-	//Access-ControlをVerifyCheck内にも適用
-
+func verifyCheck(r *http.Request) (map[string]string, error) {
 	//Firebase SDKの初期化
 	err := godotenv.Load("firebase/.env")
 	if err != nil {
@@ -67,7 +65,7 @@ func verifyCheck(r *http.Request) ([]string, error) {
 	//fmt.Println(token_id)
 	//JWTのベリファイ
 	gotToken, err := auth.VerifyIDToken(ctx, tokenID)
-	if err != nil { //認証に失敗した場合(JWTが不正な場合)は、401エラーを返す
+	if err != nil { //認証に失敗した場合(JWTが不正な場合)は、エラーを返す
 		fmt.Printf("Cannot verify token_id: %v\n", err)
 		return nil, err
 	}
@@ -81,8 +79,14 @@ func verifyCheck(r *http.Request) ([]string, error) {
 	if err != nil {
 		log.Printf("Cannot get user: %v\n", err)
 		return nil, err
-	}
-	log.Println(user.DisplayName,user.PhotoURL)
+	}//UIDからユーザー情報を取得する(ユーザ画像，ユーザ名)
+	log.Println(user.DisplayName, user.PhotoURL)
 
-	return []string{user.DisplayName,user.PhotoURL,uid}, nil
+	userData := map[string]string{
+		"Name":            user.DisplayName,
+		"ProfileImageURL": user.PhotoURL,
+		"FirebaseUID":     uid,
+	}//取得したデータを連想配列で格納し，返す
+
+	return userData, nil
 }
