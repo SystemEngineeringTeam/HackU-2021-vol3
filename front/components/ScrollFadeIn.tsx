@@ -1,5 +1,5 @@
 export const scrollFadeIn = () => {
-  const callback = function (entries) {
+  const callback = function (entries: IntersectionObserverEntry[]) {
     entries.forEach((entry) => {
       //console.log(entry);
       if (entry.isIntersecting) {

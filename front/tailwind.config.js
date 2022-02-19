@@ -15,9 +15,8 @@ module.exports = {
         "original-black": "#444444",
         "original-white": "#E9E9E9",
       },
-
       animation: {
-        slideIn: "slideIn 1s ease-in forwards",
+        slideIn: "slideIn 0.3s ease-in forwards",
       },
       keyframes: {
         slideIn: {

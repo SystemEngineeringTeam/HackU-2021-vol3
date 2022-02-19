@@ -38,13 +38,13 @@ a {
   font-size: x-large;
 }
 
-.anim-box.slidein.is-animated {
-  animation: slideIn 1s cubic-bezier(0.25, 1, 0.5, 1) 1 forwards;
-}
+/* .anim-box.slidein.is-animated {
+  animation: slideIn 3s cubic-bezier(0.25, 1, 0.5, 1) 1 forwards;
+} */
 
 @keyframes slideIn {
   0% {
-    transform: translateX(180px);
+    transform: translateX(200px);
     opacity: 0;
   }
   100% {

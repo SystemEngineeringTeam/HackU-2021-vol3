@@ -69,6 +69,7 @@ const Document = () => {
       <div className="flex flex-col w-2/5 ">
         <div className="flex basis-11/12 justify-start mt-4 shadow-md ">
           <ReactMarkdown
+            // eslint-disable-next-line
             className="ml-2 prose js-show-on-scroll"
             /* @ts-ignore */
             components={{ code: CodeBlock }}
