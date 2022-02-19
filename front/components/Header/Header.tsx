@@ -1,10 +1,9 @@
 import { render } from "@headlessui/react/dist/utils/render";
-import axios from "axios";
 import { getAuth, signOut, getIdToken } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import { AuthContext } from "../Auth";
 import RegsiterUser from "../RegisterUser";
@@ -13,11 +12,14 @@ import ProfilePopOver from "./ProfilePopOver";
 
 const Header = () => {
   const { currentUser } = useContext(AuthContext);
+  const [isNewUser, setIsNewUser] = useState<boolean>(true);
+  const idToknen = useRef("");
 
   useEffect(() => {
     if (currentUser != null) {
       getIdToken(currentUser, true).then((idToken) => {
         console.log(idToken);
+        //初期ユーザーが判定するAPIを叩く
       });
     }
   });
@@ -94,7 +96,7 @@ const Header = () => {
             </div>
           )}
         </div>
-        <RegsiterUser />
+        {isNewUser ? <RegsiterUser currentUser={currentUser} /> : null}
 
         <button
           type="button"
