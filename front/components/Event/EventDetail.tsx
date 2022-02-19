@@ -52,7 +52,7 @@ const EventDetail = () => {
       getIdToken(currentUser, true).then((idToken) => {
         axios.interceptors.request.use((request) => {
           if (idToken && request.headers != null) {
-            request.headers = { "X-auth-token": `Bearer ${idToken}` };
+            request.headers = { "Authorization": `Bearer ${idToken}` };
           }
           return request;
         });
