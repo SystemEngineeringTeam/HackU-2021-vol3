@@ -12,42 +12,62 @@ import (
 func init() {
 	db := connect()
 
-	if err := db.AutoMigrate(&models.User{}, &models.Image{}, &models.Tag{}, &models.Badges{}, &models.Event{}); err != nil {
+	if err := db.AutoMigrate(&models.User{}, &models.Image{}, &models.Tag{}, &models.Badge{}, &models.Event{}); err != nil {
 		log.Fatal(err)
 	}
 
-	// create a new user
-	u := models.User{
+	user := models.User{
 		Name:            "test",
-		FirebaseUID:     "test",
 		ProfileImageURL: "test",
+		FirebaseUID:     "test",
 	}
-	if err := db.Create(&u).Error; err != nil {
+	if err := db.Find(&user).Error; err != nil {
 		log.Fatal(err)
 	}
 
-	// create new tags
-	tags := []models.Tag{
-		{Tag: "test"},
-		{Tag: "test2"},
-	}
-	if err := db.Create(tags).Error; err != nil {
-		log.Fatal(err)
-	}
+	if user.ID == 0 {
 
-	// create a new event
-	e := models.Event{
-		Title:       "test",
-		Description: "test",
-		Document:    "test",
-		DateTime:    "test",
-		StreamURL:   "test",
-		Image:       models.Image{ImageURL: "test"},
-		Tags:        tags,
-		Organizer:   u,
-	}
-	if err := db.Create(&e).Error; err != nil {
-		log.Fatal(err)
+		b := models.Badge{
+			Badge: "test",
+		}
+		if err := db.Create(&b).Error; err != nil {
+			log.Fatal(err)
+		}
+
+		// create a new user
+		u := models.User{
+			Name:            "test",
+			FirebaseUID:     "test",
+			ProfileImageURL: "test",
+			BadgeID:         b.ID,
+		}
+		if err := db.Create(&u).Error; err != nil {
+			log.Fatal(err)
+		}
+
+		// create new tags
+		tags := []models.Tag{
+			{Tag: "test"},
+			{Tag: "test2"},
+		}
+		if err := db.Create(tags).Error; err != nil {
+			log.Fatal(err)
+		}
+
+		// create a new event
+		e := models.Event{
+			Title:       "test",
+			Description: "test",
+			Document:    "test",
+			DateTime:    "test",
+			StreamURL:   "test",
+			Image:       models.Image{ImageURL: "test"},
+			Tags:        tags,
+			Organizer:   u,
+		}
+		if err := db.Create(&e).Error; err != nil {
+			log.Fatal(err)
+		}
 	}
 }
 

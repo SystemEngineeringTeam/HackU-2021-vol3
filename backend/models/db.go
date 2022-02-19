@@ -4,21 +4,23 @@ import "github.com/jinzhu/gorm"
 
 type User struct {
 	gorm.Model
-	FirebaseUID     string
-	Name            string
-	ProfileImageURL string
+	FirebaseUID     string `gorm:"not null;unique"`
+	Name            string `gorm:"not null"`
+	ProfileImageURL string `gorm:"not null"`
+	BadgeID         uint
+	Badge           Badge
 }
 
 type Event struct {
 	gorm.Model
-	Title       string
-	Description string
-	Document    string
-	ImageID     uint
+	Title       string `gorm:"not null"`
+	Description string `gorm:"not null"`
+	Document    string `gorm:"not null"`
+	ImageID     uint   `gorm:"not null"`
 	Image       Image
-	OrganizerID uint
+	OrganizerID uint `gorm:"not null"`
 	Organizer   User
-	DateTime    string
+	DateTime    string `gorm:"not null"`
 	StreamURL   string
 	Tags        []Tag `gorm:"many2many:event_tags;"`
 }
@@ -43,9 +45,8 @@ type Tag struct {
 	Tag string
 }
 
-type Badges struct {
+type Badge struct {
 	gorm.Model
-
 	Badge string
 }
 
