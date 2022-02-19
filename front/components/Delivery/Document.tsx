@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import styled from "styled-components";
@@ -43,34 +43,39 @@ const Document = () => {
 #### こんばんは
 #### こんばんは`;
 
-  const documentArray: string[] = [];
+  useEffect(() => {
+    const documentSplit = body.split("\n## ");
+    const documentArray: string[] = [];
 
-  const element = body.split("\n## ");
+    documentArray.push(documentSplit[0]);
 
-  const test = `## ${element[1]}`;
-  console.log(test);
+    for (let index = 1; index < documentSplit.length; index++) {
+      const documentSingle = `## ${documentSplit[index]}`;
+      documentArray.push(documentSingle);
+    }
 
-  // for (let index = 0; index < body.length; index++) {
-  //   let elements=
-  //   if (body[index] !== "\n") {
-  //     const element = body[index];
-  //   } else {
-  //     if (body[index + 1] === "#" && body[index + 2] === "#") {
-  //       documentArray.push("<h3>");
-  //     }
-  //   }
-  // }
+    console.log(documentArray);
+
+    setDocumentCollection(documentArray);
+  }, []);
+
   return (
     <>
-      <div>
-        <ReactMarkdown
-          className="prose "
-          /* @ts-ignore */
-          components={{ code: CodeBlock }}
-          remarkPlugins={[remarkGfm]}
-        >
-          {test}
-        </ReactMarkdown>
+      <div className="flex flex-col w-2/5">
+        <div className="flex justify-center bg-slate-300">
+          <ReactMarkdown
+            className="prose "
+            /* @ts-ignore */
+            components={{ code: CodeBlock }}
+            remarkPlugins={[remarkGfm]}
+          >
+            {documentCollection[0]}
+          </ReactMarkdown>
+        </div>
+        <div className="flex justify-between bg-green-300">
+          <div>Back</div>
+          <div>Next</div>
+        </div>
       </div>
     </>
   );
