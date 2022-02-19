@@ -189,6 +189,18 @@
 
 }
 
+#onFileInputChange {
+    display: none;
+}
+
+#LookFile {
+    position: absolute;
+    margin-top: 177px;
+    margin-left: 160px;
+    color: #3E3E3E;
+    font-weight: bold;
+}
+
 .flavor_text_upload {
     position: relative;
     left: 20%;
