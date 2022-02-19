@@ -13,6 +13,10 @@ import (
 )
 
 func EventPostHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Println(err)
@@ -23,7 +27,21 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	err = dboperation.CreateEvent(event, "firebaseuid") //create event
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	user, err := verifyCheck(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	uid := user["FirebaseUID"]
+	fmt.Println(uid)
+
+	err = dboperation.CreateEvent(event, uid) //create event
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
