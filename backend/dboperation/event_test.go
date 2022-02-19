@@ -68,3 +68,11 @@ func TestSelectEvents(t *testing.T) {
 	}
 	fmt.Println(events)
 }
+
+func TestSelectEvent(t *testing.T) {
+	event, err := SelectEventByID(1)
+	if err != nil {
+		t.Error(err)
+	}
+	fmt.Println(event)
+}
