@@ -20,7 +20,7 @@ func ImagesGetHandler(w http.ResponseWriter, r *http.Request) {
 
 	for _, img := range images {
 		r := models.ImageGetResponse{
-			ID:  img.ID,
+
 			URL: img.ImageURL,
 		}
 		response = append(response, r)
