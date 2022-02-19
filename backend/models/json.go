@@ -1,7 +1,7 @@
 package models
 
 type UserIdGetResponse struct {
-	Id              int    `json:"id"`
+	ID              uint   `json:"id"`
 	Name            string `json:"name"`
 	ProfileImageURL string `json:"profileImageURL"`
 	Badge           string `json:"badge"`
@@ -18,17 +18,16 @@ type UserPutRequest struct {
 }
 
 type ImageGetResponse struct {
-	ID  int    `json:"id"`
+	ID  uint   `json:"id"`
 	URL string `json:"url"`
 }
 
-type EventPostAndDeleteRequest struct {
+type EventPostRequest struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Document    string `json:"document"`
 	ImageID     int    `json:"imageID"`
 	DateTime    string `json:"datetime"`
-	StreamURL   string `json:"streamURL"`
 	Tags        []int  `json:"tags"`
 }
 
@@ -48,4 +47,13 @@ type FeedbackPostRequest struct {
 
 type CommentGetAndPostRequest struct {
 	Comment string `json:"comment"`
+}
+
+type EventGetResponse struct {
+	ID        uint     `json:"id"`
+	Title     string   `json:"title"`
+	ImageURL  string   `json:"imageURL"`
+	Organizer string   `json:"organizer"`
+	DateTime  string   `json:"datetime"`
+	Tags      []string `json:"tags"`
 }
