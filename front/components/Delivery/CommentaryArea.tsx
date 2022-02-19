@@ -4,8 +4,8 @@ import Comment from "./Comment";
 const CommentaryArea = () => {
   return (
     <>
-      <div className="flex flex-col bg-yellow-300">
-        <div className="flex overflow-y-auto flex-col mx-8 mt-8 h-56 bg-slate-200 border border-slate-200 shadow-md">
+      <div className="flex flex-col ">
+        <div className="flex overflow-y-auto flex-col mx-8 mt-8 h-56 bg-slate-100 border border-slate-200 shadow-md">
           <div className="flex items-center">
             <div>
               <Image src="/mikan.png" height="50" width="50px" alt="mikan" />
