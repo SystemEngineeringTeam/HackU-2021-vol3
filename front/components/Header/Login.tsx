@@ -7,9 +7,9 @@ import {
 } from "firebase/auth";
 import Image from "next/image";
 import React, { useContext, useEffect } from "react";
-import { axiosInstance as axios } from "../utils/api";
-import { firebaseApp } from "../utils/firebase";
-import { AuthContext } from "./Auth";
+import { axiosInstance as axios } from "../../utils/api";
+import { firebaseApp } from "../../utils/firebase";
+import { AuthContext } from "../Auth";
 
 const Login = () => {
   const [showModal, setShowModal] = React.useState(false);

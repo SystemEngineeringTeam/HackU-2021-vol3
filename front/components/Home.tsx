@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useContext } from "react";
 import { firebaseApp } from "../utils/firebase";
 import { AuthContext } from "./Auth";
-import Event from "./Event";
-import Header from "./Header";
+import Event from "./Event/Event";
+
 import Layout from "./Layout";
 import SelectSort from "./SelectSort";
 import Sidebar from "./Sidebar";

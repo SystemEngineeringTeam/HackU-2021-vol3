@@ -1,5 +1,5 @@
 import { ReactNode, VFC } from "react";
-import Header from "./Header";
+import Header from "./Header/Header";
 
 const Layout = ({ children }: { children?: ReactNode }) => {
   return (

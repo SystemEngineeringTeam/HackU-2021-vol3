@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Header from "./Header";
-import Layout from "./Layout";
 
 const Event = () => {
   const log = () => {

@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
-import { axiosInstance as axios } from "../utils/api";
-import { AuthContext } from "./Auth";
-import BeforeScreenToReturn from "./BeforeScreenToReturn";
+import { axiosInstance as axios } from "../../utils/api";
+import { AuthContext } from "../Auth";
+import BeforeScreenToReturn from "../BeforeScreenToReturn";
 
 type Event = {
   id: string;
@@ -52,14 +52,15 @@ const EventDetail = () => {
       getIdToken(currentUser, true).then((idToken) => {
         axios.interceptors.request.use((request) => {
           if (idToken && request.headers != null) {
-            request.headers.Authorization = `Bearer ${idToken}`;
+            request.headers = { "Authorization": `Bearer ${idToken}` };
           }
           return request;
         });
         axios
-          .post(`/event/register/${pid}`)
+          .post(`/event/register`)
           .then((res) => {
             console.log(res.statusText);
+            console.log(res.data);
           })
           .catch((err) => {
             console.log(err);

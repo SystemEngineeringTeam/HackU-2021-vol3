@@ -3,7 +3,7 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 import { getAuth, getIdToken, signOut } from "firebase/auth";
 import Image from "next/image";
 import { Fragment } from "react";
-import { firebaseApp } from "../utils/firebase";
+import { firebaseApp } from "../../utils/firebase";
 
 const solutions = [
   {
