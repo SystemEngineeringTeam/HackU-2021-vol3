@@ -10,19 +10,16 @@ import {
 import Image from "next/image";
 import React, { useContext, useEffect, useRef } from "react";
 import { axiosInstance as axios } from "../utils/api";
+import { AuthContext } from "./Auth";
 
-type Props = {
-  currentUser: User | null | undefined;
-};
-
-const RegsiterUser = (props: Props) => {
-  const [showModal, setShowModal] = React.useState(true);
-
+const RegsiterUser = () => {
+  const [showModal, setShowModal] = React.useState(false);
   const inputUserName = useRef(null);
+  const { currentUser } = useContext(AuthContext);
 
   const submitUserName = () => {
-    if (props.currentUser != null) {
-      getIdToken(props.currentUser, true).then((idToken) => {
+    if (currentUser != null) {
+      getIdToken(currentUser, true).then((idToken) => {
         axios.interceptors.request.use((request) => {
           if (idToken && request.headers != null) {
             request.headers = { Authorization: `Bearer ${idToken}` };
@@ -32,7 +29,7 @@ const RegsiterUser = (props: Props) => {
         axios
           .post("/user", {
             name: inputUserName,
-            profileImageURL: props.currentUser?.photoURL,
+            profileImageURL: currentUser?.photoURL,
           })
           .then((res) => {
             console.log(res);

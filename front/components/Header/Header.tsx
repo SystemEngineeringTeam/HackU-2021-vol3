@@ -96,7 +96,7 @@ const Header = () => {
             </div>
           )}
         </div>
-        {isNewUser ? <RegsiterUser currentUser={currentUser} /> : null}
+        {isNewUser ? <RegsiterUser /> : null}
 
         <button
           type="button"
