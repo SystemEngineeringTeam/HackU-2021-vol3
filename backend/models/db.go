@@ -1,52 +1,56 @@
 package models
 
+import "github.com/jinzhu/gorm"
+
 type User struct {
-	ID              int    `gorm:"column:id"`
-	FirebaseUID     string `gorm:"column:firebase_uid"`
-	Name            string `gorm:"column:name"`
-	ProfileImageURL string `gorm:"column:profile_image_url"`
+	gorm.Model
+	FirebaseUID     string `gorm:"not null;unique"`
+	Name            string `gorm:"not null"`
+	ProfileImageURL string `gorm:"not null"`
+	BadgeID         uint
+	Badge           Badge
 }
 
 type Event struct {
-	ID          int    `gorm:"column:id"`
-	Title       string `gorm:"column:title"`
-	Description string `gorm:"column:description"`
-	Document    string `gorm:"column:document"`
-	DateTime    string `gorm:"column:datetime"`
-	Organizer   int    `gorm:"column:organizer"`
-	StreamURL   string `gorm:"column:stream_url"`
-	ImageID     int    `gorm:"column:image_id"`
+	gorm.Model
+	Title       string `gorm:"not null"`
+	Description string `gorm:"not null"`
+	Document    string `gorm:"not null"`
+	ImageID     uint   `gorm:"not null"`
+	Image       Image
+	OrganizerID uint `gorm:"not null"`
+	Organizer   User
+	DateTime    string `gorm:"not null"`
+	StreamURL   string
+	Tags        []Tag `gorm:"many2many:event_tags;"`
 }
 
-type FeedBack struct {
-	EventID int    `gorm:"column:event_id"`
-	UserID  int    `gorm:"column:user_id"`
-	Stars   int    `gorm:"column:stars"`
-	Comment string `gorm:"column:comment"`
+// type FeedBack struct {
+//  gorm.Model
+// 	EventID int
+// 	UserID  int
+// 	Stars   int
+// 	Comment string
+// }
+
+// type Comments struct {
+//  gorm.Model
+// 	EventID int
+// 	UserID  int
+// 	Comment string
+// }
+
+type Tag struct {
+	gorm.Model
+	Tag string
 }
 
-type Comments struct {
-	EventID int    `gorm:"column:event_id"`
-	UserID  int    `gorm:"column:user_id"`
-	Comment string `gorm:"column:comment"`
-}
-
-type Tags struct {
-	ID  int    `gorm:"column:id"`
-	Tag string `gorm:"column:tag"`
-}
-
-type Badges struct {
-	ID    int    `gorm:"column:id"`
-	Badge string `gorm:"column:badge"`
+type Badge struct {
+	gorm.Model
+	Badge string
 }
 
 type Image struct {
-	ID       int    `gorm:"column:id"`
-	ImageURL string `gorm:"column:image_url"`
-}
-
-type EventTags struct {
-	EventID int `gorm:"column:event_id"`
-	TagID   int `gorm:"column:tag_id"`
+	gorm.Model
+	ImageURL string
 }
