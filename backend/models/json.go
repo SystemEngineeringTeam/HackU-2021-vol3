@@ -30,6 +30,8 @@ type EventPostAndDeleteRequest struct {
 	DateTime    string `json:"datetime"`
 	StreamURL   string `json:"streamURL"`
 	Tags        []int  `json:"tags"`
+	Parcitipants string `json:"parcitipants"`
+	Organizer []UserIdGetResponse `json:"organizer"`
 }
 
 type EventPutRequest struct {
