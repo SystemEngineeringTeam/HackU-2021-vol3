@@ -7,7 +7,7 @@ const Delivary = () => {
   return (
     <Layout>
       <div className="flex">
-        <div className="w-1/2 bg-slate-300">
+        <div className="w-3/5 bg-slate-300">
           <DeliveryScreen />
         </div>
         <Document />

@@ -1,7 +1,15 @@
 const DeliveryScreen = () => {
   return (
     <div className="flex">
-      <div>sssssssss</div>
+      <iframe
+        width="1200"
+        height="700"
+        src="https://www.youtube.com/embed/4N7HKC7szFA"
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
     </div>
   );
 };
