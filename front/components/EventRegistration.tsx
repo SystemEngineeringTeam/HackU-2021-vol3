@@ -2,6 +2,12 @@ import React from 'react';
 import ConfirmAddEvent from './ConfirmAddEvent';
 import ImageSelect from './ImageSelect';
 const EventRegistration = () => {
+    type TagProps = {
+        key: number,
+        value: string,
+    }
+    const [tags, setTags] = React.useState<TagProps[]>([
+    ]);
     const [file, setFile] = React.useState<File | null>(null);
     const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.files);
@@ -73,16 +79,22 @@ const EventRegistration = () => {
                         <input type="text" readOnly />
                     </label>
                 </div>
-                <div className="tag">
-                    <div className="">
-                        <div className="tag_text">
-                            タグの追加
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 tag_svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-                            </svg>
+                <div />
+                <div>
+                    <div className="tag">
+                        <div className="">
+                            <div className="tag_text">
+                                タグの追加
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 tag_svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
         </>
     );
