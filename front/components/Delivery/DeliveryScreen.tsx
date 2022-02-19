@@ -3,7 +3,7 @@ const DeliveryScreen = () => {
     <div className="flex">
       <iframe
         width="1200"
-        height="700"
+        height="600"
         src="https://www.youtube.com/embed/4N7HKC7szFA"
         title="YouTube video player"
         frameBorder="0"

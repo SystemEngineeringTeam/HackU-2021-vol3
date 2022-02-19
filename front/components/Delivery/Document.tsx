@@ -20,11 +20,8 @@ const Document = () => {
 * おはよう。
 * おはよう。
 * おはよう。
-* おはよう。
-* おはよう。
-* おはよう。
-* おはよう。
-* おはよう。
+
+* おはよう.
 ## タイトル2
 1. こんにちは。
 2. こんにちは。
@@ -61,8 +58,8 @@ const Document = () => {
 
   return (
     <>
-      <div className="flex flex-col w-2/5">
-        <div className="flex justify-center bg-slate-300">
+      <div className="flex flex-col w-2/5 ">
+        <div className="flex basis-11/12 justify-start mt-4 ml-2 bg-red-300">
           <ReactMarkdown
             className="prose "
             /* @ts-ignore */
@@ -72,9 +69,17 @@ const Document = () => {
             {documentCollection[0]}
           </ReactMarkdown>
         </div>
-        <div className="flex justify-between bg-green-300">
-          <div>Back</div>
-          <div>Next</div>
+        <div className="flex justify-between h-16 bg-green-300">
+          <button className="ml-10">
+            <div className="py-1 px-2 text-2xl text-blue-400 bg-white rounded">
+              Back
+            </div>
+          </button>
+          <button className="">
+            <div className="py-1 px-2 text-2xl text-white bg-blue-400 rounded">
+              Next
+            </div>
+          </button>
         </div>
       </div>
     </>
