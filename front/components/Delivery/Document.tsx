@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import styled from "styled-components";
+import { scrollFadeIn } from "../ScrollFadeIn";
 import CodeBlock from "./CodeBlock";
 
 const Document = () => {
@@ -44,18 +45,16 @@ const Document = () => {
   useEffect(() => {
     const documentSplit = body.split("\n## ");
     const documentArray: string[] = [];
-
     documentArray.push(documentSplit[0]);
-
     for (let index = 1; index < documentSplit.length; index++) {
       const documentSingle = `## ${documentSplit[index]}`;
       documentArray.push(documentSingle);
     }
-
     console.log(documentArray);
-
     setDocumentCollection(documentArray);
-  }, []);
+
+    scrollFadeIn();
+  }, [body, pageIndex]);
 
   const NextPage = () => {
     setPageIndex(pageIndex + 1);
@@ -68,9 +67,9 @@ const Document = () => {
   return (
     <>
       <div className="flex flex-col w-2/5 ">
-        <div className="flex basis-11/12 justify-start mt-4 shadow-md">
+        <div className="flex basis-11/12 justify-start mt-4 shadow-md ">
           <ReactMarkdown
-            className="ml-2 prose"
+            className="ml-2 prose js-show-on-scroll"
             /* @ts-ignore */
             components={{ code: CodeBlock }}
             remarkPlugins={[remarkGfm]}
@@ -94,7 +93,7 @@ const Document = () => {
           )}
 
           <button className="mr-10" onClick={NextPage}>
-            <div className="py-1 px-2 text-2xl text-white bg-blue-400 rounded shadow-md">
+            <div className="py-1 px-2 text-2xl text-white bg-blue-400 rounded shadow-md ">
               Next
             </div>
           </button>

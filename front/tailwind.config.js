@@ -15,6 +15,22 @@ module.exports = {
         "original-black": "#444444",
         "original-white": "#E9E9E9",
       },
+
+      animation: {
+        slideIn: "slideIn 1s ease-in forwards",
+      },
+      keyframes: {
+        slideIn: {
+          "0%": {
+            opacity: 0,
+            transform: "translateY(60px)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "translateY(0)",
+          },
+        },
+      },
     },
   },
   variants: {
