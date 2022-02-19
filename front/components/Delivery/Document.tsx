@@ -6,6 +6,14 @@ import styled from "styled-components";
 import CodeBlock from "./CodeBlock";
 
 const Document = () => {
+  const router = useRouter();
+  const { pid } = router.query;
+
+  const [document, setDocument] = React.useState<string>("");
+  const [documentCollection, setDocumentCollection] = React.useState<string[]>(
+    []
+  );
+
   const body = `
 # タイトル1
 * おはよう。
@@ -35,6 +43,23 @@ const Document = () => {
 #### こんばんは
 #### こんばんは`;
 
+  const documentArray: string[] = [];
+
+  const element = body.split("\n## ");
+
+  const test = `## ${element[1]}`;
+  console.log(test);
+
+  // for (let index = 0; index < body.length; index++) {
+  //   let elements=
+  //   if (body[index] !== "\n") {
+  //     const element = body[index];
+  //   } else {
+  //     if (body[index + 1] === "#" && body[index + 2] === "#") {
+  //       documentArray.push("<h3>");
+  //     }
+  //   }
+  // }
   return (
     <>
       <div>
@@ -44,7 +69,7 @@ const Document = () => {
           components={{ code: CodeBlock }}
           remarkPlugins={[remarkGfm]}
         >
-          {body}
+          {test}
         </ReactMarkdown>
       </div>
     </>
