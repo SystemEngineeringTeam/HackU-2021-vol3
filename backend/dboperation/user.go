@@ -32,10 +32,13 @@ func getUserByFirebaseUID(firebaseUID string) (models.User, error) {
 func CreateUser(name, profileImageURL, firebaseUID string) error {
 	db := connect()
 
-	var user models.User
-	user.Name = name
-	user.ProfileImageURL = profileImageURL
-	user.FirebaseUID = firebaseUID
+	user := models.User{
+		Name:            name,
+		ProfileImageURL: profileImageURL,
+		FirebaseUID:     firebaseUID,
+		BadgeID:         1,
+	}
+
 	if err := db.Create(&user).Error; err != nil {
 		return err
 	}

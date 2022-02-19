@@ -39,27 +39,27 @@ func TestCreateEvent(t *testing.T) {
 	fmt.Println(event)
 }
 
-func TestUpdateEvent(t *testing.T) {
-	r := rand.Intn(100)
-	e := models.EventPutRequest{
-		Title:       "hoge",
-		Description: "test",
-		DateTime:    "20220101000000",
-		StreamURL:   "http://google.com/" + strconv.Itoa(r),
-		ImageID:     1,
-		Tags:        []int{1, 2, 3, 4},
-	}
+// func TestUpdateEvent(t *testing.T) {
+// 	r := rand.Intn(100)
+// 	e := models.EventPutRequest{
+// 		Title:       "hoge",
+// 		Description: "test",
+// 		DateTime:    "20220101000000",
+// 		StreamURL:   "http://google.com/" + strconv.Itoa(r),
+// 		ImageID:     1,
+// 		Tags:        []int{1, 2, 3, 4},
+// 	}
 
-	err := UpdateEvent(e, 1)
-	if err != nil {
-		t.Error(err)
-	}
-	db := connect()
+// 	err := UpdateEvent(e, 1)
+// 	if err != nil {
+// 		t.Error(err)
+// 	}
+// 	db := connect()
 
-	var event models.Event
-	db.Where("title = ?", "hoge").First(&event)
-	fmt.Println(event)
-}
+// 	var event models.Event
+// 	db.Model(&event).Where("title = ?", "hoge").First(&event)
+// 	fmt.Println(event)
+// }
 
 func TestSelectEvents(t *testing.T) {
 	events, err := SelectEvents()
