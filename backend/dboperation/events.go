@@ -102,7 +102,7 @@ func SelectEvents() ([]models.EventGetResponse, error) {
 	return eventsResponse, nil
 }
 
-func SelectEvent(id int) (models.EventWithIDGetResponse, error) {
+func SelectEventByID(id int) (models.EventWithIDGetResponse, error) {
 	db := connect()
 
 	var event models.Event
