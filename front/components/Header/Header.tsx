@@ -20,6 +20,7 @@ const Header = () => {
       getIdToken(currentUser, true).then((idToken) => {
         console.log(idToken);
         //初期ユーザーが判定するAPIを叩く
+        //初期ユーザならisNewUserをtrueに変更
       });
     }
   });

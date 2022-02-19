@@ -3,7 +3,7 @@ import { FC, createContext, useEffect, useState } from "react";
 import { firebaseApp } from "../utils/firebase";
 
 type AuthContextProps = {
-  currentUser: User | null | undefined;
+  currentUser: User | null | undefined;  
 };
 
 const AuthContext = createContext<AuthContextProps>({ currentUser: undefined });

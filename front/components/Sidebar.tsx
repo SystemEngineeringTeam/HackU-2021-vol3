@@ -49,7 +49,7 @@ export default function Example() {
                 />
               </Disclosure.Button>
               <button onClick={log} className="w-full">
-                <Disclosure.Panel className="flex justify-between px-4 pt-4 pb-2 text-sm font-bold text-original-black border border-black hover:opacity-8b0">
+                <Disclosure.Panel className="flex justify-between px-4 pt-4 pb-2 text-sm font-bold text-original-black border border-black hover:opacity-80">
                   <div className="flex">
                     <div className="mt-1 mr-6">
                       <Image
