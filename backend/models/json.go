@@ -29,6 +29,8 @@ type EventPostRequest struct {
 	ImageID     int    `json:"imageID"`
 	DateTime    string `json:"datetime"`
 	Tags        []int  `json:"tags"`
+	Parcitipants string `json:"parcitipants"`
+	Organizer []UserIdGetResponse `json:"organizer"`
 }
 
 type EventPutRequest struct {
