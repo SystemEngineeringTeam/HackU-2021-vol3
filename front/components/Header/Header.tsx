@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useContext, useEffect } from "react";
 
 import { AuthContext } from "../Auth";
+import RegsiterUser from "../RegisterUser";
 import Login from "./Login";
 import ProfilePopOver from "./ProfilePopOver";
 
@@ -93,6 +94,7 @@ const Header = () => {
             </div>
           )}
         </div>
+        <RegsiterUser />
 
         <button
           type="button"
