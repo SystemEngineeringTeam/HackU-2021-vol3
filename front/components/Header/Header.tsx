@@ -11,16 +11,13 @@ import Login from "./Login";
 import ProfilePopOver from "./ProfilePopOver";
 
 const Header = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, currentIdToken } = useContext(AuthContext);
   const [isNewUser, setIsNewUser] = useState<boolean>(true);
-  const idToknen = useRef("");
 
   useEffect(() => {
     if (currentUser != null) {
       getIdToken(currentUser, true).then((idToken) => {
-        console.log(idToken);
-        //初期ユーザーが判定するAPIを叩く
-        //初期ユーザならisNewUserをtrueに変更
+        // console.log(currentIdToken);
       });
     }
   });

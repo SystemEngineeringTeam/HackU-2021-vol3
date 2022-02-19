@@ -1,13 +1,3 @@
-import {
-  getAuth,
-  signOut,
-  signInWithRedirect,
-  GoogleAuthProvider,
-  getRedirectResult,
-  User,
-  getIdToken,
-} from "firebase/auth";
-import Image from "next/image";
 import React, { useContext, useEffect, useRef } from "react";
 import { axiosInstance as axios } from "../utils/api";
 import { AuthContext } from "./Auth";
@@ -15,29 +5,27 @@ import { AuthContext } from "./Auth";
 const RegsiterUser = () => {
   const [showModal, setShowModal] = React.useState(false);
   const inputUserName = useRef(null);
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, currentIdToken } = useContext(AuthContext);
 
   const submitUserName = () => {
-    if (currentUser != null) {
-      getIdToken(currentUser, true).then((idToken) => {
-        axios.interceptors.request.use((request) => {
-          if (idToken && request.headers != null) {
-            request.headers = { Authorization: `Bearer ${idToken}` };
-          }
-          return request;
-        });
-        axios
-          .post("/user", {
-            name: inputUserName,
-            profileImageURL: currentUser?.photoURL,
-          })
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+    if (currentUser !== null) {
+      axios.interceptors.request.use((request) => {
+        if (currentIdToken && request.headers != null) {
+          request.headers = { Authorization: `Bearer ${currentIdToken}` };
+        }
+        return request;
       });
+      axios
+        .post("/user", {
+          name: inputUserName,
+          profileImageURL: currentUser?.photoURL,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
