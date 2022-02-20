@@ -17,6 +17,7 @@ const Header = () => {
   useEffect(() => {
     //新規ユーザか判定するAPIを叩く
     //新規ユーザならisNewUserをtrueにする
+    console.log(currentUser);
   });
 
   const profile = (

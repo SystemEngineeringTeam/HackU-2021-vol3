@@ -1,7 +1,27 @@
+import axios from "axios";
 import Image from "next/image";
+import { useState } from "react";
 import Comment from "./Comment";
 
 const CommentaryArea = () => {
+  // const [nextPageToken, setNextPageToken] = useState<string>("");
+
+  const getComment = () => {
+    axios
+      .get(
+        "https://www.googleapis.com/youtube/v3/liveChat/messages?liveChatId=Cg0KC0hwZE81S3EzbzdZKicKGFVDR0NaQVlxNVh4b2psX3RTWGNWSmhpURILSHBkTzVLcTNvN1k&part=snippet&key=AIzaSyDvs5shgzFHiQz6vQO6mIyk7zZ9ic0jl4s&="
+      )
+      .then((res) => {
+        console.log(
+          res["data"]["items"][0]["snippet"]["textMessageDetails"][
+            "messageText"
+          ]
+        );
+      });
+  };
+
+  // setInterval(getComment, 3000);
+
   return (
     <>
       <div className="flex flex-col ">

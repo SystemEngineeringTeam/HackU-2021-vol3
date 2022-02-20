@@ -50,10 +50,11 @@ const Document = () => {
       const documentSingle = `## ${documentSplit[index]}`;
       documentArray.push(documentSingle);
     }
-    console.log(documentArray);
+    // console.log(documentArray);
     setDocumentCollection(documentArray);
-
     scrollFadeIn();
+
+    
   }, [body, pageIndex]);
 
   const NextPage = () => {
