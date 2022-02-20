@@ -13,7 +13,8 @@ import (
 )
 
 func EventGetHandler(w http.ResponseWriter, r *http.Request) {
-	events, err := dboperation.SelectEvents()
+	events, err := dboperation.SelectEvents("Go-Handson", "準備中", []string{"Go"}, 1)
+	//for test use
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
