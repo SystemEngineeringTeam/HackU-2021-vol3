@@ -21,7 +21,7 @@ func main() {
 	router.Methods("PUT").Path("/user").HandlerFunc(apifunc.UserPutHandler)
 	router.HandleFunc("/user/{id}", apifunc.IdGetHandler)
 
-	router.Methods("POST").Path("/register").HandlerFunc(apifunc.RegisterIdPostHandler)
+	router.Methods("POST", "OPTIONS").Path("/register").HandlerFunc(apifunc.RegisterIdPostHandler)
 
 	router.Methods("POST", "OPTIONS").Path("/event").HandlerFunc(apifunc.EventPostHandler)
 	// router.Methods("PUT").Path("/event/{id}").HandlerFunc(apifunc.EventPutHandler)
