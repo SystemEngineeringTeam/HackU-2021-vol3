@@ -62,11 +62,14 @@ func TestCreateEvent(t *testing.T) {
 // }
 
 func TestSelectEvents(t *testing.T) {
-	events, err := SelectEvents("t", "", nil, 0)
+	events, err := SelectEvents("", "", nil, 0)
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Println(events)
+
+	for _, e := range events {
+		fmt.Println(e.Title)
+	}
 }
 
 func TestSelectEvent(t *testing.T) {

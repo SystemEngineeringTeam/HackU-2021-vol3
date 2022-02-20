@@ -1,6 +1,8 @@
 package dboperation
 
 import (
+	"fmt"
+
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/models"
 )
 
@@ -86,10 +88,23 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 	}
 
 	for i, e := range events {
-		if e.ContainsAllTags(tags) {
+		if !e.ContainsAllTags(tags) {
 			events = append(events[:i], events[i+1:]...)
 		}
 	}
+
+	const pageSize = 10
+
+	if page < 1 {
+		page = 1
+	}
+	events = events[(page-1)*pageSize:]
+
+	if len(events) > pageSize {
+		events = events[:pageSize]
+	}
+
+	fmt.Println(len(events))
 
 	var eventsResponse []models.EventGetResponse
 	for _, e := range events {
