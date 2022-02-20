@@ -14,22 +14,22 @@ import (
 	"google.golang.org/api/option"
 )
 
-// func Auth(w http.ResponseWriter, r *http.Request) {
-// 	//CORS設定
-// 	w.Header().Set("Access-Control-Allow-Origin", "*")
-// 	w.Header().Set("Access-Control-Allow-Headers", "*")
-// 	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
-// 	if r.Method == "OPTIONS" {
-// 		w.WriteHeader(http.StatusOK)
-// 		return
-// 	}
+func Auth(w http.ResponseWriter, r *http.Request) {
+	//CORS設定
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
 
-// 	user, err := verifyCheck(r)
-// 	if err != nil {
-// 		log.Println(err)
-// 	}
-// 	fmt.Println(user)
-// }
+	user, err := verifyCheck(r)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(user)
+}
 
 func verifyCheck(r *http.Request) (map[string]string, error) {
 	//Firebase SDKの初期化
