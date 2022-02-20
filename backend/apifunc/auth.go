@@ -9,32 +9,39 @@ import (
 	"strings"
 
 	firebase "firebase.google.com/go"
+
 	"github.com/joho/godotenv"
 	"google.golang.org/api/option"
 )
 
 func Auth(w http.ResponseWriter, r *http.Request) {
-	uid, err := verifyCheck(r)
+	//CORS設定
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	user, err := verifyCheck(r)
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(uid)
+	fmt.Println(user)
 }
 
-func verifyCheck(r *http.Request) (string, error) {
-
-	//Access-ControlをVerifyCheck内にも適用
-
+func verifyCheck(r *http.Request) (map[string]string, error) {
 	//Firebase SDKの初期化
 	err := godotenv.Load("firebase/.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
-	//envファイルからcredentials(秘密鍵)を取得
+	//envファイルからcredentials(秘密鍵),Project_idを取得
 	/*CREDENTIALSはfirebaseの設定で作成したjsonファイルのパス,以下のような感じでcredentials.envにCREDENTIALSを記述
 	CREDENTIALS=/Users/<ユーザ名>/firebase/<Firebase SDKの秘密鍵の名前>.json
-	*/
+	PROJECT_ID=<Firebaseのプロジェクト名>*/
 	ctx := r.Context()
 	if ctx == nil {
 		ctx = context.Background()
@@ -53,14 +60,14 @@ func verifyCheck(r *http.Request) (string, error) {
 		fmt.Printf("Cannot initialize firebase auth: %v\n", err)
 	}
 
-	header := r.Header.Get("X-auth-token") //クライアントからJWTを取得する
+	header := r.Header.Get("Authorization") //クライアントからJWTを取得する
 	tokenID := strings.Replace(header, "Bearer ", "", 1)
 	//fmt.Println(token_id)
 	//JWTのベリファイ
 	gotToken, err := auth.VerifyIDToken(ctx, tokenID)
-	if err != nil { //認証に失敗した場合(JWTが不正な場合)は、401エラーを返す
+	if err != nil { //認証に失敗した場合(JWTが不正な場合)は、エラーを返す
 		fmt.Printf("Cannot verify token_id: %v\n", err)
-		return "", err
+		return nil, err
 	}
 
 	log.Printf("Verified ID token: %v\n", gotToken)
@@ -68,5 +75,18 @@ func verifyCheck(r *http.Request) (string, error) {
 	uid := gotToken.UID //認証に成功した場合はuidを取得する
 	log.Printf("Verified user_id: %v\n", uid)
 
-	return uid, nil
+	user, err := auth.GetUser(ctx, uid)
+	if err != nil {
+		log.Printf("Cannot get user: %v\n", err)
+		return nil, err
+	}//UIDからユーザー情報を取得する(ユーザ画像，ユーザ名)
+	log.Println(user.DisplayName, user.PhotoURL)
+
+	userData := map[string]string{
+		"Name":            user.DisplayName,
+		"ProfileImageURL": user.PhotoURL,
+		"FirebaseUID":     uid,
+	}//取得したデータを連想配列で格納し，返す
+
+	return userData, nil
 }

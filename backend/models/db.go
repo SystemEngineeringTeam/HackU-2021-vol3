@@ -1,45 +1,58 @@
 package models
 
+import "github.com/jinzhu/gorm"
+
 type User struct {
-	ID              int    `gorm:"id"`
-	FirebaseUID     string `gorm:"firebase_uid"`
-	Name            string `gorm:"name"`
-	ProfileImageURL string `gorm:"profile_image_url"`
+	gorm.Model
+	FirebaseUID     string `gorm:"not null;unique;"`
+	Name            string `gorm:"not null;"`
+	ProfileImageURL string `gorm:"not null;"`
+	BadgeID         uint
+	Badge           Badge
+	JoinedEvents    []Event `gorm:"many2many:event_parcitipants;"`
 }
 
 type Event struct {
-	ID          int    `gorm:"id"`
-	Title       string `gorm:"title"`
-	Description string `gorm:"description"`
-	Document    string `gorm:"document"`
-	DateTime    string `gorm:"datetime"`
-	Limit       int    `gorm:"limit"`
+	gorm.Model
+	Title        string `gorm:"not null"`
+	Description  string `gorm:"not null"`
+	Document     string `gorm:"not null"`
+	ImageID      uint   `gorm:"not null"`
+	Image        Image
+	OrganizerID  uint `gorm:"not null"`
+	Organizer    User
+	DateTime     string `gorm:"not null"`
+	StreamURL    string
+	Tags         []Tag  `gorm:"many2many:event_tags;"`
+	Parcitipants []User `gorm:"many2many:event_parcitipants;"`
 }
 
-type FeedBack struct {
-	EventID int    `gorm:"event_id"`
-	UserID  int    `gorm:"user_id"`
-	Stars   int    `gorm:"stars"`
-	Comment string `gorm:"comment"`
+// type FeedBack struct {
+//  gorm.Model
+// 	EventID int
+// 	UserID  int
+// 	Stars   int
+// 	Comment string
+// }
+
+// type Comments struct {
+//  gorm.Model
+// 	EventID int
+// 	UserID  int
+// 	Comment string
+// }
+
+type Tag struct {
+	gorm.Model
+	Tag string
 }
 
-type Comments struct {
-	EventID int    `gorm:"event_id"`
-	UserID  int    `gorm:"user_id"`
-	Comment string `gorm:"comment"`
-}
-
-type Tags struct {
-	ID  int    `gorm:"id"`
-	Tag string `gorm:"tag"`
-}
-
-type Badges struct {
-	ID    int    `gorm:"id"`
-	Badge string `gorm:"badge"`
+type Badge struct {
+	gorm.Model
+	Badge string
 }
 
 type Image struct {
-	ID       int    `gorm:"id"`
-	ImageURL string `gorm:"image_url"`
+	gorm.Model
+	ImageURL string
 }

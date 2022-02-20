@@ -109,6 +109,20 @@
     display: inline-block;
 }
 
+.InputTextArea {
+    margin-top: 15px;
+    width: 70%;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .3);
+    font-size: 14px;
+    outline: none;
+    line-height: 1.6;
+    resize: vertical;
+}
 
 .input_3_1 input[type="text"] {
     margin-top: 15px;
@@ -136,6 +150,7 @@
     position: absolute;
     padding-top: 18px;
     padding-left: 5px;
+
 }
 
 
@@ -159,6 +174,31 @@
     width: 20em;
     height: 170px;
     background: #C4C4C4;
+    cursor: pointer;
+
+}
+
+.image_upload_2 {
+    position: absolute;
+    left: 40%;
+    margin-top: 60px;
+    border-radius: 5px;
+    width: 20em;
+    height: 170px;
+    cursor: pointer;
+
+}
+
+#onFileInputChange {
+    display: none;
+}
+
+#LookFile {
+    position: absolute;
+    margin-top: 177px;
+    margin-left: 160px;
+    color: #3E3E3E;
+    font-weight: bold;
 }
 
 .flavor_text_upload {
@@ -305,4 +345,89 @@
 
 .tag_svg {
     display: inline;
+}
+
+
+#widthSelect {
+    width: 53em;
+    height: 30em;
+}
+
+
+.ImageSelectText {
+    font-weight: bold;
+    font-size: 25px;
+    color: #252525;
+
+}
+
+#cp_ipselect {
+    width: 100%;
+    text-align: center;
+}
+
+.cp_ipselect select {
+    padding-right: 1em;
+    cursor: pointer;
+    text-indent: 0.01px;
+    outline: none;
+    background: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.cp_ipselect.cp_sl01 {
+    position: relative;
+    border: 1px solid #7a7a7a;
+    border-radius: 1.5px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+.cp_ipselect.cp_sl01::before {
+    position: absolute;
+    top: 1.2em;
+    right: 0.9em;
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #666666;
+    pointer-events: none;
+}
+
+.cp_ipselect.cp_sl01 select {
+    padding: 10px 150px 10px 10px;
+    color: #666666;
+}
+
+#image_display_1 {
+    position: relative;
+    margin-top: 65%;
+    margin-left: 20%;
+}
+
+#image_display_2 {
+    position: absolute;
+    margin-top: 14%;
+    margin-left: 55%;
+}
+
+#image_display_3 {
+    position: absolute;
+    margin-top: 50%;
+    margin-left: 80%;
+    font-weight: bold;
+    background-color: #3E3E3E;
+    color: #fff;
+    font-size: 20px;
+    height: 32px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#image_display_3_1 {
+    padding-left: 23%;
+    padding-top: 2%;
 }
