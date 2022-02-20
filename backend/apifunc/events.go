@@ -36,6 +36,7 @@ func EventGetHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
+	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(j))
 }
 
