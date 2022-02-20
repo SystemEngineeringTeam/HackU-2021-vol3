@@ -86,16 +86,11 @@ const EventRegistration = () => {
                         <div className="">
                             <div className="tag_text">
                                 タグの追加
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 tag_svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="tag_svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm5 11H7v-2h10v2z" /></svg>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </>
     );

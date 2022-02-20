@@ -25,7 +25,7 @@ export default function Tags() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                 >
-                    <Menu.Items className="absolute right-0 mt-2 w-56 bg-white rounded-md divide-y divide-gray-100 focus:outline-none ring-1 ring-black ring-opacity-5 shadow-lg origin-top-right">
+                    <Menu.Items className="absolute right-1 mt-2 w-56 bg-white rounded-md divide-y divide-gray-100 focus:outline-none ring-1 ring-black ring-opacity-5 shadow-lg origin-top-right left-">
                         <div className="p-1">
                             <Menu.Item>
                                 {({ active }) => (
@@ -34,15 +34,9 @@ export default function Tags() {
                                             } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                     >
                                         {active ? (
-                                            <EditActiveIcon
-                                                className="mr-2 w-5 h-5"
-                                                aria-hidden="true"
-                                            />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ><path d="M20 3H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h7v2H8v2h8v-2h-3v-2h7c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 14V5h16l.002 9H4z" /></svg>
                                         ) : (
-                                            <EditInactiveIcon
-                                                className="mr-2 w-5 h-5"
-                                                aria-hidden="true"
-                                            />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ><path d="M20 3H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h7v2H8v2h8v-2h-3v-2h7c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 14V5h16l.002 9H4z" /></svg>
                                         )}
                                         Edit
                                     </button>
