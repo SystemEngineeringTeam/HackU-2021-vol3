@@ -12,7 +12,7 @@ func main() {
 	router := mux.NewRouter()
 	//ルーターの定義
 
-	router.Methods("POST", "OPTIONS").Path("/auth").HandlerFunc(apifunc.Auth)
+	//router.Methods("POST", "OPTIONS").Path("/auth").HandlerFunc(apifunc.Auth)
 	//VerifyCheckをハンドラに登録,http.HandlerFuncとほぼ同じ動作.
 	router.Methods("GET").Path("/images").HandlerFunc(apifunc.ImagesGetHandler)
 
