@@ -187,3 +187,28 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	// }
 	w.WriteHeader(http.StatusCreated)
 }
+
+func EventHostedHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	userID, _ := strconv.Atoi(vars["user_id"])
+
+	fmt.Println(vars, userID)
+
+	// b, err := ioutil.ReadAll(r.Body)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+
+	// var Host models.EventPostRequest
+
+	/* WIP */
+}
+
+func EventJoinedHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	userID, _ := strconv.Atoi(vars["user_id"])
+
+	fmt.Println(vars, userID)
+
+	/* WIP */
+}
