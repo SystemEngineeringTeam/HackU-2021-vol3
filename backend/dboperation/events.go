@@ -88,10 +88,6 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 		return nil, err
 	}
 
-	for _, v := range events {
-		fmt.Println(v.ID)
-	}
-
 	var responseEvents []models.Event
 	for _, e := range events {
 		if !e.ContainsAllTags(tags) {
