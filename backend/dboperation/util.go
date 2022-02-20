@@ -34,6 +34,22 @@ func init() {
 			log.Fatal(err)
 		}
 
+		s := []models.Status{
+			{
+				Status: "schedule",
+			},
+			{
+				Status: "onair",
+			},
+			{
+				Status: "archive",
+			},
+		}
+
+		if err := db.Create(&s).Error; err != nil {
+			log.Fatal(err)
+		}
+
 		// create a new user
 		u := models.User{
 			Name:            "test",
@@ -64,6 +80,7 @@ func init() {
 			Image:       models.Image{ImageURL: "test"},
 			Tags:        tags,
 			Organizer:   u,
+			StatusID:    s[0].ID,
 		}
 		if err := db.Create(&e).Error; err != nil {
 			log.Fatal(err)

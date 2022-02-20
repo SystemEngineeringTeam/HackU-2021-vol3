@@ -27,6 +27,7 @@ func CreateEvent(e models.EventPostRequest, firebaseUID string) error {
 		OrganizerID: u.ID,
 		DateTime:    e.DateTime,
 		Tags:        tags,
+		StatusID:    1,
 	}
 
 	if err := db.Create(&event).Error; err != nil {
@@ -71,12 +72,24 @@ func UpdateEvent(e models.EventPutRequest, id int) error {
 	return nil
 }
 
-func SelectEvents() ([]models.EventGetResponse, error) {
+// SelectEventsは，イベントを取得する関数です．
+
+func SelectEvents(keyword, status string, tags []string, page int) ([]models.EventGetResponse, error) {
 	db := connect()
 
+	keyword = "%" + keyword + "%"
+
+	status = "%" + status + "%"
+
 	var events []models.Event
-	if err := db.Model(&events).Joins("Organizer").Preload("Tags").Find(&events).Error; err != nil {
+	if err := db.Debug().Model(&events).Preload("Tags").Joins("Status").Joins("Organizer").Where("title like ?", keyword).Where("Status like ?", status).Order("id").Find(&events).Error; err != nil {
 		return nil, err
+	}
+
+	for i, e := range events {
+		if e.ContainsAllTags(tags) {
+			events = append(events[:i], events[i+1:]...)
+		}
 	}
 
 	var eventsResponse []models.EventGetResponse

@@ -28,7 +28,7 @@ func TestCreateEvent(t *testing.T) {
 		ImageID:     1,
 	}
 
-	err := CreateEvent(e, "test")
+	err := CreateEvent(e, "e80a1a7b2f614dc00b20a6a749a670100079ce4231ae04565630ed29c95d1e4c")
 	if err != nil {
 		t.Error(err)
 	}
@@ -62,7 +62,7 @@ func TestCreateEvent(t *testing.T) {
 // }
 
 func TestSelectEvents(t *testing.T) {
-	events, err := SelectEvents()
+	events, err := SelectEvents("t", "", nil, 0)
 	if err != nil {
 		t.Error(err)
 	}
