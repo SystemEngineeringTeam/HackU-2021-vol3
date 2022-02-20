@@ -79,14 +79,16 @@ func verifyCheck(r *http.Request) (map[string]string, error) {
 	if err != nil {
 		log.Printf("Cannot get user: %v\n", err)
 		return nil, err
-	}//UIDからユーザー情報を取得する(ユーザ画像，ユーザ名)
+	} //UIDからユーザー情報を取得する(ユーザ画像，ユーザ名)
 	log.Println(user.DisplayName, user.PhotoURL)
 
 	userData := map[string]string{
 		"Name":            user.DisplayName,
 		"ProfileImageURL": user.PhotoURL,
 		"FirebaseUID":     uid,
-	}//取得したデータを連想配列で格納し，返す
+	} //取得したデータを連想配列で格納し，返す
+
+	//fmt.Println(userData)
 
 	return userData, nil
 }
