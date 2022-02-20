@@ -167,6 +167,20 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 		WIP
 
 	*/
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	userInfo, err := verifyCheck(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
 
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -189,20 +203,30 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	eventID, _ := strconv.Atoi(vars["id"])
 
+	gotUser := models.User{
+		Name:            userInfo["Name"],
+		ProfileImageURL: userInfo["ProfileImageURL"],
+		FirebaseUID:     userInfo["FirebaseUID"],
+		BadgeID:         1, //test
+		Badge:           models.Badge{Badge: "test"},
+		//JoinedEvents:    []models.Event{},
+	}
+
 	fmt.Println(vars, eventID)
 
-	// e := models.FeedBack{
-	// 	EventID: eventID,
-	// 	UserID:  user.Id,
-	// 	Stars:   feedback.Stars,
-	// 	Comment: feedback.Comment,
-	// }
+	e := models.Feedback{
+		EventID: eventID,
+		UserID:  int(user.ID),
+		User:    gotUser,
+		Stars:   uint(feedback.Stars),
+		Comment: feedback.Comment,
+	}
 
-	// err = dboperation.CreateFeedback(e)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
+	err = dboperation.CreateFeedback(e)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 	w.WriteHeader(http.StatusCreated)
 }
 
