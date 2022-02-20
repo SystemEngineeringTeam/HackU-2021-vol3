@@ -88,10 +88,16 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 		return nil, err
 	}
 
-	for i, e := range events {
+	for _, v := range events {
+		fmt.Println(v.ID)
+	}
+
+	var responseEvents []models.Event
+	for _, e := range events {
 		if !e.ContainsAllTags(tags) {
-			events = append(events[:i], events[i+1:]...)
+			continue
 		}
+		responseEvents = append(responseEvents, e)
 	}
 
 	const pageSize = 10
@@ -99,16 +105,16 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 	if page < 1 {
 		page = 1
 	}
-	events = events[(page-1)*pageSize:]
+	responseEvents = responseEvents[(page-1)*pageSize:]
 
-	if len(events) > pageSize {
-		events = events[:pageSize]
+	if len(responseEvents) > pageSize {
+		responseEvents = responseEvents[:pageSize]
 	}
 
-	fmt.Println(len(events))
+	fmt.Println(len(responseEvents))
 
 	var eventsResponse []models.EventGetResponse
-	for _, e := range events {
+	for _, e := range responseEvents {
 
 		tags := []string{}
 		for _, t := range e.Tags {
