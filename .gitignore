@@ -297,5 +297,3 @@ dist
 
 #Visual Studio Code Workspace
 .code-workspace
-
-*_test.go

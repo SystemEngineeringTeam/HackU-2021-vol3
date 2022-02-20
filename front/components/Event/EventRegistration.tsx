@@ -1,14 +1,5 @@
-import React from "react";
-import ConfirmAddEvent from "./Event/ConfirmAddEvent";
-import ImageSelect from "./ImageSelect";
+import ConfirmAddEvent from "./ConfirmAddEvent";
 const EventRegistration = () => {
-  const [file, setFile] = React.useState<File | null>(null);
-  const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-  };
   return (
     <>
       <div className="container">
@@ -34,46 +25,48 @@ const EventRegistration = () => {
               <p className="input_title_2_1">説明</p>
               <p className="input_title_2_2">(必須)</p>
             </div>
-            <textarea
-              className="InputTextArea"
+            <input
+              type="text"
               placeholder="勉強会について説明する内容を紹介しましょう"
             />
           </label>
         </div>
-        <ImageSelect />
+        <div className="input_3_1">
+          <label className="input_3_2">
+            <div className="input_title_3">
+              <p className="input_title_3_1">画像の選択</p>
+              <p className="input_title_3_2">(必須)</p>
+            </div>
+            <div className="image_upload">
+              <div className="flavor_text_upload">クリックして画像の選択</div>
+            </div>
+            <input type="text" readOnly />
+          </label>
+        </div>
         <div className="input_4_1">
           <label className="input_4_2">
             <div className="input_title_4">
               <p className="input_title_4_1">資料の提出</p>
               <p className="input_title_4_2">(必須)</p>
             </div>
-
             <div className="image_upload_icon">
-              <label>
-                <div className="flavor_text_upload_icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-10 h-10"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                    />
-                  </svg>
-                </div>
-                <input
-                  type="file"
-                  id="onFileInputChange"
-                  onChange={onFileInputChange}
-                />
-              </label>
+              <div className="flavor_text_upload_icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-10 h-10"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+              </div>
             </div>
-            <div id="LookFile">{file && <p>{file.name}</p>}</div>
             <input type="text" readOnly />
           </label>
         </div>

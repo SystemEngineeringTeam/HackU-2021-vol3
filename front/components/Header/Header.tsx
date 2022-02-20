@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useContext, useEffect } from "react";
-import { firebaseApp } from "../utils/firebase";
-import { AuthContext } from "./Auth";
+
+import { AuthContext } from "../Auth";
 import Login from "./Login";
 import ProfilePopOver from "./ProfilePopOver";
 
