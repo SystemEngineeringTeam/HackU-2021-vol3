@@ -1,6 +1,7 @@
 import React from 'react';
 import ConfirmAddEvent from './ConfirmAddEvent';
 import ImageSelect from './ImageSelect';
+import Tags from './Tags';
 const EventRegistration = () => {
     type TagProps = {
         key: number,
@@ -79,7 +80,7 @@ const EventRegistration = () => {
                         <input type="text" readOnly />
                     </label>
                 </div>
-                <div />
+                <Tags />
                 <div>
                     <div className="tag">
                         <div className="">
