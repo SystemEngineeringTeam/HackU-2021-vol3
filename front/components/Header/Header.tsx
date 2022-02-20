@@ -12,14 +12,11 @@ import ProfilePopOver from "./ProfilePopOver";
 
 const Header = () => {
   const { currentUser, currentIdToken } = useContext(AuthContext);
-  const [isNewUser, setIsNewUser] = useState<boolean>(true);
+  const [isNewUser, setIsNewUser] = useState<boolean>(false);
 
   useEffect(() => {
-    if (currentUser != null) {
-      getIdToken(currentUser, true).then((idToken) => {
-        // console.log(currentIdToken);
-      });
-    }
+    //新規ユーザか判定するAPIを叩く
+    //新規ユーザならisNewUserをtrueにする
   });
 
   const profile = (
