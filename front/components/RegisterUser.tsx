@@ -22,11 +22,9 @@ const RegsiterUser = () => {
           profileImageURL: currentUser?.photoURL,
         })
         .then((res) => {
-          console.log("yes");
           console.log(res);
         })
         .catch((err) => {
-          console.log("no");
           console.log(err);
         });
     }
@@ -49,6 +47,7 @@ const RegsiterUser = () => {
                     />
                   </div>
                 </div>
+
                 <div className="mt-8">
                   <button
                     className="py-2 px-16 text-white bg-original-black rounded-md "
