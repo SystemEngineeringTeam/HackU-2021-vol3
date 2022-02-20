@@ -12,6 +12,28 @@ import (
 	"github.com/gorilla/mux"
 )
 
+func EventGetHandler(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
+	//get pathparameter
+	//fmt.Println(vars, id)
+
+	event, err := dboperation.SelectEventByID(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	j, err := json.Marshal(event)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(j))
+	w.WriteHeader(http.StatusOK)
+
+	fmt.Fprint(w, string(j))
+}
+
 func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "*")
@@ -39,7 +61,6 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	uid := user["FirebaseUID"]
-	fmt.Println(uid)
 
 	err = dboperation.CreateEvent(event, uid) //create event
 	if err != nil {
@@ -73,128 +94,128 @@ func EventPutHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 }
-func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
-	/*
+// func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
+// 	/*
 
-		WIP
+// 		WIP
 
-	*/
+// 	*/
 
-	b, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
-	var feedback models.FeedbackPostRequest
-	var user models.UserIdGetResponse
+// 	b, err := ioutil.ReadAll(r.Body)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	var feedback models.FeedbackPostRequest
+// 	var user models.UserIdGetResponse
 
-	if err := json.Unmarshal(b, &feedback); err != nil {
-		fmt.Println(err)
-	}
-	if err := json.Unmarshal(b, &user); err != nil {
-		fmt.Println(err)
-	} //UserIDをどうやって取得するか？
+// 	if err := json.Unmarshal(b, &feedback); err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	if err := json.Unmarshal(b, &user); err != nil {
+// 		fmt.Println(err)
+// 	} //UserIDをどうやって取得するか？
 
-	fmt.Println(user.ID)
-	fmt.Println(feedback.Comment)
-	fmt.Println(feedback.Stars)
+// 	fmt.Println(user.ID)
+// 	fmt.Println(feedback.Comment)
+// 	fmt.Println(feedback.Stars)
 
-	vars := mux.Vars(r)
-	eventID, _ := strconv.Atoi(vars["id"])
+// 	vars := mux.Vars(r)
+// 	eventID, _ := strconv.Atoi(vars["id"])
 
-	fmt.Println(vars, eventID)
+// 	fmt.Println(vars, eventID)
 
-	// e := models.FeedBack{
-	// 	EventID: eventID,
-	// 	UserID:  user.Id,
-	// 	Stars:   feedback.Stars,
-	// 	Comment: feedback.Comment,
-	// }
+// 	// e := models.FeedBack{
+// 	// 	EventID: eventID,
+// 	// 	UserID:  user.Id,
+// 	// 	Stars:   feedback.Stars,
+// 	// 	Comment: feedback.Comment,
+// 	// }
 
-	// err = dboperation.CreateFeedback(e)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
-	w.WriteHeader(http.StatusCreated)
-}
+// 	// err = dboperation.CreateFeedback(e)
+// 	// if err != nil {
+// 	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+// 	// 	return
+// 	// }
+// 	w.WriteHeader(http.StatusCreated)
+// }
 
-func CommentGetHandler(w http.ResponseWriter, r *http.Request) {
-	/*
+// func CommentGetHandler(w http.ResponseWriter, r *http.Request) {
+// 	/*
 
-		WIP
+// 		WIP
 
-	*/
+// 	*/
 
-	// comments, err := dboperation.GetAllComments()
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// } //どうやってコメントを取得するか？
+// 	// comments, err := dboperation.GetAllComments()
+// 	// if err != nil {
+// 	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+// 	// 	return
+// 	// } //どうやってコメントを取得するか？
 
-	// vars := mux.Vars(r)
-	// eventID, _ := strconv.Atoi(vars["id"])
+// 	// vars := mux.Vars(r)
+// 	// eventID, _ := strconv.Atoi(vars["id"])
 
-	// fmt.Println(vars, eventID)
+// 	// fmt.Println(vars, eventID)
 
-	// response := make([]models.CommentGetAndPostRequest, 0)
+// 	// response := make([]models.CommentGetAndPostRequest, 0)
 
-	// for _, comm := range comments {
-	// 	if eventID == comm.EventID {
-	// 		r := models.CommentGetAndPostRequest{
-	// 			Comment: comm,
-	// 		}
-	// 		response = append(response, r)
-	// 	}
-	// }
+// 	// for _, comm := range comments {
+// 	// 	if eventID == comm.EventID {
+// 	// 		r := models.CommentGetAndPostRequest{
+// 	// 			Comment: comm,
+// 	// 		}
+// 	// 		response = append(response, r)
+// 	// 	}
+// 	// }
 
-	// b, err := json.Marshal(response)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
+// 	// b, err := json.Marshal(response)
+// 	// if err != nil {
+// 	// 	fmt.Println(err)
+// 	// }
 
-	// fmt.Fprint(w, string(b))
-}
+// 	// fmt.Fprint(w, string(b))
+// }
 
-func CommentPostHandler(w http.ResponseWriter, r *http.Request) {
-	/*
+// func CommentPostHandler(w http.ResponseWriter, r *http.Request) {
+// 	/*
 
-		WIP
+// 		WIP
 
-	*/
-	b, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
+// 	*/
+// 	b, err := ioutil.ReadAll(r.Body)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
 
-	var comm models.CommentGetAndPostRequest
-	var user models.UserIdGetResponse
+// 	var comm models.CommentGetAndPostRequest
+// 	var user models.UserIdGetResponse
 
-	if err := json.Unmarshal(b, &comm); err != nil {
-		fmt.Println(err)
-	}
+// 	if err := json.Unmarshal(b, &comm); err != nil {
+// 		fmt.Println(err)
+// 	}
 
-	if err := json.Unmarshal(b, &user); err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(comm.Comment)
-	fmt.Println(user.ID)
-	//Userが取得できているかチェック
-	vars := mux.Vars(r)
-	eventID, _ := strconv.Atoi(vars["id"])
+// 	if err := json.Unmarshal(b, &user); err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	fmt.Println(comm.Comment)
+// 	fmt.Println(user.ID)
+// 	//Userが取得できているかチェック
+// 	vars := mux.Vars(r)
+// 	eventID, _ := strconv.Atoi(vars["id"])
 
-	fmt.Println(vars, eventID)
+// 	fmt.Println(vars, eventID)
 
-	// e := models.Comments{
-	// 	EventID: eventID,
-	// 	UserID:  user.Id,
-	// 	Comment: comm.Comment,
-	// }
+// 	// e := models.Comments{
+// 	// 	EventID: eventID,
+// 	// 	UserID:  user.Id,
+// 	// 	Comment: comm.Comment,
+// 	// }
 
-	// err = dboperation.PostComment(e)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusBadRequest)
-	// 	return
-	// }
+// 	// err = dboperation.PostComment(e)
+// 	// if err != nil {
+// 	// 	http.Error(w, err.Error(), http.StatusBadRequest)
+// 	// 	return
+// 	// }
 
-	w.WriteHeader(http.StatusCreated)
-}
+// 	w.WriteHeader(http.StatusCreated)
+// }
