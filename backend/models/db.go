@@ -22,18 +22,20 @@ type Event struct {
 	OrganizerID  uint `gorm:"not null"`
 	Organizer    User
 	DateTime     string `gorm:"not null"`
+	FeedBacks    []Feedback
 	StreamURL    string
 	Tags         []Tag  `gorm:"many2many:event_tags;"`
 	Parcitipants []User `gorm:"many2many:event_parcitipants;"`
 }
 
-// type FeedBack struct {
-//  gorm.Model
-// 	EventID int
-// 	UserID  int
-// 	Stars   int
-// 	Comment string
-// }
+type Feedback struct {
+	gorm.Model
+	EventID int `gorm:"uniqueIndex:event_user_feedback;not null;"`
+	UserID  int `gorm:"uniqueIndex:event_user_feedback;not null;"`
+	User    User
+	Stars   uint   `gorm:"not null"`
+	Comment string `gorm:"not null"`
+}
 
 // type Comments struct {
 //  gorm.Model
