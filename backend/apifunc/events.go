@@ -12,6 +12,43 @@ import (
 	"github.com/gorilla/mux"
 )
 
+func EventGetHandler(w http.ResponseWriter, r *http.Request) {
+	events, err := dboperation.SelectEvents()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	j, err := json.Marshal(events)
+	if err != nil {
+		fmt.Println(err)
+	}
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, string(j))
+}
+
+func EventIdGetHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
+	//get pathparameter
+	//fmt.Println(vars, id)
+
+	event, err := dboperation.SelectEventByID(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	j, err := json.Marshal(event)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(j))
+	w.WriteHeader(http.StatusOK)
+
+	fmt.Fprint(w, string(j))
+}
+
 func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "*")
@@ -39,7 +76,6 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	uid := user["FirebaseUID"]
-	fmt.Println(uid)
 
 	err = dboperation.CreateEvent(event, uid) //create event
 	if err != nil {
@@ -47,6 +83,27 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
+}
+
+func StreamURLPostHandler(w http.ResponseWriter, r *http.Request) {
+	// vars := mux.Vars(r)
+	// id, _ := strconv.Atoi(vars["id"])
+
+	// event, err := dboperation.SelectEventByID(id)
+	// if err != nil {
+	// 	http.Error(w, err.Error(), http.StatusBadRequest)
+	// 	return
+	// }
+	// streamURL := event.StreamURL
+	// fmt.Println(streamURL)
+
+	// err = dboperation.UpdateStreamURL(streamURL, id)
+	// if err != nil {
+	// 	http.Error(w, err.Error(), http.StatusBadRequest)
+	//  return
+	// }
+
+	// w.WriteHeader(http.StatusOK)
 }
 
 func EventPutHandler(w http.ResponseWriter, r *http.Request) {
@@ -72,7 +129,38 @@ func EventPutHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
+
 }
+
+func FeedbackGetHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
+
+	feedbacks, err := dboperation.SelectFeedbacks(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	response := make([]models.FeedbackGetResponse, 0)
+	for _, feedback := range feedbacks {
+		f := models.FeedbackGetResponse{
+			EventID:     feedback.EventID,
+			Comment:     feedback.Comment,
+			Stars:       int(feedback.Stars),
+			CommentedBy: feedback.User.Name,
+		}
+		response = append(response, f)
+	}
+
+	j, err := json.Marshal(response)
+	if err != nil {
+		fmt.Println(err)
+	}
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, string(j))
+}
+
 func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	/*
 
@@ -118,83 +206,27 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
-func CommentGetHandler(w http.ResponseWriter, r *http.Request) {
-	/*
+// func EventHostedHandler(w http.ResponseWriter, r *http.Request) {
+// 	vars := mux.Vars(r)
+// 	userID, _ := strconv.Atoi(vars["user_id"])
 
-		WIP
+// 	fmt.Println(vars, userID)
 
-	*/
+// 	// b, err := ioutil.ReadAll(r.Body)
+// 	// if err != nil {
+// 	// 	fmt.Println(err)
+// 	// }
 
-	// comments, err := dboperation.GetAllComments()
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// } //どうやってコメントを取得するか？
+// 	// var Host models.EventPostRequest
 
-	// vars := mux.Vars(r)
-	// eventID, _ := strconv.Atoi(vars["id"])
+// 	/* WIP */
+// }
 
-	// fmt.Println(vars, eventID)
+// func EventJoinedHandler(w http.ResponseWriter, r *http.Request) {
+// 	vars := mux.Vars(r)
+// 	userID, _ := strconv.Atoi(vars["user_id"])
 
-	// response := make([]models.CommentGetAndPostRequest, 0)
+// 	fmt.Println(vars, userID)
 
-	// for _, comm := range comments {
-	// 	if eventID == comm.EventID {
-	// 		r := models.CommentGetAndPostRequest{
-	// 			Comment: comm,
-	// 		}
-	// 		response = append(response, r)
-	// 	}
-	// }
-
-	// b, err := json.Marshal(response)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-
-	// fmt.Fprint(w, string(b))
-}
-
-func CommentPostHandler(w http.ResponseWriter, r *http.Request) {
-	/*
-
-		WIP
-
-	*/
-	b, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	var comm models.CommentGetAndPostRequest
-	var user models.UserIdGetResponse
-
-	if err := json.Unmarshal(b, &comm); err != nil {
-		fmt.Println(err)
-	}
-
-	if err := json.Unmarshal(b, &user); err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(comm.Comment)
-	fmt.Println(user.ID)
-	//Userが取得できているかチェック
-	vars := mux.Vars(r)
-	eventID, _ := strconv.Atoi(vars["id"])
-
-	fmt.Println(vars, eventID)
-
-	// e := models.Comments{
-	// 	EventID: eventID,
-	// 	UserID:  user.Id,
-	// 	Comment: comm.Comment,
-	// }
-
-	// err = dboperation.PostComment(e)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusBadRequest)
-	// 	return
-	// }
-
-	w.WriteHeader(http.StatusCreated)
-}
+// 	/* WIP */
+// }
