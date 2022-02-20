@@ -25,6 +25,13 @@ type Event struct {
 	StreamURL    string
 	Tags         []Tag  `gorm:"many2many:event_tags;"`
 	Parcitipants []User `gorm:"many2many:event_parcitipants;"`
+	StatusID     uint   `gorm:"not null"`
+	Status       Status
+}
+
+type Status struct {
+	gorm.Model
+	Status string
 }
 
 // type FeedBack struct {

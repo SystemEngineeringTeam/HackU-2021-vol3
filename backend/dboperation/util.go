@@ -12,7 +12,7 @@ import (
 func init() {
 	db := connect()
 
-	if err := db.AutoMigrate(&models.User{}, &models.Image{}, &models.Tag{}, &models.Badge{}, &models.Event{}); err != nil {
+	if err := db.AutoMigrate(&models.User{}, &models.Image{}, &models.Tag{}, &models.Badge{}, &models.Status{}, &models.Event{}); err != nil {
 		log.Fatal(err)
 	}
 
@@ -31,6 +31,22 @@ func init() {
 			Badge: "test",
 		}
 		if err := db.Create(&b).Error; err != nil {
+			log.Fatal(err)
+		}
+
+		s := []models.Status{
+			{
+				Status: "schedule",
+			},
+			{
+				Status: "onair",
+			},
+			{
+				Status: "archive",
+			},
+		}
+
+		if err := db.Create(&s).Error; err != nil {
 			log.Fatal(err)
 		}
 
@@ -64,6 +80,7 @@ func init() {
 			Image:       models.Image{ImageURL: "test"},
 			Tags:        tags,
 			Organizer:   u,
+			StatusID:    s[0].ID,
 		}
 		if err := db.Create(&e).Error; err != nil {
 			log.Fatal(err)

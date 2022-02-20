@@ -71,11 +71,15 @@ func UpdateEvent(e models.EventPutRequest, id int) error {
 	return nil
 }
 
-func SelectEvents() ([]models.EventGetResponse, error) {
+// SelectEventsは，イベントを取得する関数です．
+
+func SelectEvents(keyword, status string, tags []string, page int) ([]models.EventGetResponse, error) {
 	db := connect()
 
+	keyword = "%" + keyword + "%"
+
 	var events []models.Event
-	if err := db.Model(&events).Joins("Organizer").Preload("Tags").Find(&events).Error; err != nil {
+	if err := db.Debug().Model(&events).Joins("Status").Joins("Organizer").Preload("Tags").Where("title like ?", keyword).Where("Status = ?", status).Find(&events).Error; err != nil {
 		return nil, err
 	}
 
