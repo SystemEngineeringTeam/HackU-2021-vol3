@@ -33,7 +33,7 @@ const EventDetail = () => {
 
   const router = useRouter();
   const { pid } = router.query;
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, currentIdToken } = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -49,23 +49,21 @@ const EventDetail = () => {
 
   const registration = () => {
     if (currentUser != null) {
-      getIdToken(currentUser, true).then((idToken) => {
-        axios.interceptors.request.use((request) => {
-          if (idToken && request.headers != null) {
-            request.headers = { "Authorization": `Bearer ${idToken}` };
-          }
-          return request;
-        });
-        axios
-          .post(`/event/register`)
-          .then((res) => {
-            console.log(res.statusText);
-            console.log(res.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+      axios.interceptors.request.use((request) => {
+        if (currentIdToken && request.headers != null) {
+          request.headers = { Authorization: `Bearer ${currentIdToken}` };
+        }
+        return request;
       });
+      axios
+        .post(`/event/register`)
+        .then((res) => {
+          console.log(res.statusText);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
