@@ -12,7 +12,7 @@ import (
 func init() {
 	db := connect()
 
-	if err := db.AutoMigrate(&models.User{}, &models.Image{}, &models.Tag{}, &models.Badge{}, &models.Event{}); err != nil {
+	if err := db.AutoMigrate(&models.User{}, &models.Image{}, &models.Tag{}, &models.Badge{}, &models.Feedback{}, &models.Event{}); err != nil {
 		log.Fatal(err)
 	}
 
