@@ -175,7 +175,10 @@
     height: 170px;
     background: #C4C4C4;
     cursor: pointer;
+}
 
+.image_upload:hover {
+    background: #7e7e7e;
 }
 
 .image_upload_2 {

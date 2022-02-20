@@ -1,6 +1,13 @@
+<<<<<<< main
 import React from "react";
 import ConfirmAddEvent from "./Event/ConfirmAddEvent";
 import ImageSelect from "./ImageSelect";
+=======
+import React from 'react';
+import ConfirmAddEvent from './ConfirmAddEvent';
+import ImageSelect from './ImageSelect';
+import Tags from './Tags';
+>>>>>>> タグのレイアウトの暫定
 const EventRegistration = () => {
     type TagProps = {
         key: number,
@@ -79,7 +86,7 @@ const EventRegistration = () => {
                         <input type="text" readOnly />
                     </label>
                 </div>
-                <div />
+                <Tags />
                 <div>
                     <div className="tag">
                         <div className="">
