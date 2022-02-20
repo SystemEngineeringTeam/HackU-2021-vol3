@@ -14,22 +14,22 @@ import (
 	"google.golang.org/api/option"
 )
 
-func Auth(w http.ResponseWriter, r *http.Request) {
-	//CORS設定
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
-	if r.Method == "OPTIONS" {
-		w.WriteHeader(http.StatusOK)
-		return
-	}
+// func Auth(w http.ResponseWriter, r *http.Request) {
+// 	//CORS設定
+// 	w.Header().Set("Access-Control-Allow-Origin", "*")
+// 	w.Header().Set("Access-Control-Allow-Headers", "*")
+// 	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+// 	if r.Method == "OPTIONS" {
+// 		w.WriteHeader(http.StatusOK)
+// 		return
+// 	}
 
-	user, err := verifyCheck(r)
-	if err != nil {
-		log.Println(err)
-	}
-	fmt.Println(user)
-}
+// 	user, err := verifyCheck(r)
+// 	if err != nil {
+// 		log.Println(err)
+// 	}
+// 	fmt.Println(user)
+// }
 
 func verifyCheck(r *http.Request) (map[string]string, error) {
 	//Firebase SDKの初期化
@@ -79,14 +79,16 @@ func verifyCheck(r *http.Request) (map[string]string, error) {
 	if err != nil {
 		log.Printf("Cannot get user: %v\n", err)
 		return nil, err
-	}//UIDからユーザー情報を取得する(ユーザ画像，ユーザ名)
+	} //UIDからユーザー情報を取得する(ユーザ画像，ユーザ名)
 	log.Println(user.DisplayName, user.PhotoURL)
 
 	userData := map[string]string{
 		"Name":            user.DisplayName,
 		"ProfileImageURL": user.PhotoURL,
 		"FirebaseUID":     uid,
-	}//取得したデータを連想配列で格納し，返す
+	} //取得したデータを連想配列で格納し，返す
+
+	//fmt.Println(userData)
 
 	return userData, nil
 }
