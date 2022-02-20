@@ -29,3 +29,14 @@ func TestSelectRegisteredEvents(t *testing.T) {
 		fmt.Println(v.Title)
 	}
 }
+
+func TestSelectHostedEvents(t *testing.T) {
+	e, err := SelectHostedEvents(2)
+	if err != nil {
+		t.Error(err)
+	}
+
+	for _, i := range e {
+		fmt.Println(i.ID, i.Title)
+	}
+}
