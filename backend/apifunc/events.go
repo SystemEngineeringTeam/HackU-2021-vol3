@@ -70,6 +70,27 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+func StreamURLPostHandler(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
+
+	event, err := dboperation.SelectEventByID(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	streamURL := event.StreamURL
+	fmt.Println(streamURL)
+
+	// err = dboperation.UpdateStreamURL(streamURL, id)
+	// if err != nil {
+	// 	http.Error(w, err.Error(), http.StatusBadRequest)
+	// 	return
+	// }
+
+	w.WriteHeader(http.StatusOK)
+}
+
 func EventPutHandler(w http.ResponseWriter, r *http.Request) {
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
