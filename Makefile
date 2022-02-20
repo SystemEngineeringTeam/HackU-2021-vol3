@@ -7,6 +7,9 @@ all: db/up
 ps:
 	$(DC) ps
 
+logs:
+	$(DC) logs
+
 db/up:
 	$(DC) up -d db
 
