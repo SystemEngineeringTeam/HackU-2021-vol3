@@ -21,11 +21,12 @@ func main() {
 	router.Methods("PUT").Path("/user").HandlerFunc(apifunc.UserPutHandler)
 	router.HandleFunc("/user/{id}", apifunc.IdGetHandler)
 
+	router.Methods("GET").Path("/event/{id}").HandlerFunc(apifunc.EventIdGetHandler)
+	router.Methods("GET").Path("/event").HandlerFunc(apifunc.EventGetHandler)
 	router.Methods("POST", "OPTIONS").Path("/event").HandlerFunc(apifunc.EventPostHandler)
+	router.Methods("POST").Path("/event/{id}").HandlerFunc(apifunc.StreamURLPostHandler)
 	// router.Methods("PUT").Path("/event/{id}").HandlerFunc(apifunc.EventPutHandler)
 	// router.Methods("POST").Path("/event/{id}/feedback").HandlerFunc(apifunc.FeedbackPostHandler)
-	// router.Methods("GET").Path("/event/{id}/comment").HandlerFunc(apifunc.CommentGetHandler)
-	// router.Methods("POST").Path("/event/{id}/comment").HandlerFunc(apifunc.CommentPostHandler)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 
