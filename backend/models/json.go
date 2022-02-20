@@ -23,14 +23,14 @@ type ImageGetResponse struct {
 }
 
 type EventPostRequest struct {
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Document    string `json:"document"`
-	ImageID     int    `json:"imageID"`
-	DateTime    string `json:"datetime"`
-	Tags        []int  `json:"tags"`
-	Parcitipants string `json:"parcitipants"`
-	Organizer []UserIdGetResponse `json:"organizer"`
+	Title        string              `json:"title"`
+	Description  string              `json:"description"`
+	Document     string              `json:"document"`
+	ImageID      int                 `json:"imageID"`
+	DateTime     string              `json:"datetime"`
+	Tags         []int               `json:"tags"`
+	Parcitipants string              `json:"parcitipants"`
+	Organizer    []UserIdGetResponse `json:"organizer"`
 }
 
 type EventPutRequest struct {
@@ -40,6 +40,13 @@ type EventPutRequest struct {
 	DateTime    string `json:"datetime"`
 	StreamURL   string `json:"streamURL"`
 	Tags        []int  `json:"tags"`
+}
+
+type FeedbackGetResponse struct {
+	EventID     int   `json:"eventID"`
+	Comment     string `json:"comment"`
+	Stars       int `json:"stars"`
+	CommentedBy string `json:"commentedBy"`
 }
 
 type FeedbackPostRequest struct {
