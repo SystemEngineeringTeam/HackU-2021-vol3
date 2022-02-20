@@ -38,7 +38,7 @@ export default function Tags() {
                                         ) : (
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ><path d="M20 3H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h7v2H8v2h8v-2h-3v-2h7c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 14V5h16l.002 9H4z" /></svg>
                                         )}
-                                        Edit
+                                        FRONTEND
                                     </button>
                                 )}
                             </Menu.Item>
@@ -49,15 +49,12 @@ export default function Tags() {
                                             } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                     >
                                         {active ? (
-                                            <DuplicateActiveIcon
-                                                className="mr-2 w-5 h-5"
-                                                aria-hidden="true"
-                                            />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6c0-2.168-3.663-4-8-4S4 3.832 4 6v2c0 2.168 3.663 4 8 4s8-1.832 8-4V6zm-8 13c-4.337 0-8-1.832-8-4v3c0 2.168 3.663 4 8 4s8-1.832 8-4v-3c0 2.168-3.663 4-8 4z" /><path d="M20 10c0 2.168-3.663 4-8 4s-8-1.832-8-4v3c0 2.168 3.663 4 8 4s8-1.832 8-4v-3z" /></svg>
+
                                         ) : (
-                                            <DuplicateInactiveIcon
-                                                className="mr-2 w-5 h-5"
-                                                aria-hidden="true"
-                                            />
+                                            <>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 6c0-2.168-3.663-4-8-4S4 3.832 4 6v2c0 2.168 3.663 4 8 4s8-1.832 8-4V6zm-8 13c-4.337 0-8-1.832-8-4v3c0 2.168 3.663 4 8 4s8-1.832 8-4v-3c0 2.168-3.663 4-8 4z" /><path d="M20 10c0 2.168-3.663 4-8 4s-8-1.832-8-4v3c0 2.168 3.663 4 8 4s8-1.832 8-4v-3z" /></svg>
+                                            </>
                                         )}
                                         Duplicate
                                     </button>
@@ -72,15 +69,10 @@ export default function Tags() {
                                             } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                     >
                                         {active ? (
-                                            <ArchiveActiveIcon
-                                                className="mr-2 w-5 h-5"
-                                                aria-hidden="true"
-                                            />
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" ><path d="M20 3H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-5 5h-2V6h2zm4 0h-2V6h2zm1 5H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2zm-5 5h-2v-2h2zm4 0h-2v-2h2z" /></svg>
                                         ) : (
-                                            <ArchiveInactiveIcon
-                                                className="mr-2 w-5 h-5"
-                                                aria-hidden="true"
-                                            />
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" ><path d="M20 3H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-5 5h-2V6h2zm4 0h-2V6h2zm1 5H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2zm-5 5h-2v-2h2zm4 0h-2v-2h2z" /></svg>
+
                                         )}
                                         Archive
                                     </button>
