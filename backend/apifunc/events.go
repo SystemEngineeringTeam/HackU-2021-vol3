@@ -230,27 +230,46 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
-// func EventHostedHandler(w http.ResponseWriter, r *http.Request) {
-// 	vars := mux.Vars(r)
-// 	userID, _ := strconv.Atoi(vars["user_id"])
+func EventHostedHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	userID, _ := strconv.Atoi(vars["user_id"])
 
-// 	fmt.Println(vars, userID)
+	//fmt.Println(vars, userID)
 
-// 	// b, err := ioutil.ReadAll(r.Body)
-// 	// if err != nil {
-// 	// 	fmt.Println(err)
-// 	// }
+	events, err := dboperation.SelectHostedEvents(userID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
-// 	// var Host models.EventPostRequest
+	j, err := json.Marshal(events)
+	if err != nil {
+		fmt.Println(err)
+	}
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, string(j))
 
-// 	/* WIP */
-// }
+	/* WIP */
+}
 
-// func EventJoinedHandler(w http.ResponseWriter, r *http.Request) {
-// 	vars := mux.Vars(r)
-// 	userID, _ := strconv.Atoi(vars["user_id"])
+func EventJoinedHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	userID, _ := strconv.Atoi(vars["user_id"])
 
-// 	fmt.Println(vars, userID)
+	//fmt.Println(vars, userID)
 
-// 	/* WIP */
-// }
+	events, err := dboperation.SelectRegisteredEvents(userID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	j, err := json.Marshal(events)
+	if err != nil {
+		fmt.Println(err)
+	}
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, string(j))
+
+	/* WIP */
+}
