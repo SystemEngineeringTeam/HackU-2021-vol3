@@ -48,3 +48,18 @@ func SelectRegisteredEvents(userID int) ([]models.Event, error) {
 
 	return events, nil
 }
+
+func SelectHostedEvents(userID int) ([]models.Event, error) {
+	db := connect()
+
+	user := models.User{}
+	user.ID = uint(userID)
+
+	var events []models.Event
+
+	if err := db.Model(&models.Event{}).Joins("Organizer").Where("Organizer.id = ?", userID).Find(&events).Error; err != nil {
+		return nil, err
+	}
+
+	return events, nil
+}

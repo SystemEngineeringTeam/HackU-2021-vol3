@@ -26,6 +26,31 @@ type Event struct {
 	StreamURL    string
 	Tags         []Tag  `gorm:"many2many:event_tags;"`
 	Parcitipants []User `gorm:"many2many:event_parcitipants;"`
+	StatusID     uint   `gorm:"not null"`
+	Status       Status
+}
+
+func (e *Event) ContainsAllTags(tags []string) bool {
+	for _, t := range tags {
+		if !e.ContainsTag(t) {
+			return false
+		}
+	}
+	return true
+}
+
+func (e *Event) ContainsTag(tag string) bool {
+	for _, t := range e.Tags {
+		if t.Tag == tag {
+			return true
+		}
+	}
+	return false
+}
+
+type Status struct {
+	gorm.Model
+	Status string
 }
 
 type Feedback struct {
