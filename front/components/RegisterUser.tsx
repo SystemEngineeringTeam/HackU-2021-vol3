@@ -3,8 +3,8 @@ import { axiosInstance as axios } from "../utils/api";
 import { AuthContext } from "./Auth";
 
 const RegsiterUser = () => {
-  const [showModal, setShowModal] = React.useState(false);
-  const inputUserName = useRef(null);
+  const [showModal, setShowModal] = React.useState(true);
+  const inputUserName = useRef<HTMLInputElement>(null);
   const { currentUser, currentIdToken } = useContext(AuthContext);
 
   const submitUserName = () => {
@@ -15,15 +15,18 @@ const RegsiterUser = () => {
         }
         return request;
       });
+
       axios
         .post("/user", {
-          name: inputUserName,
+          name: inputUserName.current?.value,
           profileImageURL: currentUser?.photoURL,
         })
         .then((res) => {
+          console.log("yes");
           console.log(res);
         })
         .catch((err) => {
+          console.log("no");
           console.log(err);
         });
     }
@@ -49,7 +52,10 @@ const RegsiterUser = () => {
                 <div className="mt-8">
                   <button
                     className="py-2 px-16 text-white bg-original-black rounded-md "
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      // setShowModal(false);
+                      submitUserName();
+                    }}
                   >
                     登録
                   </button>
