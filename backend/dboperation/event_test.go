@@ -62,7 +62,7 @@ func TestCreateEvent(t *testing.T) {
 // }
 
 func TestSelectEvents(t *testing.T) {
-	events, err := SelectEvents("t", "archive", nil, 0)
+	events, err := SelectEvents("t", "", nil, 0)
 	if err != nil {
 		t.Error(err)
 	}

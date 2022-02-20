@@ -78,9 +78,17 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 
 	keyword = "%" + keyword + "%"
 
+	status = "%" + status + "%"
+
 	var events []models.Event
-	if err := db.Debug().Model(&events).Joins("Status").Joins("Organizer").Preload("Tags").Where("title like ?", keyword).Where("Status = ?", status).Find(&events).Error; err != nil {
+	if err := db.Debug().Model(&events).Preload("Tags").Joins("Status").Joins("Organizer").Where("title like ?", keyword).Where("Status like ?", status).Order("id").Find(&events).Error; err != nil {
 		return nil, err
+	}
+
+	for i, e := range events {
+		if e.ContainsAllTags(tags) {
+			events = append(events[:i], events[i+1:]...)
+		}
 	}
 
 	var eventsResponse []models.EventGetResponse

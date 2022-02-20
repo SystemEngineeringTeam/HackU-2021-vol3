@@ -29,6 +29,24 @@ type Event struct {
 	Status       Status
 }
 
+func (e *Event) ContainsAllTags(tags []string) bool {
+	for _, t := range tags {
+		if !e.ContainsTag(t) {
+			return false
+		}
+	}
+	return true
+}
+
+func (e *Event) ContainsTag(tag string) bool {
+	for _, t := range e.Tags {
+		if t.Tag == tag {
+			return true
+		}
+	}
+	return false
+}
+
 type Status struct {
 	gorm.Model
 	Status string
