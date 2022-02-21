@@ -52,9 +52,6 @@ func EventIdGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func EventPostHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS")
 
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -88,16 +85,16 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StreamURLPostHandler(w http.ResponseWriter, r *http.Request) {
-	// vars := mux.Vars(r)
-	// id, _ := strconv.Atoi(vars["id"])
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
 
-	// event, err := dboperation.SelectEventByID(id)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusBadRequest)
-	// 	return
-	// }
-	// streamURL := event.StreamURL
-	// fmt.Println(streamURL)
+	event, err := dboperation.SelectEventByID(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	streamURL := event.StreamURL
+	fmt.Println(streamURL)
 
 	// err = dboperation.UpdateStreamURL(streamURL, id)
 	// if err != nil {
@@ -105,7 +102,7 @@ func StreamURLPostHandler(w http.ResponseWriter, r *http.Request) {
 	//  return
 	// }
 
-	// w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusOK)
 }
 
 func EventPutHandler(w http.ResponseWriter, r *http.Request) {
@@ -164,10 +161,6 @@ func FeedbackGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, PUT, POST, OPTIONS")
-
 	if r.Method == "OPTIONS" {
 		w.WriteHeader(http.StatusOK)
 		return
