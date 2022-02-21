@@ -15,7 +15,7 @@ import (
 func TestCreateEvent(t *testing.T) {
 	rand.Seed(time.Now().Unix())
 	r := rand.Intn(100)
-	str := "http://google.com/" + strconv.Itoa(r)
+	str := "http://google.com/" + strconv.Itoa(r) + time.Now().Format("2006-01-02 15:04:05")
 	h := sha256.Sum256([]byte(str))
 	str = hex.EncodeToString(h[:])
 
@@ -28,7 +28,7 @@ func TestCreateEvent(t *testing.T) {
 		ImageID:     1,
 	}
 
-	err := CreateEvent(e, "e80a1a7b2f614dc00b20a6a749a670100079ce4231ae04565630ed29c95d1e4c")
+	err := CreateEvent(e, "test")
 	if err != nil {
 		t.Error(err)
 	}
@@ -62,11 +62,14 @@ func TestCreateEvent(t *testing.T) {
 // }
 
 func TestSelectEvents(t *testing.T) {
-	events, err := SelectEvents("t", "", nil, 0)
+	events, err := SelectEvents("", "schedule", []string{"test", "test2"}, 1)
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Println(events)
+
+	for _, e := range events {
+		fmt.Println(e.ID, e.Title)
+	}
 }
 
 func TestSelectEvent(t *testing.T) {
