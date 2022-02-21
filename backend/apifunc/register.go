@@ -78,9 +78,20 @@ func RegisterIdDeteleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(user)
 
-	var i int
-	i, _ = strconv.Atoi(user["id"])
-	fmt.Println(i)
+	b, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var name models.UserIdGetResponse
+
+	if err := json.Unmarshal(b, &name); err != nil {
+		fmt.Println(err)
+	}
+
+	//var name uint = (UserIdGetResponse.id)
+	//var i int //= int(models.UserIdGetRespons)//readall??
+	//i, _ = strconv.Atoi(models.UserIdGetResponse["id"])
+	fmt.Println(name.ID)
 
 	vars := mux.Vars(r) //パスパラメータ取得
 	fmt.Println(vars["id"])
@@ -88,7 +99,7 @@ func RegisterIdDeteleHandler(w http.ResponseWriter, r *http.Request) {
 	j, _ := strconv.Atoi(vars["id"])
 	fmt.Println(vars, j)
 
-	err = dboperation.LeaveEvent(j, i)
+	err = dboperation.LeaveEvent(j, int(name.ID))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
