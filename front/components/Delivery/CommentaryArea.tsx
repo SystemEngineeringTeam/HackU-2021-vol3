@@ -46,7 +46,7 @@ const CommentaryArea = () => {
         }
 
         console.log(textMessageObjectArray);
-        setComments([...textMessageObjectArray]);
+        setComments([...comments, ...textMessageObjectArray]);
 
         setNextPageToken(res["data"]["nextPageToken"]);
       });
@@ -55,7 +55,7 @@ const CommentaryArea = () => {
   return (
     <>
       <div className="flex flex-col ">
-        <div className="flex overflow-y-auto flex-col mx-8 mt-8 h-56 bg-slate-100 border border-slate-200 shadow-md">
+        {/* <div className="flex overflow-y-auto flex-col mx-8 mt-8 h-56 bg-slate-100 border border-slate-200 shadow-md">
           <div className="flex items-center">
             <div>
               <Image src="/mikan.png" height="50" width="50px" alt="mikan" />
@@ -67,7 +67,15 @@ const CommentaryArea = () => {
           {comments.map((comment) => {
             return <Comment comment={comment.text} key={comment.id} />;
           })}
-        </div>
+        </div> */}
+        {/* <iframe
+          width="800"
+          height="300"
+          frameBorder="0"
+          src="https://www.youtube.com/live_chat?v=HpdO5Kq3o7Y&embed_domain=localhost"
+          allowFullScreen
+        /> */}
+
         <div className="mx-8 mt-8">
           <button className="bg-slate-500" onClick={getComment}>
             押してね

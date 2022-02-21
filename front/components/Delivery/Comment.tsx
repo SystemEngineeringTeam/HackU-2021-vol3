@@ -1,10 +1,11 @@
 import Image from "next/image";
+import { memo } from "react";
 
 type Props = {
   comment: string;
 };
 
-const comment = (props: Props) => {
+const comment = memo((props: Props) => {
   return (
     <div className="flex items-center">
       <div>
@@ -14,6 +15,6 @@ const comment = (props: Props) => {
       <div className="ml-2">{props.comment}</div>
     </div>
   );
-};
+});
 
 export default comment;
