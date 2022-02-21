@@ -56,7 +56,7 @@ const EventDetail = () => {
         return request;
       });
       axios
-        .post(`/event/register`)
+        .post(`/event/register/${pid}`)
         .then((res) => {
           console.log(res.statusText);
           console.log(res.data);
