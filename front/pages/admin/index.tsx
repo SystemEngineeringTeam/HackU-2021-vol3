@@ -40,7 +40,6 @@ const event = () => {
                 <div>
 
                     <div id="LineWrapper">
-
                         <nav className="navMenu">
                             <Link href="/">
                                 <a>開催前</a>
@@ -57,12 +56,10 @@ const event = () => {
                     </div>
                 </div>
                 <div id="AdminMainWrapper">
-                    <div id="AdminMain">
-                        <EventList />
-                    </div>
+                    <EventList />
                 </div>
-
             </Layout>
+
         </>
     );
 };

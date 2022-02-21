@@ -18,18 +18,18 @@
 #AdminLine {
     border-bottom: #252525 solid 1px;
     width: 200%;
-    transform: translateX(-250px);
+    transform: translateX(-350px);
 }
 
 #LineWrapper {
     display: flex;
     justify-content: center;
-
 }
 
 .navMenu {}
 
 .navMenu a {
+    margin-left: 100px;
     color: #3E3E3E;
     text-decoration: none;
     font-size: 1.4em;
@@ -54,20 +54,20 @@
 
 .navMenu a:nth-child(1):hover~.dot {
 
-    transform: translateX(-7px);
+    transform: translateX(92px);
     transition: all 0.2s ease-in-out;
     opacity: 1;
 }
 
 .navMenu a:nth-child(2):hover~.dot {
-    transform: translateX(143px);
+    transform: translateX(340px);
     transition: all 0.2s ease-in-out;
     opacity: 1;
 }
 
 .navMenu a:nth-child(3):hover~.dot {
 
-    transform: translateX(292px);
+    transform: translateX(592px);
 
     transition: all 0.2s ease-in-out;
     opacity: 1;

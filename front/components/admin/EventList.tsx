@@ -1,33 +1,41 @@
 import Image from "next/image";
 
-const EventList = () => {
+const EventList = (image: string, name: string,) => {
     const log = () => {
         console.log("log");
     };
 
     return (
-        <button
-            className="col-span-7 col-start-3 mt-2 h-20 rounded-lg shadow-md bg-original-gray"
-            onClick={log}
-        >
-            <div className="flex justify-between mt-2 h-16 rounded-lg">
-                <div className="flex basis-4/6 bg-white rounded-lg shadow-sm">
-                    <Image src="/infra.png" alt="" width="75px" height="40px" />
-                    <div className="flex flex-col text-left ">
-                        <div className="flex-auto md:text-lg lg:text-2xl">
-                            インフラ勉強会
+        <>
+            <div className="flex justify-center">
+                <button
+                    className="flex justify-center mt-10 w-8/12 rounded-lg shadow-md "
+                    onClick={log}
+                >
+                    <div className="w-full rounded-lg bg-original-gray">
+                        <div className="rounded-lg shadow-sm">
+                            <div className=" flex flex-col text-left ">
+                                <div className="flex-auto ml-7">
+                                    開催日程
+                                </div>
+                                <div className="absolute ml-96">
+                                    参加予定人数
+                                </div>
+                                <div className="ml-20 text-lg">2022年2月10日 16:00</div>
+                                <div className="absolute pl-20 mt-6 ml-96 text-lg">100人
+                                </div>
+                            </div>
                         </div>
-                        <div className="text-sm">2022年2月10日 16:00</div>
+                        <div className="">
+                            <div className="h-24 bg-white">
+                                配信中
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className="flex flex-col justify-between text-base">
-                    <div>参加人数 10人</div>
-                    <div className="text-center bg-white rounded-lg border-2 text-original-red border-original-red">
-                        配信中
-                    </div>
-                </div>
+                </button>
             </div>
-        </button>
+        </>
+
     );
 };
 
