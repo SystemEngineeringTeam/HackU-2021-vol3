@@ -13,7 +13,12 @@ import (
 )
 
 func EventGetHandler(w http.ResponseWriter, r *http.Request) {
-	events, err := dboperation.SelectEvents("Go-Handson", "準備中", []string{"Go"}, 1)
+	keyword := r.URL.Query().Get("keyword")
+	status := r.URL.Query().Get("status")
+	tags := r.URL.Query().Get("tags")
+	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
+
+	events, err := dboperation.SelectEvents(keyword, status, []string{tags}, page)
 	//キーワード，ステータス，タグ，ページの取得
 	//for test use
 	if err != nil {
@@ -85,16 +90,16 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StreamURLPostHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, _ := strconv.Atoi(vars["id"])
+	// vars := mux.Vars(r)
+	// id, _ := strconv.Atoi(vars["id"])
 
-	event, err := dboperation.SelectEventByID(id)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-	streamURL := event.StreamURL
-	fmt.Println(streamURL)
+	// event, err := dboperation.SelectEventByID(id)
+	// if err != nil {
+	// 	http.Error(w, err.Error(), http.StatusBadRequest)
+	// 	return
+	// }
+	// streamURL := event.StreamURL
+	// fmt.Println(streamURL)
 
 	// err = dboperation.UpdateStreamURL(streamURL, id)
 	// if err != nil {
@@ -102,7 +107,7 @@ func StreamURLPostHandler(w http.ResponseWriter, r *http.Request) {
 	//  return
 	// }
 
-	w.WriteHeader(http.StatusOK)
+	// w.WriteHeader(http.StatusOK)
 }
 
 func EventPutHandler(w http.ResponseWriter, r *http.Request) {
