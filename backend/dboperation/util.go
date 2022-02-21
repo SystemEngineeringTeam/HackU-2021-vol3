@@ -12,29 +12,59 @@ import (
 func init() {
 	db := connect()
 
-	if err := db.AutoMigrate(&models.User{}, &models.Image{}, &models.Tag{}, &models.Badge{}, &models.Feedback{}, &models.Event{}); err != nil {
+	if err := db.AutoMigrate(&models.Image{}, &models.Tag{}, &models.Badge{}, &models.User{}, &models.Status{}, &models.Event{}, &models.Feedback{}); err != nil {
 		log.Fatal(err)
 	}
 
-	user := models.User{
-		Name:            "test",
-		ProfileImageURL: "test",
-		FirebaseUID:     "test",
-	}
-	if err := db.Find(&user).Error; err != nil {
-		log.Fatal(err)
+	var c int64
+	if db.Model(&models.Image{}).Count(&c); c == 0 {
+		db.Create(&models.Image{
+			ImageURL: "https://via.placeholder.com/140x100",
+		})
 	}
 
-	if user.ID == 0 {
+	if db.Model(&models.Tag{}).Count(&c); c == 0 {
+		db.Create([]models.Tag{
+			{
+				Tag: "Go",
+			},
+			{
+				Tag: "Node",
+			},
+		})
+	}
 
-		b := models.Badge{
-			Badge: "test",
+	if db.Model(&models.Badge{}).Count(&c); c == 0 {
+		db.Create([]models.Badge{
+			{
+				Badge: "Newbie",
+			},
+		})
+	}
+
+	var u models.User
+	var u2 models.User
+	if db.Model(&models.User{}).Count(&c); c == 0 {
+		u = models.User{
+			Name:            "test",
+			FirebaseUID:     "test",
+			ProfileImageURL: "https://via.placeholder.com/140x100",
+			BadgeID:         1,
 		}
-		if err := db.Create(&b).Error; err != nil {
-			log.Fatal(err)
+		db.Create(&u)
+
+		u2 = models.User{
+			Name:            "test2",
+			FirebaseUID:     "test2",
+			ProfileImageURL: "https://via.placeholder.com/140x100",
+			BadgeID:         1,
 		}
 
-		s := []models.Status{
+		db.Create(&u2)
+	}
+
+	if db.Model(&models.Status{}).Count(&c); c == 0 {
+		db.Create([]models.Status{
 			{
 				Status: "schedule",
 			},
@@ -44,48 +74,39 @@ func init() {
 			{
 				Status: "archive",
 			},
-		}
+		})
+	}
 
-		if err := db.Create(&s).Error; err != nil {
-			log.Fatal(err)
-		}
+	var e models.Event
+	if db.Model(&models.Event{}).Count(&c); c == 0 {
+		t := []models.Tag{}
+		db.Find(&t)
 
-		// create a new user
-		u := models.User{
-			Name:            "test",
-			FirebaseUID:     "test",
-			ProfileImageURL: "test",
-			BadgeID:         b.ID,
-		}
-		if err := db.Create(&u).Error; err != nil {
-			log.Fatal(err)
-		}
-
-		// create new tags
-		tags := []models.Tag{
-			{Tag: "test"},
-			{Tag: "test2"},
-		}
-		if err := db.Create(tags).Error; err != nil {
-			log.Fatal(err)
-		}
-
-		// create a new event
-		e := models.Event{
+		e = models.Event{
 			Title:       "test",
 			Description: "test",
 			Document:    "test",
-			DateTime:    "test",
-			StreamURL:   "test",
-			Image:       models.Image{ImageURL: "test"},
-			Tags:        tags,
-			Organizer:   u,
-			StatusID:    s[0].ID,
+			ImageID:     1,
+			OrganizerID: u.ID,
+			DateTime:    "2020-01-01T00:00:00+09:00",
+			Tags:        t,
+			StatusID:    1,
+			Parcitipants: []models.User{
+				u2,
+			},
 		}
-		if err := db.Create(&e).Error; err != nil {
-			log.Fatal(err)
-		}
+		db.Create(&e)
 	}
+
+	if db.Model(&models.Feedback{}).Count(&c); c == 0 {
+		db.Create(&models.Feedback{
+			EventID: int(e.ID),
+			UserID:  int(u.ID),
+			Comment: "test",
+			Stars:   1,
+		})
+	}
+
 }
 
 func connect() *gorm.DB {
