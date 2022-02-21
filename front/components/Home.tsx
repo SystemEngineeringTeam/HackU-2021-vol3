@@ -35,7 +35,7 @@ const Home = () => {
   //   console.log(res);
   // });
 
-  axios.get("/").then((res) => {
+  axios.get("/event").then((res) => {
     console.log(res);
   });
 
@@ -67,7 +67,7 @@ const Home = () => {
               />
             ))} */}
             {/* <Event /> */}
-
+            {/* 
             <Event
               id={1}
               title={"インフラ勉強会"}
@@ -137,7 +137,7 @@ const Home = () => {
               tags={["インフラ", "フロント"]}
               status={"開催中"}
               parcitipants={10}
-            />
+            /> */}
           </div>
         </div>
         <div className="border-4" />
