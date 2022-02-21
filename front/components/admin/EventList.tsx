@@ -1,7 +1,7 @@
 import Image from "next/image";
 import FrontendImage from "../../public/EventImage/web.png";
 
-const EventList = (image: string, name: string,) => {
+const EventList = () => {
     const log = () => {
         console.log("log");
     };
