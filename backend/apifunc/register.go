@@ -13,9 +13,6 @@ import (
 //参加登録
 func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
 	if r.Method == "OPTIONS" {
 		w.WriteHeader(http.StatusOK)
 		return

@@ -52,9 +52,6 @@ func EventIdGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func EventPostHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
 
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -164,10 +161,6 @@ func FeedbackGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-
 	if r.Method == "OPTIONS" {
 		w.WriteHeader(http.StatusOK)
 		return
@@ -197,7 +190,7 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	if err := json.Unmarshal(b, &feedback); err != nil {
 		fmt.Println(err)
 	}
-	
+
 	// fmt.Println(feedback.Comment)
 	// fmt.Println(feedback.Stars)
 
