@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Layout from "../../components/Layout";
+import EventList from '../../components/admin/EventList';
 const event = () => {
     return (
         <>
@@ -55,7 +56,11 @@ const event = () => {
                         </nav>
                     </div>
                 </div>
-
+                <div id="AdminMainWrapper">
+                    <div id="AdminMain">
+                        <EventList />
+                    </div>
+                </div>
 
             </Layout>
         </>
