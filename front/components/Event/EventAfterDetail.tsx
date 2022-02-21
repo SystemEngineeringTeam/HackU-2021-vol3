@@ -8,7 +8,7 @@ const EventAfterDetail = () => {
           <Image src={`/infra.png`} height="110px" width="135 px" alt="infra" />
         </div>
         <div className="flex flex-col items-center">
-          <div className="text-xl">2月15日 15時30分</div>
+          <div className="text-2xl">2月15日 15時30分~</div>
           <div className="text-5xl">インフラ勉強会</div>
         </div>
       </div>
@@ -63,14 +63,62 @@ const EventAfterDetail = () => {
             <div className="ml-4 text-2xl">super_Tikuwa</div>
           </div>
           <div className="border border-black " />
-          <div className="mt-14 text-center">参加予定人数 10人</div>
+          <div className="mt-14 text-xl text-center">参加予定人数 10人</div>
           <div className="border border-black" />
-          <div className="mt-12">Tags </div>
-          <div>
+
+          <div className="text-xl">
+            <div className="mt-12 ">Tags </div>
             <button className="">フロントエンド,</button>
             <button>バックエンド</button>
           </div>
           <div className="border border-black" />
+        </div>
+      </div>
+
+      <div className="mt-10 h-40 bg-slate-500">
+        <div className="flex flex-col ">
+          <div className="flex ml-60 ">
+            <Image
+              src={`/comment.png`}
+              height="40px"
+              width="40 px"
+              alt="infra"
+            />
+            <div className="mt-2 ml-3">58</div>
+          </div>
+          <div className="flex ml-72">
+            <div className="flex flex-col bg-orange-400">
+              <Image
+                src={`/fukuda.png`}
+                height="50px"
+                width="50 px"
+                alt="infra"
+              />
+            </div>
+            <div className="flex flex-col ml-4 w-8/12 bg-green-400">
+              <div className="text-2xl">☆☆☆☆☆</div>
+              <input
+                type="text"
+                className="w-11/12 h-20 border-2"
+                placeholder="フィードバックを書きましょう"
+              />
+            </div>
+          </div>
+
+          <div className="flex mt-12 ml-72 h-12">
+            <div className="flex bg-orange-400">
+              <Image
+                src={`/fukuda.png`}
+                height="50px"
+                width="45 px"
+                alt="infra"
+              />
+            </div>
+            <div className="flex-col text-2xl">
+              <div>Super_Tikuwa</div>
+              <div>☆☆☆☆☆</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
