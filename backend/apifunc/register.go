@@ -7,7 +7,6 @@ import (
 	"strconv"
 
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/dboperation"
-	"github.com/SystemEngineeringTeam/HackU-2021-vol3/models"
 	"github.com/gorilla/mux"
 )
 
@@ -26,13 +25,9 @@ func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(user)
+	fmt.Println(user["FirebaseUID"])
 
-	var name models.User
-
-	fmt.Println(name.FirebaseUID)
-
-	userid, err := dboperation.GetUserByFirebaseUID(name.FirebaseUID)
+	userid, err := dboperation.GetUserByFirebaseUID(user["FirebaseUID"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -62,13 +57,9 @@ func RegisterIdDeteleHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(user)
+	fmt.Println(user["FirebaseUID"])
 
-	var name models.User
-
-	fmt.Println(name.FirebaseUID)
-
-	userid, err := dboperation.GetUserByFirebaseUID(name.FirebaseUID)
+	userid, err := dboperation.GetUserByFirebaseUID(user["FirebaseUID"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
