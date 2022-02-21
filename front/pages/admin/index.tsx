@@ -10,7 +10,7 @@ const event = () => {
                 </div>
                 <div id="AdminKeyWord" className="">
                     <div className="mb-6">
-                        <div className="font-bold">KEYWORD SEARCH</div>
+                        <div className="font-bold text-slate-800">KEYWORD SEARCH</div>
                         <div className="relative">
                             <input
                                 type="text"
@@ -18,7 +18,7 @@ const event = () => {
                             />
                             <button className="absolute top-1 right-2">
                                 <svg
-                                    className="w-8 h-8 text-black"
+                                    className="w-8 h-8 text-slate-800"
                                     width="24"
                                     height="24"
                                     viewBox="0 0 24 24"
