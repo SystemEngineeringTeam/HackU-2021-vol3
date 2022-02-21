@@ -22,7 +22,7 @@ func TestCreateUser(T *testing.T) {
 		T.Error(err)
 	}
 
-	u, err := getUserByFirebaseUID(str)
+	u, err := GetUserByFirebaseUID(str)
 	if err != nil {
 		T.Error(err)
 	}
