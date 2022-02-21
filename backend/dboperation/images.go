@@ -8,7 +8,7 @@ func SelectAllImages() ([]models.Image, error) {
 	db := connect()
 
 	var images []models.Image
-	if err := db.Scan(&images).Error; err != nil {
+	if err := db.Model(&images).Scan(&images).Error; err != nil {
 		return nil, err
 	}
 	return images, nil
