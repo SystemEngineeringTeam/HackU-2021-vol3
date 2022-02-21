@@ -204,13 +204,19 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	eventID, _ := strconv.Atoi(vars["id"])
 
+	joined, err := dboperation.SelectRegisteredEvents(int(user.ID)) //イベントの取得先?
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
 	gotUser := models.User{
 		Name:            userInfo["Name"],
 		ProfileImageURL: userInfo["ProfileImageURL"],
 		FirebaseUID:     userInfo["FirebaseUID"],
 		BadgeID:         1, //test
 		Badge:           models.Badge{Badge: "test"},
-		//JoinedEvents:    []models.Event{},
+		JoinedEvents:    joined,
 	}
 
 	fmt.Println(vars, eventID)
