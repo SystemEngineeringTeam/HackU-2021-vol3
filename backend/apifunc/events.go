@@ -14,6 +14,7 @@ import (
 
 func EventGetHandler(w http.ResponseWriter, r *http.Request) {
 	events, err := dboperation.SelectEvents("Go-Handson", "準備中", []string{"Go"}, 1)
+	//キーワード，ステータス，タグ，ページの取得
 	//for test use
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -44,7 +45,7 @@ func EventIdGetHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(string(j))
+	//fmt.Println(string(j))
 	w.WriteHeader(http.StatusOK)
 
 	fmt.Fprint(w, string(j))
@@ -163,11 +164,6 @@ func FeedbackGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
-	/*
-
-		WIP
-
-	*/
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
@@ -197,14 +193,14 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	} //UserIDをどうやって取得するか？
 
-	fmt.Println(user.ID)
-	fmt.Println(feedback.Comment)
-	fmt.Println(feedback.Stars)
+	// fmt.Println(user.ID)
+	// fmt.Println(feedback.Comment)
+	// fmt.Println(feedback.Stars)
 
 	vars := mux.Vars(r)
 	eventID, _ := strconv.Atoi(vars["id"])
 
-	joined, err := dboperation.SelectRegisteredEvents(int(user.ID)) //イベントの取得先?
+	joined, err := dboperation.SelectRegisteredEvents(int(user.ID)) //参加中のイベントの取得先?
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -219,7 +215,7 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 		JoinedEvents:    joined, //[]models.Event,
 	}
 
-	fmt.Println(vars, eventID)
+	//fmt.Println(vars, eventID)
 
 	e := models.Feedback{
 		EventID: eventID,
@@ -255,8 +251,6 @@ func EventHostedHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(j))
-
-	/* WIP */
 }
 
 func EventJoinedHandler(w http.ResponseWriter, r *http.Request) {
@@ -277,6 +271,4 @@ func EventJoinedHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(j))
-
-	/* WIP */
 }
