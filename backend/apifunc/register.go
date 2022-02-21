@@ -82,19 +82,6 @@ func RegisterIdDeteleHandler(w http.ResponseWriter, r *http.Request) {
 	i, _ = strconv.Atoi(user["id"])
 	fmt.Println(i)
 
-	b, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
-	var event models.Event
-
-	if err := json.Unmarshal(b, &event); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-	fmt.Println(event.Title)
-	fmt.Println(event.OrganizerID)
-
 	vars := mux.Vars(r) //パスパラメータ取得
 	fmt.Println(vars["id"])
 
