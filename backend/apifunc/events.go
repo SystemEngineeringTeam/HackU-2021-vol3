@@ -173,9 +173,17 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userInfo, err := verifyCheck(r)
+	user, err := verifyCheck(r)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	uid := user["FirebaseUID"]
+
+	userInfo, err := dboperation.GetUserByFirebaseUID(uid)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -183,44 +191,25 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	var feedback models.FeedbackPostRequest
-	var user models.UserIdGetResponse
 
 	if err := json.Unmarshal(b, &feedback); err != nil {
 		fmt.Println(err)
 	}
-	if err := json.Unmarshal(b, &user); err != nil {
-		fmt.Println(err)
-	} //UserIDをどうやって取得するか？
-
-	// fmt.Println(user.ID)
+	
 	// fmt.Println(feedback.Comment)
 	// fmt.Println(feedback.Stars)
 
 	vars := mux.Vars(r)
 	eventID, _ := strconv.Atoi(vars["id"])
 
-	joined, err := dboperation.SelectRegisteredEvents(int(user.ID)) //参加中のイベントの取得先?
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	gotUser := models.User{
-		Name:            userInfo["Name"],
-		ProfileImageURL: userInfo["ProfileImageURL"],
-		FirebaseUID:     userInfo["FirebaseUID"],
-		BadgeID:         1, //test
-		Badge:           models.Badge{Badge: "test"},
-		JoinedEvents:    joined, //[]models.Event,
-	}
-
 	//fmt.Println(vars, eventID)
 
 	e := models.Feedback{
 		EventID: eventID,
-		UserID:  int(user.ID),
-		User:    gotUser,
+		UserID:  int(userInfo.ID),
+		User:    userInfo,
 		Stars:   uint(feedback.Stars),
 		Comment: feedback.Comment,
 	}
