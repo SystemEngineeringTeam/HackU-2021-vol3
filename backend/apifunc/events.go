@@ -14,6 +14,7 @@ import (
 
 func EventGetHandler(w http.ResponseWriter, r *http.Request) {
 	events, err := dboperation.SelectEvents("Go-Handson", "準備中", []string{"Go"}, 1)
+	//キーワード，ステータス，タグ，ページの取得
 	//for test use
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -44,7 +45,7 @@ func EventIdGetHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(string(j))
+	//fmt.Println(string(j))
 	w.WriteHeader(http.StatusOK)
 
 	fmt.Fprint(w, string(j))
@@ -163,11 +164,6 @@ func FeedbackGetHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
-	/*
-
-		WIP
-
-	*/
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
@@ -177,9 +173,17 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userInfo, err := verifyCheck(r)
+	user, err := verifyCheck(r)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	uid := user["FirebaseUID"]
+
+	userInfo, err := dboperation.GetUserByFirebaseUID(uid)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -187,38 +191,25 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	var feedback models.FeedbackPostRequest
-	var user models.UserIdGetResponse
 
 	if err := json.Unmarshal(b, &feedback); err != nil {
 		fmt.Println(err)
 	}
-	if err := json.Unmarshal(b, &user); err != nil {
-		fmt.Println(err)
-	} //UserIDをどうやって取得するか？
-
-	fmt.Println(user.ID)
-	fmt.Println(feedback.Comment)
-	fmt.Println(feedback.Stars)
+	
+	// fmt.Println(feedback.Comment)
+	// fmt.Println(feedback.Stars)
 
 	vars := mux.Vars(r)
 	eventID, _ := strconv.Atoi(vars["id"])
 
-	gotUser := models.User{
-		Name:            userInfo["Name"],
-		ProfileImageURL: userInfo["ProfileImageURL"],
-		FirebaseUID:     userInfo["FirebaseUID"],
-		BadgeID:         1, //test
-		Badge:           models.Badge{Badge: "test"},
-		//JoinedEvents:    []models.Event{},
-	}
-
-	fmt.Println(vars, eventID)
+	//fmt.Println(vars, eventID)
 
 	e := models.Feedback{
 		EventID: eventID,
-		UserID:  int(user.ID),
-		User:    gotUser,
+		UserID:  int(userInfo.ID),
+		User:    userInfo,
 		Stars:   uint(feedback.Stars),
 		Comment: feedback.Comment,
 	}
@@ -249,8 +240,6 @@ func EventHostedHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(j))
-
-	/* WIP */
 }
 
 func EventJoinedHandler(w http.ResponseWriter, r *http.Request) {
@@ -271,6 +260,4 @@ func EventJoinedHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, string(j))
-
-	/* WIP */
 }
