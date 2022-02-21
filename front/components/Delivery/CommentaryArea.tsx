@@ -4,7 +4,7 @@ import { useState } from "react";
 import Comment from "./Comment";
 
 type TextMessageObject = {
-  id: number;
+  id: string;
   text: string;
 };
 
@@ -40,7 +40,9 @@ const CommentaryArea = () => {
             res["data"]["items"][index]["snippet"]["textMessageDetails"][
               "messageText"
             ];
-          textMessageObjectArray.push({ id: index, text: element });
+
+          const id = res["data"]["items"][index]["id"];
+          textMessageObjectArray.push({ id: id, text: element });
         }
 
         console.log(textMessageObjectArray);
