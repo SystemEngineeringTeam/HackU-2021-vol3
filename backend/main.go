@@ -9,31 +9,47 @@ import (
 )
 
 func main() {
-	router := mux.NewRouter()
 	//ルーターの定義
+	router := mux.NewRouter()
 
-	router.Methods("POST", "OPTIONS").Path("/auth").HandlerFunc(apifunc.Auth)
-	//VerifyCheckをハンドラに登録,http.HandlerFuncとほぼ同じ動作.
-	router.Methods("GET").Path("/images").HandlerFunc(apifunc.ImagesGetHandler)
+	// auth
+	router.Path("/auth").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("POST"))
+	router.Path("/auth").Methods("POST").HandlerFunc(apifunc.Auth)
 
-	router.Methods("GET").Path("/user").HandlerFunc(apifunc.IdGetHandler)
-	router.Methods("POST").Path("/user").HandlerFunc(apifunc.UserPostHandler)
-	router.Methods("PUT").Path("/user").HandlerFunc(apifunc.UserPutHandler)
-	router.HandleFunc("/user/{id}", apifunc.IdGetHandler)
+	// images
+	router.Path("/images").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET"))
+	router.Path("/images").Methods("GET").HandlerFunc(apifunc.ImagesGetHandler)
 
-	router.Methods("POST", "OPTIONS").Path("/register").HandlerFunc(apifunc.RegisterIdPostHandler)
-	router.HandleFunc("/user/{id}", apifunc.RegisterIdPostHandler)
+	// user
+	router.Path("/user").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET", "POST", "PUT"))
+	router.Path("/user").Methods("GET").HandlerFunc(apifunc.IdGetHandler)
+	router.Path("/user").Methods("POST").HandlerFunc(apifunc.UserPostHandler)
+	router.Path("/user").Methods("PUT").HandlerFunc(apifunc.UserPutHandler)
 
-	router.Methods("GET").Path("/event/{id}").HandlerFunc(apifunc.EventIdGetHandler)
-	router.Methods("GET").Path("/event").HandlerFunc(apifunc.EventGetHandler)
-	router.Methods("POST", "OPTIONS").Path("/event").HandlerFunc(apifunc.EventPostHandler)
-	router.Methods("POST").Path("/event/{id}").HandlerFunc(apifunc.StreamURLPostHandler)
-	// router.Methods("PUT").Path("/event/{id}").HandlerFunc(apifunc.EventPutHandler)
-	router.Methods("POST").Path("/event/{id}/feedback").HandlerFunc(apifunc.FeedbackPostHandler)
-	router.Methods("GET").Path("/event/{id}/feedback").HandlerFunc(apifunc.FeedbackGetHandler)
+	router.Path("/user/{id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET"))
+	router.Path("/user/{id}").Methods("GET").HandlerFunc(apifunc.IdGetHandler)
 
-	router.Methods("GET").Path("/event/hosted/{user_id}").HandlerFunc(apifunc.EventHostedHandler)
-	router.Methods("GET").Path("/event/joined/{user_id}").HandlerFunc(apifunc.EventJoinedHandler)
+	// evnet
+	router.Path("/event").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET", "POST"))
+	router.Path("/event").Methods("GET").HandlerFunc(apifunc.EventGetHandler)
+	router.Path("/event").Methods("POST", "OPTIONS").HandlerFunc(apifunc.EventPostHandler)
+
+	router.Path("/event/{id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET", "POST"))
+	router.Path("/event/{id}").Methods("GET").HandlerFunc(apifunc.EventIdGetHandler)
+	router.Path("/event/{id}").Methods("POST").HandlerFunc(apifunc.StreamURLPostHandler)
+
+	router.Path("/event/{id}/feedback").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET", "POST"))
+	router.Path("/event/{id}/feedback").Methods("GET").HandlerFunc(apifunc.FeedbackGetHandler)
+	router.Path("/event/{id}/feedback").Methods("POST").HandlerFunc(apifunc.FeedbackPostHandler)
+
+	router.Path("/event/hosted/{user_id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET"))
+	router.Path("/event/hosted/{user_id}").Methods("GET").HandlerFunc(apifunc.EventHostedHandler)
+
+	router.Path("/event/joined/{user_id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET"))
+	router.Path("/event/joined/{user_id}").Methods("GET").HandlerFunc(apifunc.EventJoinedHandler)
+
+	router.Path("/event/register/{id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("POST"))
+	router.Path("/event/register/{id}").Methods("POST").HandlerFunc(apifunc.RegisterIdPostHandler)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 

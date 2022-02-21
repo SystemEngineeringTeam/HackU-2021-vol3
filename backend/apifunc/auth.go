@@ -15,10 +15,6 @@ import (
 )
 
 func Auth(w http.ResponseWriter, r *http.Request) {
-	//CORS設定
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
 	if r.Method == "OPTIONS" {
 		w.WriteHeader(http.StatusOK)
 		return
