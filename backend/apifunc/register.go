@@ -30,22 +30,17 @@ func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(user)
 
-	var i int
-	i, _ = strconv.Atoi(user["id"])
-	fmt.Println(i)
-
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
-	var event models.Event
+	var name models.UserIdGetResponse
 
-	if err := json.Unmarshal(b, &event); err != nil {
+	if err := json.Unmarshal(b, &name); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Println(event.Title)
-	fmt.Println(event.OrganizerID)
+	fmt.Println(name.ID)
 
 	vars := mux.Vars(r) //パスパラメータ取得
 	fmt.Println(vars["id"])
@@ -53,7 +48,7 @@ func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 	j, _ := strconv.Atoi(vars["id"])
 	fmt.Println(vars, j)
 
-	err = dboperation.JoinEvent(j, i)
+	err = dboperation.JoinEvent(j, int(name.ID))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
