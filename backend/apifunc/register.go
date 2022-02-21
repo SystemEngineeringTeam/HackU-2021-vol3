@@ -1,9 +1,7 @@
 package apifunc
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
@@ -30,16 +28,8 @@ func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(user)
 
-	b, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
 	var name models.User
 
-	if err := json.Unmarshal(b, &name); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
 	fmt.Println(name.FirebaseUID)
 
 	userid, err := dboperation.GetUserByFirebaseUID(name.FirebaseUID)
@@ -69,13 +59,6 @@ func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 
 //参加取り消し
 func RegisterIdDeteleHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
-	if r.Method == "OPTIONS" {
-		w.WriteHeader(http.StatusOK)
-		return
-	}
 
 	user, err := verifyCheck(r)
 	if err != nil {
@@ -83,16 +66,7 @@ func RegisterIdDeteleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(user)
 
-	b, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err)
-	}
 	var name models.User
-
-	if err := json.Unmarshal(b, &name); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
 
 	fmt.Println(name.FirebaseUID)
 

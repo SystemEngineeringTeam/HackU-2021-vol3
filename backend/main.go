@@ -21,10 +21,10 @@ func main() {
 	router.Methods("PUT").Path("/user").HandlerFunc(apifunc.UserPutHandler)
 	router.HandleFunc("/user/{id}", apifunc.IdGetHandler)
 
-	router.Methods("POST", "OPTIONS").Path("/event/register/:id").HandlerFunc(apifunc.RegisterIdPostHandler)
-	router.HandleFunc("/user/{id}", apifunc.RegisterIdPostHandler)
-	router.Methods("DELETE", "OPTIONS").Path("/event/register/:id").HandlerFunc(apifunc.RegisterIdDeteleHandler)
-	router.HandleFunc("/user/{id}", apifunc.RegisterIdDeteleHandler)
+	//router.Methods("POST", "OPTIONS").Path("/event/register/:id").HandlerFunc(apifunc.RegisterIdPostHandler)
+	router.Path("/event/register/{id}").Methods("POST").HandlerFunc(apifunc.RegisterIdPostHandler)
+	//router.Methods("DELETE", "OPTIONS").Path("/event/register/:id").HandlerFunc(apifunc.RegisterIdDeteleHandler)
+	router.Path("/event/register/{id}").Methods("DELETE").HandlerFunc(apifunc.RegisterIdDeteleHandler)
 
 	router.Methods("GET").Path("/event/{id}").HandlerFunc(apifunc.EventIdGetHandler)
 	router.Methods("GET").Path("/event").HandlerFunc(apifunc.EventGetHandler)
