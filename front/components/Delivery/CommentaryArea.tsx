@@ -1,7 +1,55 @@
+import axios from "axios";
 import Image from "next/image";
+import { useState } from "react";
 import Comment from "./Comment";
 
+type TextMessageObject = {
+  id: number;
+  text: string;
+};
+
 const CommentaryArea = () => {
+  const [nextPageToken, setNextPageToken] = useState<string>("");
+  const [comments, setComments] = useState<TextMessageObject[]>([]);
+
+  const getLiveChatId = () => {
+    const target = "https://www.youtube.com/embed/4N7HKC7szFA";
+  };
+
+  const getComment = () => {
+    axios
+      .get("https://www.googleapis.com/youtube/v3/liveChat/messages", {
+        params: {
+          key: "AIzaSyAWufHsGJN1P2jPmGpTL2WJZbC2Go91140",
+          part: "snippet",
+          liveChatId:
+            "Cg0KC0hwZE81S3EzbzdZKicKGFVDR0NaQVlxNVh4b2psX3RTWGNWSmhpURILSHBkTzVLcTNvN1k",
+          pageToken: nextPageToken,
+        },
+      })
+      .then((res) => {
+        console.log(
+          res["data"]["items"][0]["snippet"]["textMessageDetails"][
+            "messageText"
+          ]
+        );
+
+        const textMessageObjectArray: TextMessageObject[] = [];
+        for (let index = 0; index < res["data"]["items"].length; index++) {
+          const element =
+            res["data"]["items"][index]["snippet"]["textMessageDetails"][
+              "messageText"
+            ];
+          textMessageObjectArray.push({ id: index, text: element });
+        }
+
+        console.log(textMessageObjectArray);
+        setComments([...textMessageObjectArray]);
+
+        setNextPageToken(res["data"]["nextPageToken"]);
+      });
+  };
+
   return (
     <>
       <div className="flex flex-col ">
@@ -13,13 +61,15 @@ const CommentaryArea = () => {
             <div className="ml-2">mikan_54951</div>
             <div className="ml-2">面白そう</div>
           </div>
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
+
+          {comments.map((comment) => {
+            return <Comment comment={comment.text} key={comment.id} />;
+          })}
         </div>
         <div className="mx-8 mt-8">
+          <button className="bg-slate-500" onClick={getComment}>
+            押してね
+          </button>
           <input
             type="text"
             className="w-full h-12 rounded-xl border-2"
