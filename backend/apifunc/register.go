@@ -1,15 +1,12 @@
 package apifunc
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/dboperation"
-	"github.com/SystemEngineeringTeam/HackU-2021-vol3/models"
 	"github.com/gorilla/mux"
 )
 
@@ -25,24 +22,15 @@ func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(user)
+	fmt.Println(user["FirebaseUID"])
 
-	var i int
-	i, _ = strconv.Atoi(user["id"])
-	fmt.Println(i)
-
-	b, err := ioutil.ReadAll(r.Body)
+	userid, err := dboperation.GetUserByFirebaseUID(user["FirebaseUID"])
 	if err != nil {
-		fmt.Println(err)
-	}
-	var event models.Event
-
-	if err := json.Unmarshal(b, &event); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Println(event.Title)
-	fmt.Println(event.OrganizerID)
+
+	fmt.Println(userid.ID)
 
 	vars := mux.Vars(r) //パスパラメータ取得
 	fmt.Println(vars["id"])
@@ -50,7 +38,39 @@ func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 	j, _ := strconv.Atoi(vars["id"])
 	fmt.Println(vars, j)
 
-	err = dboperation.JoinEvent(j, i)
+	err = dboperation.JoinEvent(j, int(userid.ID))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+}
+
+//参加取り消し
+func RegisterIdDeteleHandler(w http.ResponseWriter, r *http.Request) {
+
+	user, err := verifyCheck(r)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(user["FirebaseUID"])
+
+	userid, err := dboperation.GetUserByFirebaseUID(user["FirebaseUID"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println(userid.ID)
+
+	vars := mux.Vars(r) //パスパラメータ取得
+	fmt.Println(vars["id"])
+
+	j, _ := strconv.Atoi(vars["id"])
+	fmt.Println(vars, j)
+
+	err = dboperation.LeaveEvent(j, int(userid.ID))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
