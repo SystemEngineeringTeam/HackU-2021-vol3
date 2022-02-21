@@ -17,8 +17,8 @@
 
 #AdminLine {
     border-bottom: #252525 solid 1px;
-    width: 100px;
-
+    width: 200%;
+    transform: translateX(-250px);
 }
 
 #LineWrapper {
@@ -54,7 +54,7 @@
 
 .navMenu a:nth-child(1):hover~.dot {
 
-    transform: translateX(-135px);
+    transform: translateX(-120px);
     transition: all 0.2s ease-in-out;
     opacity: 1;
 }

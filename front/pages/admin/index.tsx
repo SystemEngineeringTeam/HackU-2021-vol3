@@ -1,4 +1,4 @@
-import BeforeScreenToReturn from "../../components/BeforeScreenToReturn";
+import Link from 'next/link'
 import Layout from "../../components/Layout";
 const event = () => {
     return (
@@ -37,13 +37,23 @@ const event = () => {
                     </div>
                 </div>
                 <div>
-                    <div id="LineWrapper"><nav className="navMenu">
-                        <a href="/">開催前</a>
-                        <a href="/frontend/html/todo.html">開催中</a>
-                        <a href="/frontend/html/timetable.html">開催後</a>
-                        <div className="dot" />
-                        <div id="AdminLine" />
-                    </nav></div>
+
+                    <div id="LineWrapper">
+
+                        <nav className="navMenu">
+                            <Link href="/">
+                                <a>開催前</a>
+                            </Link>
+                            <Link href="/">
+                                <a>開催中</a>
+                            </Link>
+                            <Link href="/">
+                                <a>開催後</a>
+                            </Link>
+                            <div className="dot" />
+                            <div id="AdminLine" />
+                        </nav>
+                    </div>
                 </div>
 
 
