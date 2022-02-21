@@ -29,7 +29,7 @@ func main() {
 	router.Path("/user/{id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET"))
 	router.Path("/user/{id}").Methods("GET").HandlerFunc(apifunc.IdGetHandler)
 
-	// event
+	// evnet
 	router.Path("/event").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET", "POST"))
 	router.Path("/event").Methods("GET").HandlerFunc(apifunc.EventGetHandler)
 	router.Path("/event").Methods("POST", "OPTIONS").HandlerFunc(apifunc.EventPostHandler)
