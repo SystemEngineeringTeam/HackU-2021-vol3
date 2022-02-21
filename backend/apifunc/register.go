@@ -38,9 +38,7 @@ func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(userid.FirebaseUID)
-	intuserid, _ := strconv.Atoi(userid.FirebaseUID)
-	fmt.Println(intuserid)
+	fmt.Println(userid.ID)
 
 	vars := mux.Vars(r) //パスパラメータ取得
 	fmt.Println(vars["id"])
@@ -48,7 +46,7 @@ func RegisterIdPostHandler(w http.ResponseWriter, r *http.Request) {
 	j, _ := strconv.Atoi(vars["id"])
 	fmt.Println(vars, j)
 
-	err = dboperation.JoinEvent(j, intuserid)
+	err = dboperation.JoinEvent(j, int(userid.ID))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -76,9 +74,7 @@ func RegisterIdDeteleHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(userid.FirebaseUID)
-	intuserid, _ := strconv.Atoi(userid.FirebaseUID)
-	fmt.Println(intuserid)
+	fmt.Println(userid.ID)
 
 	vars := mux.Vars(r) //パスパラメータ取得
 	fmt.Println(vars["id"])
@@ -86,7 +82,7 @@ func RegisterIdDeteleHandler(w http.ResponseWriter, r *http.Request) {
 	j, _ := strconv.Atoi(vars["id"])
 	fmt.Println(vars, j)
 
-	err = dboperation.LeaveEvent(j, intuserid)
+	err = dboperation.LeaveEvent(j, int(userid.ID))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
