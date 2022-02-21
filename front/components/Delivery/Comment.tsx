@@ -5,7 +5,7 @@ type Props = {
   comment: string;
 };
 
-const comment = memo((props: Props) => {
+const comment = (props: Props) => {
   return (
     <div className="flex items-center">
       <div>
@@ -15,6 +15,6 @@ const comment = memo((props: Props) => {
       <div className="ml-2">{props.comment}</div>
     </div>
   );
-});
+};
 
 export default comment;
