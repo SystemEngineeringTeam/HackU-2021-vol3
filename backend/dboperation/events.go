@@ -9,7 +9,7 @@ import (
 func CreateEvent(e models.EventPostRequest, firebaseUID string) error {
 	db := connect()
 
-	u, err := getUserByFirebaseUID(firebaseUID)
+	u, err := GetUserByFirebaseUID(firebaseUID)
 	if err != nil {
 		return err
 	}

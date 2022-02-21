@@ -19,7 +19,7 @@ func Auth(firebaseUID string) error {
 	return nil
 }
 
-func getUserByFirebaseUID(firebaseUID string) (models.User, error) {
+func GetUserByFirebaseUID(firebaseUID string) (models.User, error) {
 	db := connect()
 
 	var user models.User
