@@ -14,7 +14,7 @@ const EventAfterDetail = () => {
       </div>
       <div className="mx-auto w-3/4 border border-black" />
       <div className="flex mt-20">
-        <div className="flex flex-col ml-10 w-9/12 h-[600px]">
+        <div className="flex flex-col ml-10 w-8/12 h-[600px]">
           <div className="flex flex-col justify-between h-[600px] md:ml-20 lg:ml-32 xl:ml-56">
             <div className="text-3xl">
               details
@@ -52,20 +52,20 @@ const EventAfterDetail = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col mx-auto mt-2 w-56 bg-blue-400">
-          <div className="flex items-center">
+        <div className="flex flex-col mx-auto mt-4 w-72 ">
+          <div className="flex items-center mb-2">
             <Image
               src={`/fukuda.png`}
               height="40px"
               width="40 px"
               alt="infra"
             />
-            <div className="ml-2 text-2xl">super_Tikuwa</div>
+            <div className="ml-4 text-2xl">super_Tikuwa</div>
           </div>
           <div className="border border-black " />
-          <div className="mt-10 text-center">参加予定人数 10人</div>
+          <div className="mt-14 text-center">参加予定人数 10人</div>
           <div className="border border-black" />
-          <div className="mt-10">Tags </div>
+          <div className="mt-12">Tags </div>
           <div>フロントエンド,バックエンド</div>
           <div className="border border-black" />
         </div>
