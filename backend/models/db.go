@@ -58,6 +58,7 @@ type Status struct {
 type Feedback struct {
 	gorm.Model
 	EventID int `gorm:"uniqueIndex:event_user_feedback;not null;"`
+	Event   Event
 	UserID  int `gorm:"uniqueIndex:event_user_feedback;not null;"`
 	User    User
 	Stars   uint   `gorm:"not null"`
