@@ -216,7 +216,7 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 		FirebaseUID:     userInfo["FirebaseUID"],
 		BadgeID:         1, //test
 		Badge:           models.Badge{Badge: "test"},
-		JoinedEvents:    joined,
+		JoinedEvents:    joined, //[]models.Event,
 	}
 
 	fmt.Println(vars, eventID)
