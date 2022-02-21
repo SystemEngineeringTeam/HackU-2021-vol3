@@ -66,7 +66,10 @@ const EventAfterDetail = () => {
           <div className="mt-14 text-center">参加予定人数 10人</div>
           <div className="border border-black" />
           <div className="mt-12">Tags </div>
-          <div>フロントエンド,バックエンド</div>
+          <div>
+            <button className="">フロントエンド,</button>
+            <button>バックエンド</button>
+          </div>
           <div className="border border-black" />
         </div>
       </div>
