@@ -22,7 +22,6 @@ func main() {
 
 	// user
 	router.Path("/user").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET", "POST", "PUT"))
-	router.Path("/user").Methods("GET").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.IdGetHandler))
 	router.Path("/user").Methods("POST").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.UserPostHandler))
 	router.Path("/user").Methods("PUT").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.UserPutHandler))
 	router.Path("/user").Methods("GET").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.UserGetHandler))
