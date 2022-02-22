@@ -25,6 +25,7 @@ func main() {
 	router.Path("/user").Methods("GET").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.IdGetHandler))
 	router.Path("/user").Methods("POST").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.UserPostHandler))
 	router.Path("/user").Methods("PUT").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.UserPutHandler))
+	router.Path("/user").Methods("GET").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.UserGetHandler))
 
 	router.Path("/user/{id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET"))
 	router.Path("/user/{id}").Methods("GET").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.IdGetHandler))
@@ -48,9 +49,9 @@ func main() {
 	router.Path("/event/joined/{user_id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET"))
 	router.Path("/event/joined/{user_id}").Methods("GET").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.EventJoinedHandler))
 
-	router.Path("/event/register/{id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("POST","DELETE"))
+	router.Path("/event/register/{id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("POST", "DELETE"))
 	router.Path("/event/register/{id}").Methods("POST").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.RegisterIdPostHandler))
-  router.Path("/event/register/{id}").Methods("DELETE").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.RegisterIdDeteleHandler))
+	router.Path("/event/register/{id}").Methods("DELETE").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.RegisterIdDeteleHandler))
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 
