@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { useContext, useEffect, useRef, useState } from "react";
 
+import { axiosInstance as axios } from "../../utils/api";
 import { AuthContext } from "../Auth";
 import RegsiterUser from "../RegisterUser";
 import Login from "./Login";
@@ -17,11 +18,27 @@ const Header = () => {
   useEffect(() => {
     //新規ユーザか判定するAPIを叩く
     //新規ユーザならisNewUserをtrueにする
+    axios.interceptors.request.use((request) => {
+      if (currentIdToken && request.headers != null) {
+        request.headers = { Authorization: `Bearer ${currentIdToken}` };
+      }
+      return request;
+    });
+
+    axios
+      .get("/user")
+      .then((res) => {
+        //成功したのでuserは存在する
+      })
+      .catch((err) => {
+        //失敗したのでuserは存在しない
+        setIsNewUser(true);
+      });
   });
 
   const profile = (
     <div className="flex ml-2">
-      <div className="mt-4 mr-6 ">
+      <div className="mt-5 mr-6 ">
         <Image
           src="/notification.png"
           alt="notification"
@@ -88,7 +105,7 @@ const Header = () => {
         {/* <div className="hidden gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start" /> */}
         <div className="flex justify-between">
           <div>
-            <button className="py-2 px-6 mt-3 mr-4 text-lg font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
+            <button className="py-2 px-6 mt-3 mr-4 text-lg font-bold text-white hover:bg-gray-600 rounded-md bg-original-deep-gray">
               Add
             </button>
           </div>

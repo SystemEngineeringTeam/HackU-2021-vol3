@@ -117,8 +117,11 @@ const NewEventDetail = () => {
               <div className="text-3xl">{event.description}</div>
             </div>
             <div className="flex flex-col items-end mr-20 text-2xl ">
-              <button className="flex py-4 px-5 pr-12 bg-blue-400 rounded-xl ">
-                <div className="ml-2 text-white">イベントに参加登録</div>
+              <button
+                className="flex py-4 px-5 pr-12 ml-2 text-white bg-blue-400 rounded-xl"
+                onClick={registration}
+              >
+                イベントに参加登録
               </button>
             </div>
           </div>
@@ -126,7 +129,7 @@ const NewEventDetail = () => {
         <div className="flex flex-col mx-auto mt-4 w-72 ">
           <div className="flex items-center mb-2">
             <Image
-              src={`/fukuda.png`}
+              src={`/${event.organizer.profileImageURL}`}
               height="40px"
               width="40 px"
               alt="infra"

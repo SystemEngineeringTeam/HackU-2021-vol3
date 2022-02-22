@@ -23,7 +23,7 @@ type Event = {
 };
 
 const Home = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, currentIdToken } = useContext(AuthContext);
 
   const [events, setEvents] = useState<Event[]>([]);
 
@@ -35,9 +35,9 @@ const Home = () => {
   //   console.log(res);
   // });
 
-  // axios.get("/event").then((res) => {
-  //   console.log(res);
-  // });
+  axios.get("/event").then((res) => {
+    console.log(res);
+  });
 
   console.log(events);
 
