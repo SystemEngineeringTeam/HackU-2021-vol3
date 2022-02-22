@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/dboperation"
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/models"
@@ -16,12 +15,10 @@ import (
 func EventGetHandler(w http.ResponseWriter, r *http.Request) {
 	keyword := r.URL.Query().Get("keyword")
 	status := r.URL.Query().Get("status")
-	tags := r.URL.Query().Get("tags")
+	tags := r.URL.Query()["tags"]
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 
-	strTags := strings.Split(tags, ",")
-
-	events, err := dboperation.SelectEvents(keyword, status, strTags, page)
+	events, err := dboperation.SelectEvents(keyword, status, tags, page)
 	//キーワード，ステータス，タグ，ページの取得
 	//for test use
 	if err != nil {
