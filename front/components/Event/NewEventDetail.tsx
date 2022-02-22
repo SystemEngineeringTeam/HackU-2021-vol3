@@ -46,20 +46,25 @@ const NewEventDetail = () => {
   });
 
   const router = useRouter();
+  const isReady = router.isReady;
   const { pid } = router.query;
   const { currentUser, currentIdToken } = useContext(AuthContext);
 
   useEffect(() => {
-    axios
-      .get(`event/${pid}`)
-      .then((res) => {
-        setEvent(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log(pid);
+    if (isReady) {
+      axios
+        .get(`event/1`)
+        .then((res) => {
+          console.log(res);
+          setEvent(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [isReady]);
 
   const registration = () => {
     if (currentUser != null) {
@@ -80,6 +85,10 @@ const NewEventDetail = () => {
         });
     }
   };
+
+  event.tags.map((tag) => {
+    console.log(tag);
+  });
 
   return (
     <div className="flex flex-col mt-6">
@@ -131,9 +140,15 @@ const NewEventDetail = () => {
           <div className="border border-black" />
           <div className="text-xl">
             <div className="mt-12 ">Tags </div>
-            {event.tags.map((tag) => {
-              <button className="">{tag}</button>;
-            })}
+            <div className="flex gap-4">
+              {event.tags.map((tag, index) => {
+                return (
+                  <button className="rounded-md border-2" key={index}>
+                    {tag}
+                  </button>
+                );
+              })}
+            </div>
           </div>
           <div className="border border-black" />
         </div>

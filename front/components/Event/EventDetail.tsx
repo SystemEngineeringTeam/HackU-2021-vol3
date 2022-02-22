@@ -43,7 +43,10 @@ const EventDetail = () => {
     document: "ss",
     streamURL: "ss",
   });
+
   const router = useRouter();
+
+  const isReady = router.isReady;
   const { pid } = router.query;
   const { currentUser, currentIdToken } = useContext(AuthContext);
 
@@ -51,18 +54,19 @@ const EventDetail = () => {
 
   useEffect(() => {
     // console.log(pid);
-    axios
-      .get(`event/1`)
-      .then((res) => {
-        console.log(res);
-        setEvent(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+    if (isReady) {
+      axios
+        .get(`event/1`)
+        .then((res) => {
+          console.log(res);
+          setEvent(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [isReady]);
 
   const registration = () => {
     if (currentUser != null) {
