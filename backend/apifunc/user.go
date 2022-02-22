@@ -96,15 +96,15 @@ func UserGetHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(user["Name"])
+	fmt.Println(user["FirebaseUID"])
 
-	userid, err := dboperation.GetUserByFirebaseUID(user["Name"])
+	userid, err := dboperation.GetUserByFirebaseUID(user["FirebaseUID"])
 	if err != nil { //res.status: 200
-		IdGetHandler(w, r)
-		// fmt.Println(err)
-		// return
-		//err = dboperation.CreateUser(user["Name"], user["ProfileImageUPL"], user["FirebaseUID"])
-	} else if err == nil { //res.status: 400
+		if err == dboperation.CreateUser(user["Name"], user["ProfileImageUPL"], user["FirebaseUID"]) {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+		}
+	}
+	if err == nil { //res.status: 400
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
