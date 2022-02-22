@@ -18,7 +18,7 @@ const Event = (props: Props) => {
 
   return (
     <button
-      className="col-span-7 col-start-3 mt-2 h-20 rounded-lg shadow-md bg-original-gray"
+      className="col-span-7 col-start-3 mt-2 h-20 bg-original-gray rounded-lg shadow-md"
       onClick={log}
     >
       <div className="flex justify-between mt-2 h-16 rounded-lg">
@@ -33,7 +33,7 @@ const Event = (props: Props) => {
         </div>
         <div className="flex flex-col justify-between text-base">
           <div>参加人数 {props.parcitipants} 人</div>
-          <div className="text-center bg-white rounded-lg border-2 text-original-red border-original-red">
+          <div className="text-center text-original-red bg-white rounded-lg border-2 border-original-red">
             配信中
           </div>
         </div>

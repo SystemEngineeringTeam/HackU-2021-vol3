@@ -35,9 +35,9 @@ const Home = () => {
   //   console.log(res);
   // });
 
-  axios.get("/event").then((res) => {
-    console.log(res);
-  });
+  // axios.get("/event").then((res) => {
+  //   console.log(res);
+  // });
 
   console.log(events);
 
@@ -67,7 +67,7 @@ const Home = () => {
               />
             ))} */}
             {/* <Event /> */}
-            {/* 
+
             <Event
               id={1}
               title={"インフラ勉強会"}
@@ -137,10 +137,21 @@ const Home = () => {
               tags={["インフラ", "フロント"]}
               status={"開催中"}
               parcitipants={10}
-            /> */}
+            />
+            <div className="flex col-span-4 col-start-4 justify-around pt-4 text-lg ">
+              <button className="p-1 border-2 border-gray-400">前へ</button>
+
+              <button className="px-2 border-2 border-gray-400">1</button>
+              <button className="px-2 border-2 border-gray-400">2</button>
+              <button className="px-2 border-2 border-gray-400">3</button>
+              <button className="px-2 border-2 border-gray-400">4</button>
+              <button className="px-2 border-2 border-gray-400">5</button>
+              <div>...</div>
+              <button className="border-2 border-gray-400">次へ</button>
+            </div>
           </div>
         </div>
-        <div className="border-4" />
+        <div className="h-[950px] border-4" />
         <div className="flex flex-col justify-start w-3/12 ">
           <div className=" ">
             <Sidebar />
