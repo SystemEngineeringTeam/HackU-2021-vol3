@@ -75,19 +75,19 @@ const EventAfterDetail = () => {
         </div>
       </div>
 
-      <div className="mt-10 h-40 bg-slate-500">
+      <div className="mt-10 h-40 ">
         <div className="flex flex-col ">
           <div className="flex ml-60 ">
             <Image
               src={`/comment.png`}
-              height="40px"
-              width="40 px"
+              height="50px"
+              width="50 px"
               alt="infra"
             />
-            <div className="mt-2 ml-3">58</div>
+            <div className="mt-2 ml-3 text-2xl">58</div>
           </div>
           <div className="flex ml-72">
-            <div className="flex flex-col bg-orange-400">
+            <div className="flex flex-col ">
               <Image
                 src={`/fukuda.png`}
                 height="50px"
@@ -95,28 +95,32 @@ const EventAfterDetail = () => {
                 alt="infra"
               />
             </div>
-            <div className="flex flex-col ml-4 w-8/12 bg-green-400">
+            <div className="flex flex-col ml-4 w-8/12 ">
               <div className="text-2xl">☆☆☆☆☆</div>
-              <input
-                type="text"
-                className="w-11/12 h-20 border-2"
+              <textarea
+                className="h-20 border-4"
                 placeholder="フィードバックを書きましょう"
               />
             </div>
           </div>
 
-          <div className="flex mt-12 ml-72 h-12">
-            <div className="flex bg-orange-400">
-              <Image
-                src={`/fukuda.png`}
-                height="50px"
-                width="45 px"
-                alt="infra"
-              />
+          <div className="flex flex-col">
+            <div className="flex mt-12 ml-72 h-12 ">
+              <div className="flex ">
+                <Image
+                  src={`/fukuda.png`}
+                  height="50px"
+                  width="45 px"
+                  alt="infra"
+                />
+              </div>
+              <div className="flex-col ml-4 text-2xl">
+                <div>Super_Tikuwa</div>
+                <div>★★★★★</div>
+              </div>
             </div>
-            <div className="flex-col text-2xl">
-              <div>Super_Tikuwa</div>
-              <div>☆☆☆☆☆</div>
+            <div className="mt-8 ml-[275px]">
+              学生支援機構の奨学金は、院まで出れば実績に応じて一部ないし全額返済免除になるシステムがあるけど、旧帝大クラスじゃないと枠数少ないらしいね
             </div>
           </div>
         </div>
