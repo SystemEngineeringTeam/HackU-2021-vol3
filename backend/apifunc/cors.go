@@ -12,6 +12,8 @@ func OptionsHandler(methods ...string) http.HandlerFunc {
 			m += v
 			if i != len(methods)-1 {
 				m += ", "
+			} else {
+				m += "OPTIONS"
 			}
 		}
 
