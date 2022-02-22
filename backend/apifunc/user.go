@@ -99,12 +99,10 @@ func UserGetHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(user["FirebaseUID"])
 
 	userid, err := dboperation.GetUserByFirebaseUID(user["FirebaseUID"])
-	if err != nil { //res.status: 200
-		if err == dboperation.CreateUser(user["Name"], user["ProfileImageUPL"], user["FirebaseUID"]) {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-		}
+	if userid.ID != 0 { //res.status: 200
+		w.WriteHeader(http.StatusOK)
 	}
-	if err == nil { //res.status: 400
+	if userid.ID == 0 { //res.status: 400
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
