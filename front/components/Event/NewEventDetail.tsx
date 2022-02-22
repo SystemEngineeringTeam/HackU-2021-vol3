@@ -1,7 +1,73 @@
+import { getIdToken } from "firebase/auth";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState, useEffect, useContext } from "react";
+import { axiosInstance as axios } from "../../utils/api";
+import { AuthContext } from "../Auth";
+import BeforeScreenToReturn from "../BeforeScreenToReturn";
 import EventReviw from "./EventReview";
 
-const EventAfterDetail = () => {
+type Event = {
+  id: string;
+  title: string;
+  detail: string;
+  image: string;
+  orgnizer: string;
+  date: string;
+  parcitipants: number;
+  tags: string[];
+};
+
+const NewEventDetail = () => {
+  const [event, setEvent] = useState<Event>({
+    id: "",
+    title: "インフラ勉強会",
+    detail:
+      "説明時には順番で語られるビジネスモデル、UXデザイン（ペルソナ→ジャーニー、UIモックアップこれらは会議室では行き来を繰り返しほぼ同時に形になることが",
+    image: "infra.png",
+    orgnizer: "福田 ハルキ",
+    date: "2月15日 15時30分",
+    parcitipants: 0,
+    tags: [],
+  });
+
+  const router = useRouter();
+  const { pid } = router.query;
+  const { currentUser, currentIdToken } = useContext(AuthContext);
+
+  useEffect(() => {
+    axios
+      .get(`event/${pid}`)
+      .then((res) => {
+        setEvent(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // eslint-disable-next-line
+  }, []);
+
+  const registration = () => {
+    if (currentUser != null) {
+      axios.interceptors.request.use((request) => {
+        if (currentIdToken && request.headers != null) {
+          request.headers = { Authorization: `Bearer ${currentIdToken}` };
+        }
+        return request;
+      });
+      axios
+        .post(`/event/register/${pid}`)
+        .then((res) => {
+          console.log(res.statusText);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <div className="flex flex-col mt-6">
       <div className="flex justify-center items-center mr-48 ">
@@ -27,29 +93,10 @@ const EventAfterDetail = () => {
                 残り時間で「何を考え、何故そうなったのか？」をわかりやすく解説します。
               </div>
             </div>
-            <div className="flex flex-col text-2xl ">
-              <div>
-                <button className="flex py-2 px-5 border-4">
-                  <Image
-                    src={`/markdown.png`}
-                    height="30px"
-                    width="30 px"
-                    alt="infra"
-                  />
-                  <div className="ml-2">MarkDown</div>
-                </button>
-              </div>
-              <div className="pt-4">
-                <button className="flex py-2 px-5 pr-12 border-4">
-                  <Image
-                    src={`/youtube.png`}
-                    height="30px"
-                    width="30 px"
-                    alt="infra"
-                  />
-                  <div className="ml-2">Youtube</div>
-                </button>
-              </div>
+            <div className="flex flex-col items-center mb-14 text-2xl">
+              <button className="flex py-4 px-5 pr-12 bg-blue-400 rounded-md border-4">
+                <div className="ml-2 text-white">イベントに参加登録</div>
+              </button>
             </div>
           </div>
         </div>
@@ -75,41 +122,7 @@ const EventAfterDetail = () => {
           <div className="border border-black" />
         </div>
       </div>
-
-      <div className="mt-10 h-40 ">
-        <div className="flex flex-col ">
-          <div className="flex ml-60 ">
-            <Image
-              src={`/comment.png`}
-              height="50px"
-              width="50 px"
-              alt="infra"
-            />
-            <div className="mt-2 ml-3 text-2xl">58</div>
-          </div>
-          <div className="flex ml-72">
-            <div className="flex flex-col ">
-              <Image
-                src={`/fukuda.png`}
-                height="50px"
-                width="50 px"
-                alt="infra"
-              />
-            </div>
-            <div className="flex flex-col ml-4 w-8/12 ">
-              <div className="text-2xl">☆☆☆☆☆</div>
-              <textarea
-                className="h-20 border-4"
-                placeholder="フィードバックを書きましょう"
-              />
-            </div>
-          </div>
-          <EventReviw />
-          <EventReviw />
-        </div>
-      </div>
     </div>
   );
 };
-
-export default EventAfterDetail;
+export default NewEventDetail;

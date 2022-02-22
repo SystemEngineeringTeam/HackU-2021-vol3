@@ -28,7 +28,7 @@ const EventDetail = () => {
     orgnizer: "福田 ハルキ",
     date: "2月15日 15時30分",
     parcitipants: 0,
-    tags: [],    
+    tags: [],
   });
 
   const router = useRouter();
