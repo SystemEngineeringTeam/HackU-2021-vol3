@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-
+import "../styles/admin.css";
 import "../styles/event.css";
 import type { AppProps } from "next/app";
 import { AuthProvider } from "../components/Auth";
