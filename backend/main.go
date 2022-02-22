@@ -54,5 +54,4 @@ func main() {
 	router.Path("/event/register/{id}").Methods("DELETE").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.RegisterIdDeteleHandler))
 
 	log.Fatal(http.ListenAndServe(":8080", router))
-
 }
