@@ -1,0 +1,74 @@
+#AdminTitle {
+    font-size: 40px;
+    font-weight: bold;
+    color: #252525;
+    margin-top: 40px;
+    margin-left: 40px;
+
+}
+
+#AdminKeyWord {
+    display: flex;
+    justify-content: end;
+    margin-top: -70px;
+    margin-right: 40px;
+}
+
+
+#AdminLine {
+    border-bottom: #252525 solid 1px;
+    width: 200%;
+    transform: translateX(-350px);
+}
+
+#LineWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.navMenu {}
+
+.navMenu a {
+    margin-left: 100px;
+    color: #3E3E3E;
+    text-decoration: none;
+    font-size: 1.4em;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: inline-block;
+    width: 150px;
+    transition: all 0.2s ease-in-out;
+}
+
+.navMenu a:hover {
+    color: #D76A6A;
+}
+
+.navMenu .dot {
+    width: 80px;
+    height: 3px;
+    background: #D76A6A;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.navMenu a:nth-child(1):hover~.dot {
+
+    transform: translateX(92px);
+    transition: all 0.2s ease-in-out;
+    opacity: 1;
+}
+
+.navMenu a:nth-child(2):hover~.dot {
+    transform: translateX(340px);
+    transition: all 0.2s ease-in-out;
+    opacity: 1;
+}
+
+.navMenu a:nth-child(3):hover~.dot {
+
+    transform: translateX(592px);
+
+    transition: all 0.2s ease-in-out;
+    opacity: 1;
+}

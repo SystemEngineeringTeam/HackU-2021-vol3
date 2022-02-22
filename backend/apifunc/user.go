@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -51,10 +52,13 @@ func UserPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(user.Name)
-	fmt.Println(user.ProfileImageURL)
+	result, err := verifyCheck(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
 
-	err = dboperation.CreateUser(user.Name, user.ProfileImageURL, "firebaseUID")
+	err = dboperation.CreateUser(user.Name, user.ProfileImageURL, result["firebaseUID"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -82,4 +86,30 @@ func UserPutHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
+}
+
+func UserGetHandler(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	user, err := verifyCheck(r)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(user["FirebaseUID"])
+
+	userid, err := dboperation.GetUserByFirebaseUID(user["FirebaseUID"])
+	if userid.ID != 0 { //res.status: 200
+		w.WriteHeader(http.StatusOK)
+	}
+	if userid.ID == 0 { //res.status: 400
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	fmt.Println(userid.Name)
+
 }

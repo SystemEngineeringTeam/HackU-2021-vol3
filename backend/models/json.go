@@ -43,9 +43,9 @@ type EventPutRequest struct {
 }
 
 type FeedbackGetResponse struct {
-	EventID     int   `json:"eventID"`
+	EventID     int    `json:"eventID"`
 	Comment     string `json:"comment"`
-	Stars       int `json:"stars"`
+	Stars       int    `json:"stars"`
 	CommentedBy string `json:"commentedBy"`
 }
 
@@ -82,4 +82,8 @@ type EventWithIDGetResponse struct {
 	Parcitipants uint     `json:"participants"`
 	StreamURL    string   `json:"streamURL"`
 	Tags         []string `json:"tags"`
+}
+
+type StreamURLPostRequest struct {
+	StreamURL string `json:"streamURL"`
 }
