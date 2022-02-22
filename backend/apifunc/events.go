@@ -85,24 +85,34 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StreamURLPostHandler(w http.ResponseWriter, r *http.Request) {
-	// vars := mux.Vars(r)
-	// id, _ := strconv.Atoi(vars["id"])
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
 
-	// event, err := dboperation.SelectEventByID(id)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusBadRequest)
-	// 	return
-	// }
-	// streamURL := event.StreamURL
-	// fmt.Println(streamURL)
+	event, err := dboperation.SelectEventByID(id)
+	if err != nil || event.ID == 0 {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
-	// err = dboperation.UpdateStreamURL(streamURL, id)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusBadRequest)
-	//  return
-	// }
+	b, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var s models.StreamURLPostRequest
 
-	// w.WriteHeader(http.StatusOK)
+	if err := json.Unmarshal(b, &s); err != nil {
+		fmt.Println(err)
+	}
+
+	streamURL := s.StreamURL
+
+	err = dboperation.UpdateStreamURL(id, streamURL)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }
 
 func EventPutHandler(w http.ResponseWriter, r *http.Request) {
