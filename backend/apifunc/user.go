@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -82,4 +83,30 @@ func UserPutHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
+}
+
+func UserGetHandler(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	user, err := verifyCheck(r)
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(user["FirebaseUID"])
+
+	userid, err := dboperation.GetUserByFirebaseUID(user["FirebaseUID"])
+	if userid.ID != 0 { //res.status: 200
+		w.WriteHeader(http.StatusOK)
+	}
+	if userid.ID == 0 { //res.status: 400
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	fmt.Println(userid.Name)
+
 }
