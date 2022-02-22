@@ -51,10 +51,13 @@ func UserPostHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(user.Name)
-	fmt.Println(user.ProfileImageURL)
+	result, err := verifyCheck(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
 
-	err = dboperation.CreateUser(user.Name, user.ProfileImageURL, "firebaseUID")
+	err = dboperation.CreateUser(user.Name, user.ProfileImageURL, result["firebaseUID"])
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
