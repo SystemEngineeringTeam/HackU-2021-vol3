@@ -35,18 +35,18 @@ const EventAfterDetail = () => {
                     width="30 px"
                     alt="infra"
                   />
-                  MarkDown
+                  <div className="ml-2">MarkDown</div>
                 </button>
               </div>
-              <div>
-                <button className="flex py-2 pr-11 pl-6 mt-4 border-4">
+              <div className="pt-4">
+                <button className="flex py-2 px-5 pr-12 border-4">
                   <Image
                     src={`/youtube.png`}
                     height="30px"
                     width="30 px"
                     alt="infra"
                   />
-                  Youtube
+                  <div className="ml-2">Youtube</div>
                 </button>
               </div>
             </div>
