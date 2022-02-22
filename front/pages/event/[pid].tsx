@@ -10,7 +10,7 @@ import { axiosInstance as axios } from "../../utils/api";
 const ViewEvent = () => {
   return (
     <Layout>
-      <EventDetail />
+      <NewEventDetail />
     </Layout>
   );
 };

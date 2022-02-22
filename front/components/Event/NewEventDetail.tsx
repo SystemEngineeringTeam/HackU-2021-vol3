@@ -1,4 +1,5 @@
 import { getIdToken } from "firebase/auth";
+import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,27 +10,39 @@ import BeforeScreenToReturn from "../BeforeScreenToReturn";
 import EventReviw from "./EventReview";
 
 type Event = {
-  id: string;
+  id: number;
   title: string;
-  detail: string;
-  image: string;
-  orgnizer: string;
-  date: string;
-  parcitipants: number;
+  description: string;
+  imageURL: string;
+  organizer: {
+    id: number;
+    name: string;
+    profileImageURL: string;
+  };
+  datetime: string;
+  participants: number;
   tags: string[];
+  document: string;
+  streamURL: string;
 };
 
 const NewEventDetail = () => {
   const [event, setEvent] = useState<Event>({
-    id: "",
+    id: 1,
     title: "インフラ勉強会",
-    detail:
+    description:
       "説明時には順番で語られるビジネスモデル、UXデザイン（ペルソナ→ジャーニー、UIモックアップこれらは会議室では行き来を繰り返しほぼ同時に形になることが",
-    image: "infra.png",
-    orgnizer: "福田 ハルキ",
-    date: "2月15日 15時30分",
-    parcitipants: 0,
-    tags: [],
+    imageURL: "infra.png",
+    organizer: {
+      id: 1,
+      name: "山田太郎",
+      profileImageURL: "yamada.png",
+    },
+    datetime: "",
+    participants: 0,
+    tags: ["ss", "ss"],
+    document: "ss",
+    streamURL: "ss",
   });
 
   const router = useRouter();
@@ -72,29 +85,30 @@ const NewEventDetail = () => {
     <div className="flex flex-col mt-6">
       <div className="flex justify-center items-center mr-48 ">
         <div className="mr-14">
-          <Image src={`/infra.png`} height="110px" width="135 px" alt="infra" />
+          <Image
+            src={`/${event.imageURL}`}
+            height="110px"
+            width="135 px"
+            alt="infra"
+          />
         </div>
         <div className="flex flex-col items-center">
-          <div className="text-2xl">2月15日 15時30分~</div>
-          <div className="text-5xl">インフラ勉強会</div>
+          <div className="text-2xl">
+            {moment(event.datetime).format("YYYY年MM月DD日 HH時mm分")}~
+          </div>
+          <div className="text-5xl">{event.title}</div>
         </div>
       </div>
       <div className="mx-auto w-3/4 border border-black" />
       <div className="flex mt-20">
         <div className="flex flex-col ml-10 w-8/12 h-[600px]">
-          <div className="flex flex-col justify-between h-[600px] md:ml-20 lg:ml-32 xl:ml-56">
+          <div className="flex flex-col gap-24 justify-start h-[600px] md:ml-20 lg:ml-32 xl:ml-56">
             <div className="text-3xl">
               details
-              <div className="text-3xl">
-                説明時には順番で語られるビジネスモデル、UXデザイン（ペルソナ→ジャーニー）、UIモックアップ
-                これらは会議室では行き来を繰り返しほぼ同時に形になることが多くあります。
-                会議中にリアルタイムにデザインを行うUXデザイナーとビジネス・システム・ユーザーモデルを並行検討するプロダクトマネージャーの
-                オンラインでの掛け合い漫才的仕事風景を中継いたします。
-                残り時間で「何を考え、何故そうなったのか？」をわかりやすく解説します。
-              </div>
+              <div className="text-3xl">{event.description}</div>
             </div>
-            <div className="flex flex-col items-center mb-14 text-2xl">
-              <button className="flex py-4 px-5 pr-12 bg-blue-400 rounded-md border-4">
+            <div className="flex flex-col items-end mr-20 text-2xl ">
+              <button className="flex py-4 px-5 pr-12 bg-blue-400 rounded-xl ">
                 <div className="ml-2 text-white">イベントに参加登録</div>
               </button>
             </div>
@@ -108,16 +122,18 @@ const NewEventDetail = () => {
               width="40 px"
               alt="infra"
             />
-            <div className="ml-4 text-2xl">super_Tikuwa</div>
+            <div className="ml-4 text-2xl">{event.organizer.name}</div>
           </div>
           <div className="border border-black " />
-          <div className="mt-14 text-xl text-center">参加予定人数 10人</div>
+          <div className="mt-14 text-xl text-center">
+            参加予定人数 {event.participants}人
+          </div>
           <div className="border border-black" />
-
           <div className="text-xl">
             <div className="mt-12 ">Tags </div>
-            <button className="">フロントエンド,</button>
-            <button>バックエンド</button>
+            {event.tags.map((tag) => {
+              <button className="">{tag}</button>;
+            })}
           </div>
           <div className="border border-black" />
         </div>
