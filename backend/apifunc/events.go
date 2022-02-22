@@ -13,7 +13,12 @@ import (
 )
 
 func EventGetHandler(w http.ResponseWriter, r *http.Request) {
-	events, err := dboperation.SelectEvents("Go-Handson", "準備中", []string{"Go"}, 1)
+	keyword := r.URL.Query().Get("keyword")
+	status := r.URL.Query().Get("status")
+	tags := r.URL.Query()["tags"]
+	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
+
+	events, err := dboperation.SelectEvents(keyword, status, tags, page)
 	//キーワード，ステータス，タグ，ページの取得
 	//for test use
 	if err != nil {
