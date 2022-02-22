@@ -42,7 +42,7 @@ const ProfilePopOver = (props: Props) => {
   };
 
   return (
-    <div className="top-16 left-60 px-4 w-full max-w-sm">
+    <div className="top-16 left-60 px-4 mt-1 w-full max-w-sm">
       <Popover className="relative">
         {({ open }) => (
           <>

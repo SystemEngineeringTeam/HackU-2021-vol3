@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { useContext, useEffect, useRef, useState } from "react";
 
+import { axiosInstance as axios } from "../../utils/api";
 import { AuthContext } from "../Auth";
 import RegsiterUser from "../RegisterUser";
 import Login from "./Login";
@@ -17,11 +18,27 @@ const Header = () => {
   useEffect(() => {
     //新規ユーザか判定するAPIを叩く
     //新規ユーザならisNewUserをtrueにする
+    axios.interceptors.request.use((request) => {
+      if (currentIdToken && request.headers != null) {
+        request.headers = { Authorization: `Bearer ${currentIdToken}` };
+      }
+      return request;
+    });
+
+    axios
+      .get("/user")
+      .then((res) => {
+        //成功したのでuserは存在する
+      })
+      .catch((err) => {
+        //失敗したのでuserは存在しない
+        setIsNewUser(false);
+      });
   });
 
   const profile = (
     <div className="flex ml-2">
-      <div className="mt-4 mr-6 ">
+      <div className="mt-5 mr-6 ">
         <Image
           src="/notification.png"
           alt="notification"
@@ -41,8 +58,8 @@ const Header = () => {
 
   return (
     <div>
-      <header className="flex justify-between items-center py-2 bg-original-green ">
-        <div className="ml-5 ">
+      <header className="flex justify-between h-16 bg-original-green">
+        <div className="mt-4 ml-5">
           <Link href="/">
             <a
               className="inline-flex gap-2.5 items-center text-2xl font-bold text-black md:text-3xl"
@@ -54,39 +71,48 @@ const Header = () => {
                 width="30px"
                 height="30px"
               />
-              <div className="text-white">Benkyo</div>
+              <div className="text-white ">Benkyo</div>
             </a>
           </Link>
         </div>
-
-        <nav className="hidden gap-12 lg:flex">
-          <Link href="/">
-            <a className="text-lg font-semibold text-gray-600 transition duration-100 ">
-              <Image src="/home.png" alt="" width="35px" height="35px" />
-            </a>
-          </Link>
-          <Link href="/calendar">
-            <a className="text-lg font-semibold text-gray-600 transition duration-100">
-              <Image src="/calendar.png" alt="" width="35px" height="35px" />
-            </a>
-          </Link>
-          <Link href="/mail">
-            <a className="text-lg font-semibold text-gray-600 transition duration-100">
-              <Image src="/mail.png" alt="" width="40px" height="40px" />
-            </a>
-          </Link>
+        <nav className="hidden lg:flex">
+          <div className="flex bg-original-red">
+            <div className="border" />
+            <Link href="/">
+              <a className="mx-4 mt-3 text-lg font-semibold text-gray-600 transition duration-100">
+                <Image src="/home.png" alt="" width="35px" height="35px" />
+              </a>
+            </Link>
+            <div className="border" />
+          </div>
+          <div className="flex">
+            <Link href="/calendar">
+              <a className="mx-4 mt-3 text-lg font-semibold text-gray-600 transition duration-100">
+                <Image src="/calendar.png" alt="" width="35px" height="35px" />
+              </a>
+            </Link>
+            <div className="border" />
+          </div>
+          <div className="flex">
+            <Link href="/mail">
+              <a className="mx-4 mt-3 text-lg font-semibold text-gray-600 transition duration-100">
+                <Image src="/mail.png" alt="" width="40px" height="40px" />
+              </a>
+            </Link>
+            <div className="border" />
+          </div>
         </nav>
         {/* <div className="hidden gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start" /> */}
         <div className="flex justify-between">
           <div>
-            <button className="py-2 px-6 mr-4 text-lg font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
+            <button className="py-2 px-6 mt-3 mr-4 text-lg font-bold text-white hover:bg-gray-600 rounded-md bg-original-deep-gray">
               Add
             </button>
           </div>
           {currentUser ? (
             <div>{profile}</div>
           ) : (
-            <div>
+            <div className="mt-3">
               <Login />
             </div>
           )}

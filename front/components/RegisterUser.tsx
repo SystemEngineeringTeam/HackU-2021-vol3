@@ -27,7 +27,11 @@ const RegsiterUser = () => {
         .catch((err) => {
           console.log(err);
         });
+
+        setShowModal(false);
     }
+    
+    
   };
 
   return (
