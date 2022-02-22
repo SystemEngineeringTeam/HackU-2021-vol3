@@ -3,6 +3,11 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
 export default function Tags() {
+    type Tag = {
+        icon: string
+        name: string
+    }
+    const [tag, setTag] = useState('')
     return (
         <div className="mt-2 text-left">
             <Menu as="div" className="inline-block relative text-left">
