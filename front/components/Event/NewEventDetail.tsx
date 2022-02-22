@@ -36,7 +36,7 @@ const NewEventDetail = () => {
     organizer: {
       id: 1,
       name: "山田太郎",
-      profileImageURL: "yamada.png",
+      profileImageURL: "fukuda.png",
     },
     datetime: "",
     participants: 0,
@@ -105,20 +105,20 @@ const NewEventDetail = () => {
           <div className="text-2xl">
             {moment(event.datetime).format("YYYY年MM月DD日 HH時mm分")}~
           </div>
-          <div className="text-5xl">{event.title}</div>
+          <div className="text-5xl font-bold">{event.title}</div>
         </div>
       </div>
-      <div className="mx-auto w-3/4 border border-black" />
+      <div className="mx-auto w-3/4 border border-gray-400" />
       <div className="flex mt-20">
         <div className="flex flex-col ml-10 w-8/12 h-[600px]">
           <div className="flex flex-col gap-24 justify-start h-[600px] md:ml-20 lg:ml-32 xl:ml-56">
-            <div className="text-3xl">
-              details
-              <div className="text-3xl">{event.description}</div>
+            <div className="flex flex-col gap-8 text-3xl">
+              <div className="font-bold">details</div>
+              <div className="text-2xl">{event.description}</div>
             </div>
             <div className="flex flex-col items-end mr-20 text-2xl ">
               <button
-                className="flex py-4 px-5 pr-12 ml-2 text-white bg-blue-400 rounded-xl"
+                className="flex py-4 px-5 ml-2 text-white bg-blue-400 rounded-xl"
                 onClick={registration}
               >
                 イベントに参加登録
@@ -127,7 +127,7 @@ const NewEventDetail = () => {
           </div>
         </div>
         <div className="flex flex-col mx-auto mt-4 w-72 ">
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-1 ml-4">
             <Image
               src={`/${event.organizer.profileImageURL}`}
               height="40px"
@@ -137,7 +137,7 @@ const NewEventDetail = () => {
             <div className="ml-4 text-2xl">{event.organizer.name}</div>
           </div>
           <div className="border border-black " />
-          <div className="mt-14 text-xl text-center">
+          <div className="mt-14 mb-2 text-xl text-center">
             参加予定人数 {event.participants}人
           </div>
           <div className="border border-black" />

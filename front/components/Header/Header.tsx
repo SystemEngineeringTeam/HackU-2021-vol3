@@ -32,7 +32,7 @@ const Header = () => {
       })
       .catch((err) => {
         //失敗したのでuserは存在しない
-        setIsNewUser(true);
+        setIsNewUser(false);
       });
   });
 
