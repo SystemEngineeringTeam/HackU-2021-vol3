@@ -167,3 +167,18 @@ func SelectEventByID(id int) (models.EventWithIDGetResponse, error) {
 
 	return response, nil
 }
+
+func UpdateStreamURL(id int, streamURL string) error {
+	db := connect()
+
+	event := models.Event{
+		StreamURL: streamURL,
+	}
+	event.ID = uint(id)
+
+	if err := db.Table("events").Where("id=?", id).Update("stream_url", streamURL).Error; err != nil {
+		return err
+	}
+
+	return nil
+}

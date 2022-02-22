@@ -79,3 +79,22 @@ func TestSelectEvent(t *testing.T) {
 	}
 	fmt.Println(event)
 }
+
+func TestUpdateStreamURL(t *testing.T) {
+	rand.Seed(time.Now().Unix())
+	r := rand.Intn(100)
+	str := "http://google.com/" + strconv.Itoa(r) + time.Now().Format("2006-01-02 15:04:05")
+	h := sha256.Sum256([]byte(str))
+	str = hex.EncodeToString(h[:])
+
+	err := UpdateStreamURL(1, str)
+	if err != nil {
+		t.Error(err)
+	}
+
+	db := connect()
+
+	var event models.Event
+	db.Where("id = ?", 1).First(&event)
+	fmt.Println(event)
+}
