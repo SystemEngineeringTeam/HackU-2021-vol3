@@ -2,9 +2,70 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 
+// const tagImage = [
+//   {
+//     id: 1,
+//     src: "front.png",
+//   },
+//   {
+//     id: 2,
+//     src: "backend.png",
+//   },
+//   {
+//     id: 3,
+//     src: "infra.png",
+//   },
+//   {
+//     id: 4,
+//     src: "network.png",
+//   },
+//   {
+//     id: 5,
+//     src: "security.png",
+//   },
+//   {
+//     id: 6,
+//     src: "mobile.png",
+//   },
+//   {
+//     id: 7,
+//     src: "design.png",
+//   },
+//   {
+//     id: 8,
+//     src: "cloud.png",
+//   },
+//   {
+//     id: 9,
+//     src: "hardware.png",
+//   },
+//   {
+//     id: 10,
+//     src: "devops.png",
+//   },
+// ];
+
 export default function Example() {
   const log = () => {
     console.log("hello");
+  };
+
+  const category = () => {
+    return (
+      <button onClick={log} className="w-full">
+        <Disclosure.Panel className="flex justify-between px-4 pt-4 pb-2 text-sm font-bold text-original-black border border-black hover:opacity-80">
+          <div className="flex">
+            <div className="mt-1 mr-6">
+              <Image src="/server.png" alt="" width="27px" height="27px" />
+            </div>
+            <div className="text-xl">SERVER</div>
+          </div>
+          <div className="">
+            <Image src="/plus.png" alt="" width="30px" height="30px" />
+          </div>
+        </Disclosure.Panel>
+      </button>
+    );
   };
 
   return (
