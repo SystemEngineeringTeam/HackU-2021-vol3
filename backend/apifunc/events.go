@@ -63,7 +63,6 @@ func EventPostHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	var event models.EventPostRequest
-	event.Parcitipants = 0
 
 	if err := json.Unmarshal(b, &event); err != nil {
 		fmt.Println(err)
