@@ -328,7 +328,7 @@
 }
 
 .tag {
-
+    margin-right: 10px;
     margin-top: 8px;
     border: 1px solid rgba(0, 0, 0, .3);
     border-radius: 5px;
@@ -346,7 +346,7 @@
 
 .tag_svg {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 5px;
     margin-top: -3px;
 }
 
