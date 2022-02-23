@@ -1,10 +1,59 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useState, useContext, useRef } from "react";
+import { axiosInstance as axios } from "../../utils/api";
+import { AuthContext } from "../Auth";
 import EventReviw from "./EventReview";
 import Star from "./Star";
 
+type Event = {
+  id: number;
+  title: string;
+  description: string;
+  imageURL: string;
+  organizer: {
+    id: number;
+    name: string;
+    profileImageURL: string;
+  };
+  datetime: string;
+  participants: number;
+  tags: string[];
+  document: string;
+  streamURL: string;
+};
+
 const EventAfterDetail = ({ totalStars = 5 }) => {
   const [selectedStars, setSelectedStars] = useState(3);
+  const { currentUser, currentIdToken } = useContext(AuthContext);
+  const { pid } = useRouter().query;
+  const comment = useRef<HTMLTextAreaElement>(null);
+
+  console.log(pid);
+
+  const regsiterReview = () => {
+    axios.interceptors.request.use((request) => {
+      if (currentIdToken && request.headers != null) {
+        request.headers = { Authorization: `Bearer ${currentIdToken}` };
+      }
+      return request;
+    });
+
+    if (currentIdToken) {
+      console.log(currentIdToken);
+      axios
+        .post(`/event/feedback/${pid}`, {
+          stars: selectedStars,
+          comment: comment.current?.value,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   return (
     <div className="flex flex-col mt-6">
@@ -116,9 +165,13 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
               <textarea
                 className="h-20 border-4"
                 placeholder="フィードバックを書きましょう"
+                ref={comment}
               />
               <div className="text-right ">
-                <button className="py-1 px-6 mr-1 text-white bg-blue-400">
+                <button
+                  className="py-1 px-6 mr-1 text-white bg-blue-400"
+                  onClick={regsiterReview}
+                >
                   送信
                 </button>
               </div>
