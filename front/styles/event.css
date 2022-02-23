@@ -334,6 +334,7 @@
     border-radius: 5px;
     width: 9em;
     height: 50px;
+    cursor: pointer;
 }
 
 .tag_text {
