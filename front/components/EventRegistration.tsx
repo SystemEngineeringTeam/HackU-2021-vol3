@@ -81,10 +81,12 @@ const EventRegistration = () => {
                     </label>
                 </div>
                 <Tags />
-
             </div>
-        </>
-    );
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default EventRegistration;
