@@ -23,14 +23,13 @@ type ImageGetResponse struct {
 }
 
 type EventPostRequest struct {
-	Title        string              `json:"title"`
-	Description  string              `json:"description"`
-	Document     string              `json:"document"`
-	ImageID      int                 `json:"imageID"`
-	DateTime     string              `json:"datetime"`
-	Tags         []int               `json:"tags"`
-	Parcitipants string              `json:"parcitipants"`
-	Organizer    []UserIdGetResponse `json:"organizer"`
+	Title       string              `json:"title"`
+	Description string              `json:"description"`
+	Document    string              `json:"document"`
+	ImageID     int                 `json:"imageID"`
+	DateTime    string              `json:"datetime"`
+	Tags        []int               `json:"tags"`
+	Organizer   []UserIdGetResponse `json:"organizer"`
 }
 
 type EventPutRequest struct {
@@ -60,12 +59,14 @@ type CommentGetAndPostRequest struct {
 }
 
 type EventGetResponse struct {
-	ID        uint     `json:"id"`
-	Title     string   `json:"title"`
-	ImageURL  string   `json:"imageURL"`
-	Organizer string   `json:"organizer"`
-	DateTime  string   `json:"datetime"`
-	Tags      []string `json:"tags"`
+	ID           uint     `json:"id"`
+	Title        string   `json:"title"`
+	ImageURL     string   `json:"imageURL"`
+	Organizer    string   `json:"organizer"`
+	DateTime     string   `json:"datetime"`
+	Tags         []string `json:"tags"`
+	Participants int      `json:"participants"`
+	Status       string   `json:"status"`
 }
 
 type EventWithIDGetResponse struct {
@@ -80,7 +81,7 @@ type EventWithIDGetResponse struct {
 		ProfileImageURL string `json:"profileImageURL"`
 	} `json:"organizer"`
 	DateTime     string   `json:"datetime"`
-	Parcitipants uint     `json:"participants"`
+	Participants uint     `json:"participants"`
 	StreamURL    string   `json:"streamURL"`
 	Tags         []string `json:"tags"`
 }

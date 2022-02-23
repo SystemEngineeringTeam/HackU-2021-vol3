@@ -2,6 +2,7 @@ package dboperation
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/models"
 )
@@ -21,13 +22,17 @@ func CreateEvent(e models.EventPostRequest, firebaseUID string) error {
 		tags = append(tags, dt)
 	}
 
+	dt, err := time.Parse(timeFormat, e.DateTime)
+	if err != nil {
+		return err
+	}
 	event := models.Event{
 		Title:       e.Title,
 		Description: e.Description,
 		Document:    e.Document,
 		ImageID:     uint(e.ImageID),
 		OrganizerID: u.ID,
-		DateTime:    e.DateTime,
+		DateTime:    dt,
 		Tags:        tags,
 		StatusID:    1,
 	}
@@ -84,7 +89,7 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 	status = "%" + status + "%"
 
 	var events []models.Event
-	if err := db.Debug().Model(&events).Preload("Tags").Joins("Status").Joins("Organizer").Where("title like ?", keyword).Where("Status like ?", status).Order("id").Find(&events).Error; err != nil {
+	if err := db.Model(&models.Event{}).Preload("Image").Preload("Participants").Preload("Tags").Joins("Status").Joins("Organizer").Where("title like ?", keyword).Where("Status like ?", status).Order("id").Find(&events).Error; err != nil {
 		return nil, err
 	}
 
@@ -111,19 +116,21 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 
 	var eventsResponse []models.EventGetResponse
 	for _, e := range responseEvents {
-
+		fmt.Println(e.Participants)
 		tags := []string{}
 		for _, t := range e.Tags {
 			tags = append(tags, t.Tag)
 		}
 
 		r := models.EventGetResponse{
-			ID:        e.ID,
-			Title:     e.Title,
-			ImageURL:  e.Image.ImageURL,
-			Organizer: e.Organizer.Name,
-			DateTime:  e.DateTime,
-			Tags:      tags,
+			ID:           e.ID,
+			Title:        e.Title,
+			ImageURL:     e.Image.ImageURL,
+			Organizer:    e.Organizer.Name,
+			DateTime:     e.DateTime.Format(timeFormat),
+			Tags:         tags,
+			Participants: len(e.Participants),
+			Status:       e.Status.Status,
 		}
 
 		eventsResponse = append(eventsResponse, r)
@@ -160,7 +167,7 @@ func SelectEventByID(id int) (models.EventWithIDGetResponse, error) {
 			Name:            event.Organizer.Name,
 			ProfileImageURL: event.Organizer.ProfileImageURL,
 		},
-		DateTime:  event.DateTime,
+		DateTime:  event.DateTime.Format(timeFormat),
 		StreamURL: event.StreamURL,
 		Tags:      tags,
 	}
