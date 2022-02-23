@@ -1,80 +1,8 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/solid";
 import Image from "next/image";
-import Category from "./Category";
 
-const tagImage = [
-  {
-    id: 1,
-    src: "front.png",
-    name: "FRONTEND",
-  },
-  {
-    id: 2,
-    src: "backend.png",
-    name: "BACKEND",
-  },
-  {
-    id: 3,
-    src: "infra.png",
-    name: "INFRA",
-  },
-  {
-    id: 4,
-    src: "network.png",
-    name: "NETWORK",
-  },
-  {
-    id: 5,
-    src: "security.png",
-    name: "SECURITY",
-  },
-  {
-    id: 6,
-    src: "mobile.png",
-    name: "MOBILE",
-  },
-  {
-    id: 7,
-    src: "design.png",
-    name: "DESIGN",
-  },
-  {
-    id: 8,
-    src: "cloud.png",
-    name: "CLOUD",
-  },
-  {
-    id: 9,
-    src: "hardware.png",
-    name: "HARDWARE",
-  },
-  {
-    id: 10,
-    src: "devops.png",
-    name: "DEVOPS",
-  },
-];
-
-const target = [
-  {
-    id: 1,
-    name: "STUDENT",
-    src: "student.png",
-  },
-  {
-    id: 2,
-    name: "BEGINNER",
-    src: "beginner.png",
-  },
-  {
-    id: 3,
-    name: "WOMAN",
-    src: "woman.png",
-  },
-];
-
-const Sidebar = () => {
+export default function Example() {
   const log = () => {
     console.log("hello");
   };
@@ -120,9 +48,66 @@ const Sidebar = () => {
                   } w-5 h-5 text-white`}
                 />
               </Disclosure.Button>
-              {tagImage.map((tag) => (
-                <Category key={tag.id} src={tag.src} name={tag.name} />
-              ))}
+              <button onClick={log} className="w-full">
+                <Disclosure.Panel className="flex justify-between px-4 pt-4 pb-2 text-sm font-bold text-original-black border border-black hover:opacity-80">
+                  <div className="flex">
+                    <div className="mt-1 mr-6">
+                      <Image
+                        src="/server.png"
+                        alt=""
+                        width="27px"
+                        height="27px"
+                      />
+                    </div>
+                    <div className="text-xl">SERVER</div>
+                  </div>
+                  <div className="">
+                    <Image src="/plus.png" alt="" width="30px" height="30px" />
+                  </div>
+                </Disclosure.Panel>
+              </button>
+
+              <button onClick={log} className="w-full">
+                <Disclosure.Panel className="flex justify-between px-4 pt-4 pb-2 text-sm font-bold text-original-black border-x border-b border-black hover:opacity-80">
+                  <div className="flex">
+                    <div className="mt-1 mr-6">
+                      <Image
+                        src="/write.png"
+                        alt=""
+                        width="27px"
+                        height="27px"
+                      />
+                    </div>
+                    <div className="text-xl">WRITER</div>
+                  </div>
+                  <div className="">
+                    <Image src="/plus.png" alt="" width="30px" height="30px" />
+                  </div>
+                </Disclosure.Panel>
+              </button>
+
+              <button onClick={log} className="w-full">
+                <Disclosure.Panel className="flex justify-between px-4 pt-4 pb-2 text-sm font-bold text-white bg-original-red border-x border-b border-black hover:opacity-80">
+                  <div className="flex">
+                    <div className="mt-1 mr-6">
+                      <Image
+                        src="/mobile.png"
+                        alt=""
+                        width="27px"
+                        height="27px"
+                      />
+                    </div>
+                    <div className="text-xl">MOBILE</div>
+                  </div>
+                  <div className="">
+                    <Image src="/minus.png" alt="" width="30px" height="30px" />
+                  </div>
+                </Disclosure.Panel>
+              </button>
+
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
             </>
           )}
         </Disclosure>
@@ -137,15 +122,32 @@ const Sidebar = () => {
                   } w-5 h-5 text-white`}
                 />
               </Disclosure.Button>
-              {target.map((tag) => (
-                <Category key={tag.id} src={tag.src} name={tag.name} />
-              ))}
+
+              <button onClick={log} className="w-full">
+                <Disclosure.Panel className="flex justify-between px-4 pt-4 pb-2 text-sm font-bold text-original-black border-x border-b border-black hover:opacity-80">
+                  <div className="flex">
+                    <div className="mt-1 mr-6">
+                      <Image
+                        src="/biginner.png"
+                        alt=""
+                        width="27px"
+                        height="27px"
+                      />
+                    </div>
+                    <div className="text-xl">BIGINNER</div>
+                  </div>
+                  <div className="">
+                    <Image src="/plus.png" alt="" width="30px" height="30px" />
+                  </div>
+                </Disclosure.Panel>
+              </button>
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
+              <Disclosure.Panel className="flex justify-between p-6 text-sm font-bold text-original-black border-x border-b border-black" />
             </>
           )}
         </Disclosure>
       </div>
     </div>
   );
-};
-
-export default Sidebar;
+}

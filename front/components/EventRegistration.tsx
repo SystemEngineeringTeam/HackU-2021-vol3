@@ -1,5 +1,5 @@
 import React from 'react';
-import ConfirmAddEvent from './Event/ConfirmAddEvent';
+import ConfirmAddEvent from './ConfirmAddEvent';
 import ImageSelect from './ImageSelect';
 import Tags from './Tags';
 const EventRegistration = () => {

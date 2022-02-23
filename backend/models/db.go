@@ -1,88 +1,46 @@
 package models
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
 type User struct {
-	gorm.Model
-	FirebaseUID     string `gorm:"not null;unique;"`
-	Name            string `gorm:"not null;"`
-	ProfileImageURL string `gorm:"not null;"`
-	BadgeID         uint
-	Badge           Badge
-	JoinedEvents    []Event `gorm:"many2many:event_parcitipants;"`
+	ID              int    `gorm:"column:id"`
+	FirebaseUID     string `gorm:"column:firebase_uid"`
+	Name            string `gorm:"column:name"`
+	ProfileImageURL string `gorm:"column:profile_image_url"`
 }
 
 type Event struct {
-	gorm.Model
-	Title        string `gorm:"not null"`
-	Description  string `gorm:"not null"`
-	Document     string `gorm:"not null"`
-	ImageID      uint   `gorm:"not null"`
-	Image        Image
-	OrganizerID  uint `gorm:"not null"`
-	Organizer    User
-	DateTime     string `gorm:"not null"`
-	FeedBacks    []Feedback
-	StreamURL    string
-	Tags         []Tag  `gorm:"many2many:event_tags;"`
-	Parcitipants []User `gorm:"many2many:event_parcitipants;"`
-	StatusID     uint   `gorm:"not null"`
-	Status       Status
+	ID          int    `gorm:"column:id"`
+	Title       string `gorm:"column:title"`
+	Description string `gorm:"column:description"`
+	Document    string `gorm:"column:document"`
+	DateTime    string `gorm:"column:datetime"`
+	Organizer   int    `gorm:"column:organizer"`
+	StreamURL   string `gorm:"column:stream_url"`
 }
 
-func (e *Event) ContainsAllTags(tags []string) bool {
-	for _, t := range tags {
-		if !e.ContainsTag(t) {
-			return false
-		}
-	}
-	return true
+type FeedBack struct {
+	EventID int    `gorm:"column:event_id"`
+	UserID  int    `gorm:"column:user_id"`
+	Stars   int    `gorm:"column:stars"`
+	Comment string `gorm:"column:comment"`
 }
 
-func (e *Event) ContainsTag(tag string) bool {
-	for _, t := range e.Tags {
-		if t.Tag == tag {
-			return true
-		}
-	}
-	return false
+type Comments struct {
+	EventID int    `gorm:"column:event_id"`
+	UserID  int    `gorm:"column:user_id"`
+	Comment string `gorm:"column:comment"`
 }
 
-type Status struct {
-	gorm.Model
-	Status string
+type Tags struct {
+	ID  int    `gorm:"column:id"`
+	Tag string `gorm:"column:tag"`
 }
 
-type Feedback struct {
-	gorm.Model
-	EventID int `gorm:"uniqueIndex:event_user_feedback;not null;"`
-	Event   Event
-	UserID  int `gorm:"uniqueIndex:event_user_feedback;not null;"`
-	User    User
-	Stars   uint   `gorm:"not null"`
-	Comment string `gorm:"not null"`
-}
-
-// type Comments struct {
-//  gorm.Model
-// 	EventID int
-// 	UserID  int
-// 	Comment string
-// }
-
-type Tag struct {
-	gorm.Model
-	Tag string
-}
-
-type Badge struct {
-	gorm.Model
-	Badge string
+type Badges struct {
+	ID    int    `gorm:"column:id"`
+	Badge string `gorm:"column:badge"`
 }
 
 type Image struct {
-	gorm.Model
-	ImageURL string
+	ID       int    `gorm:"column:id"`
+	ImageURL string `gorm:"column:image_url"`
 }

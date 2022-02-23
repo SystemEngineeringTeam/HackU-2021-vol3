@@ -10,14 +10,8 @@
 func main() {
 	router := mux.NewRouter()
 
-	router.Path("/auth").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET","POST","PUT","DELETE"))
-	router.Path("/hoge").Methods("GET").HandlerFunc(apifunc.Hoge)
-	router.Path("/hoge").Methods("POST").HandlerFunc(apifunc.Hoge)
-	router.Path("/hoge").Methods("PUT").HandlerFunc(apifunc.Hoge)
-	router.Path("/hoge").Methods("DELETE").HandlerFunc(apifunc.Hoge)
-
-	router.Path("/auth").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET"))
-	router.Path("/fuga/{id}").Methods("GET").HandlerFunc(apifunc.Fuga)
+	router.Methods("POST").Path("/hoge").HandlerFunc(apifunc.Hoge)
+	router.Methods("GET").Path("/fuga").HandlerFunc(apifunc.Fuga)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

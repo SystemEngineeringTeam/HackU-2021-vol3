@@ -1,11 +1,9 @@
 import "../styles/globals.css";
-import "../styles/admin.css";
-import "../styles/event.css";
-import type { AppProps } from "next/app";
-import App from "next/app";
-import { AuthProvider } from "../components/Auth";
+import "tailwindcss/tailwind.css";
 
-App.getInitialProps = async () => ({ pageProps: {} });
+import "../styles/event.css"
+import type { AppProps } from "next/app";
+import { AuthProvider } from "../components/Auth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
