@@ -29,7 +29,7 @@ type EventPostRequest struct {
 	ImageID      int                 `json:"imageID"`
 	DateTime     string              `json:"datetime"`
 	Tags         []int               `json:"tags"`
-	Parcitipants string              `json:"parcitipants"`
+	Parcitipants uint                `json:"parcitipants"`
 	Organizer    []UserIdGetResponse `json:"organizer"`
 }
 
