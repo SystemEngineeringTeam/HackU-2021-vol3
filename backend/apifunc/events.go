@@ -159,7 +159,7 @@ func FeedbackGetHandler(w http.ResponseWriter, r *http.Request) {
 	response := make([]models.FeedbackGetResponse, 0)
 	for _, feedback := range feedbacks {
 		f := models.FeedbackGetResponse{
-			EventID:         feedback.EventID,
+			ID:              int(feedback.ID),
 			Comment:         feedback.Comment,
 			Stars:           int(feedback.Stars),
 			CommentedBy:     feedback.User.Name,
