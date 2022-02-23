@@ -1,7 +1,11 @@
 import Image from "next/image";
+import { useState } from "react";
 import EventReviw from "./EventReview";
+import Star from "./Star";
 
-const EventAfterDetail = () => {
+const EventAfterDetail = ({ totalStars = 5 }) => {
+  const [selectedStars, setSelectedStars] = useState(3);
+
   return (
     <div className="flex flex-col mt-6">
       <div className="flex justify-center items-center mr-48 ">
@@ -10,16 +14,16 @@ const EventAfterDetail = () => {
         </div>
         <div className="flex flex-col items-center">
           <div className="text-2xl">2月15日 15時30分~</div>
-          <div className="text-5xl">インフラ勉強会</div>
+          <div className="text-5xl font-bold">インフラ勉強会</div>
         </div>
       </div>
-      <div className="mx-auto w-3/4 border border-black" />
+      <div className="mx-auto w-3/4 border border-gray-400" />
       <div className="flex mt-20">
         <div className="flex flex-col ml-10 w-8/12 h-[600px]">
           <div className="flex flex-col justify-between h-[600px] md:ml-20 lg:ml-32 xl:ml-56">
-            <div className="text-3xl">
-              details
-              <div className="text-3xl">
+            <div className="flex flex-col gap-8 text-3xl">
+              <div className="font-bold">details</div>
+              <div className="text-2xl">
                 説明時には順番で語られるビジネスモデル、UXデザイン（ペルソナ→ジャーニー）、UIモックアップ
                 これらは会議室では行き来を繰り返しほぼ同時に形になることが多くあります。
                 会議中にリアルタイムにデザインを行うUXデザイナーとビジネス・システム・ユーザーモデルを並行検討するプロダクトマネージャーの
@@ -27,7 +31,7 @@ const EventAfterDetail = () => {
                 残り時間で「何を考え、何故そうなったのか？」をわかりやすく解説します。
               </div>
             </div>
-            <div className="flex flex-col text-2xl ">
+            <div className="flex flex-col mb-12 text-2xl">
               <div>
                 <button className="flex py-2 px-5 border-4">
                   <Image
@@ -64,12 +68,14 @@ const EventAfterDetail = () => {
             <div className="ml-4 text-2xl">super_Tikuwa</div>
           </div>
           <div className="border border-black " />
-          <div className="mt-14 text-xl text-center">参加予定人数 10人</div>
+          <div className="mt-14 mb-2 text-xl text-center">
+            参加予定人数 10人
+          </div>
           <div className="border border-black" />
 
           <div className="text-xl">
             <div className="mt-12 ">Tags </div>
-            <button className="">フロントエンド,</button>
+            <button className="mb-2">フロントエンド,</button>
             <button>バックエンド</button>
           </div>
           <div className="border border-black" />
@@ -96,12 +102,26 @@ const EventAfterDetail = () => {
                 alt="infra"
               />
             </div>
-            <div className="flex flex-col ml-4 w-8/12 ">
-              <div className="text-2xl">☆☆☆☆☆</div>
+            <div className="flex flex-col gap-2 ml-4 w-8/12">
+              <div className="flex text-2xl">
+                {[...Array(totalStars)].map((n, i) => (
+                  <Star
+                    key={i}
+                    selected={selectedStars > i}
+                    onSelect={() => setSelectedStars(i + 1)}
+                  />
+                ))}
+              </div>
+
               <textarea
                 className="h-20 border-4"
                 placeholder="フィードバックを書きましょう"
               />
+              <div className="text-right ">
+                <button className="py-1 px-6 mr-1 text-white bg-blue-400">
+                  送信
+                </button>
+              </div>
             </div>
           </div>
           <EventReviw />
