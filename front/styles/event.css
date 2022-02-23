@@ -175,7 +175,10 @@
     height: 170px;
     background: #C4C4C4;
     cursor: pointer;
+}
 
+.image_upload:hover {
+    background: #7e7e7e;
 }
 
 .image_upload_2 {
@@ -322,29 +325,30 @@
 .datetime_input {
     position: absolute;
     margin-top: 80px;
-    margin-left: 23%;
 }
 
 .tag {
-    margin-top: 10px;
-    position: absolute;
+    margin-right: 10px;
+    margin-top: 8px;
     border: 1px solid rgba(0, 0, 0, .3);
     border-radius: 5px;
-    width: 15em;
-    height: 70px;
+    width: 9em;
+    height: 50px;
+    cursor: pointer;
 }
 
 .tag_text {
-    position: absolute;
-    left: 25%;
-    top: 30%;
+    margin-left: 16px;
+    font-size: 14px;
     font-weight: bold;
     color: rgb(25, 25, 25, 0.6);
-    display: inline;
+    margin-top: 12px;
 }
 
 .tag_svg {
-    display: inline;
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: -3px;
 }
 
 
