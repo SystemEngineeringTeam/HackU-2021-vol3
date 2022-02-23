@@ -40,7 +40,7 @@ func main() {
 
 	router.Path("/event/{id}/feedback").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET", "POST"))
 	router.Path("/event/{id}/feedback").Methods("GET").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.FeedbackGetHandler))
-	router.Path("/event/{id}/feedback").Methods("POST").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.FeedbackPostHandler))
+	router.Path("/event/{id}/feedback").Methods("POST", "OPTIONS").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.FeedbackPostHandler))
 
 	router.Path("/event/hosted/{user_id}").Methods("OPTIONS").HandlerFunc(apifunc.OptionsHandler("GET"))
 	router.Path("/event/hosted/{user_id}").Methods("GET").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.EventHostedHandler))
