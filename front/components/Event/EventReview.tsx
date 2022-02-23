@@ -1,6 +1,21 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { axiosInstance as axios } from "../../utils/api";
 
 const EventReviw = () => {
+  const router = useRouter();
+  const isReady = router.isReady;
+  const { pid } = router.query;
+
+  // useEffect(() => {
+  //   if (isReady) {
+  //     axios.get(`/event/${pid}/feedback`).then((res) => {
+  //       console.log(res);
+  //     });
+  //   }
+  // }, [isReady]);
+
   return (
     <div>
       <div className="flex flex-col">

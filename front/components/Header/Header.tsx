@@ -25,16 +25,20 @@ const Header = () => {
       return request;
     });
 
-    axios
-      .get("/user")
-      .then((res) => {
-        //成功したのでuserは存在する
-      })
-      .catch((err) => {
-        //失敗したのでuserは存在しない
-        setIsNewUser(false);
-      });
-  });
+    if (currentIdToken) {
+      console.log(currentIdToken);
+      axios
+        .get("/user")
+        .then((res) => {
+          //成功したのでuserは存在する
+        })
+        .catch((err) => {
+          //失敗したのでuserは存在しない
+          setIsNewUser(true);
+        });
+    }
+    // eslint-disable-next-line
+  }, [currentIdToken]);
 
   const profile = (
     <div className="flex ml-2">

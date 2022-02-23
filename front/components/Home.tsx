@@ -35,11 +35,9 @@ const Home = () => {
   //   console.log(res);
   // });
 
-  axios.get("/event").then((res) => {
-    console.log(res);
-  });
-
-  console.log(events);
+  // axios.get("/event").then((res) => {
+  //   console.log(res);
+  // });
 
   return (
     <Layout>
