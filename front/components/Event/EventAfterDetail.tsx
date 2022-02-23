@@ -1,16 +1,84 @@
+import moment from "moment";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState, useContext, useRef } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import { axiosInstance as axios } from "../../utils/api";
 import { AuthContext } from "../Auth";
 import EventReviw from "./EventReview";
 import Star from "./Star";
 
+type Review = {
+  comment: string;
+  commentedBy: string;
+  id: number;
+  profileImageURL: string;
+  stars: number;
+};
+
+type Event = {
+  id: number;
+  title: string;
+  description: string;
+  imageURL: string;
+  organizer: {
+    id: number;
+    name: string;
+    profileImageURL: string;
+  };
+  datetime: string;
+  participants: number;
+  tags: string[];
+  document: string;
+  streamURL: string;
+};
+
 const EventAfterDetail = ({ totalStars = 5 }) => {
   const [selectedStars, setSelectedStars] = useState(3);
   const { currentUser, currentIdToken } = useContext(AuthContext);
-  const { pid } = useRouter().query;
+  const [reviews, setReviews] = useState<Review[]>([]);
   const comment = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
+  const isReady = router.isReady;
+  const { pid } = router.query;
+
+  const [event, setEvent] = useState<Event>({
+    id: 1,
+    title: "インフラ勉強会",
+    description:
+      "説明時には順番で語られるビジネスモデル、UXデザイン（ペルソナ→ジャーニー、UIモックアップこれらは会議室では行き来を繰り返しほぼ同時に形になることが",
+    imageURL: "infra.png",
+    organizer: {
+      id: 1,
+      name: "山田太郎",
+      profileImageURL: "fukuda.png",
+    },
+    datetime: "",
+    participants: 0,
+    tags: ["ss", "ss"],
+    document: "ss",
+    streamURL: "ss",
+  });
+
+  useEffect(() => {
+    if (isReady) {
+      axios.get(`/event/${pid}/feedback`).then((res) => {
+        console.log(res);
+        setReviews(res.data);
+      });
+
+      axios
+        .get(`event/1`)
+        .then((res) => {
+          console.log(res);
+          setEvent(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [isReady]);
+
+  // console.log(reviw);
 
   const regsiterReview = () => {
     axios.interceptors.request.use((request) => {
@@ -43,8 +111,10 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
           <Image src={`/infra.png`} height="110px" width="135 px" alt="infra" />
         </div>
         <div className="flex flex-col items-center">
-          <div className="text-2xl">2月15日 15時30分~</div>
-          <div className="text-5xl font-bold">インフラ勉強会</div>
+          <div className="text-2xl">
+            {moment(event.datetime).format("YYYY年MM月DD日 HH時mm分")}~
+          </div>
+          <div className="text-5xl font-bold">{event.title}</div>
         </div>
       </div>
       <div className="mx-auto w-3/4 border border-gray-400" />
@@ -53,13 +123,7 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
           <div className="flex flex-col justify-between h-[600px] md:ml-20 lg:ml-32 xl:ml-56">
             <div className="flex flex-col gap-8 text-3xl">
               <div className="font-bold">details</div>
-              <div className="text-2xl">
-                説明時には順番で語られるビジネスモデル、UXデザイン（ペルソナ→ジャーニー）、UIモックアップ
-                これらは会議室では行き来を繰り返しほぼ同時に形になることが多くあります。
-                会議中にリアルタイムにデザインを行うUXデザイナーとビジネス・システム・ユーザーモデルを並行検討するプロダクトマネージャーの
-                オンラインでの掛け合い漫才的仕事風景を中継いたします。
-                残り時間で「何を考え、何故そうなったのか？」をわかりやすく解説します。
-              </div>
+              <div className="text-2xl">{event.description}</div>
             </div>
             <div className="flex flex-col mb-12 text-2xl">
               <div>
@@ -95,22 +159,28 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
               width="40 px"
               alt="infra"
             />
-            <div className="ml-4 text-2xl">super_Tikuwa</div>
+            <div className="ml-4 text-2xl">{event.organizer.name}</div>
           </div>
           <div className="border border-black " />
           <div className="mt-14 mb-2 text-xl text-center">
-            参加予定人数 10人
+            参加予定人数 {event.participants}人
           </div>
           <div className="border border-black" />
 
           <div className="text-xl">
             <div className="mt-12 ">Tags </div>
-            <button className="mb-2">フロントエンド,</button>
-            <button>バックエンド</button>
+            {event.tags.map((tag, index) => {
+              return (
+                <button className="rounded-md border-2" key={index}>
+                  {tag}
+                </button>
+              );
+            })}
           </div>
           <div className="border border-black" />
         </div>
       </div>
+      <div className="border-2" />
 
       <div className="mt-10 h-40 ">
         <div className="flex flex-col ">
@@ -126,10 +196,13 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
           <div className="flex ml-72">
             <div className="flex flex-col ">
               <Image
-                src={`/fukuda.png`}
+                src={
+                  currentUser?.photoURL ? currentUser.photoURL : "/white.png"
+                }
                 height="50px"
                 width="50 px"
                 alt="infra"
+                className="rounded-full"
               />
             </div>
             <div className="flex flex-col gap-2 ml-4 w-8/12">
@@ -158,8 +231,15 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
               </div>
             </div>
           </div>
-          <EventReviw />
-          <EventReviw />
+          {reviews.map((review) => (
+            <EventReviw
+              key={review.id}
+              comment={review.comment}
+              commentedBy={review.commentedBy}
+              profileImageURL={review.profileImageURL}
+              stars={review.stars}
+            />
+          ))}
         </div>
       </div>
     </div>
