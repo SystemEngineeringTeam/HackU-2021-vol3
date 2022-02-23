@@ -1,20 +1,32 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { FaStar } from "react-icons/fa";
 import { axiosInstance as axios } from "../../utils/api";
 
-const EventReviw = () => {
-  const router = useRouter();
-  const isReady = router.isReady;
-  const { pid } = router.query;
+type Props = {
+  comment: string;
+  commentedBy: string;
+  profileImageURL: string;
+  stars: number;
+};
 
-  // useEffect(() => {
-  //   if (isReady) {
-  //     axios.get(`/event/${pid}/feedback`).then((res) => {
-  //       console.log(res);
-  //     });
-  //   }
-  // }, [isReady]);
+const EventReview = (props: Props) => {
+  const { comment, commentedBy, profileImageURL, stars } = props;
+
+  const starsElement = [];
+
+  for (let i = 0; i < 5; i++) {
+    starsElement.push(
+      <FaStar
+        key={i}
+        style={{
+          color: stars > i ? "#ffc107" : "#e4e5e9",
+          fontSize: "1.5rem",
+        }}
+      />
+    );
+  }
 
   return (
     <div>
@@ -22,23 +34,22 @@ const EventReviw = () => {
         <div className="flex mt-12 ml-72 h-12 ">
           <div className="flex ">
             <Image
-              src={`/fukuda.png`}
+              src={`${profileImageURL}`}
               height="50px"
               width="45 px"
               alt="infra"
+              className="rounded-full"
             />
           </div>
           <div className="flex-col ml-4 text-2xl">
-            <div>Super_Tikuwa</div>
-            <div>★★★★★</div>
+            <div>{commentedBy}</div>
+            <div className="flex">{starsElement}</div>
           </div>
         </div>
-        <div className="mt-8 ml-[275px]">
-          学生支援機構の奨学金は、院まで出れば実績に応じて一部ないし全額返済免除になるシステムがあるけど、旧帝大クラスじゃないと枠数少ないらしいね
-        </div>
+        <div className="mt-8 ml-[275px]">{comment}</div>
       </div>
     </div>
   );
 };
 
-export default EventReviw;
+export default EventReview;
