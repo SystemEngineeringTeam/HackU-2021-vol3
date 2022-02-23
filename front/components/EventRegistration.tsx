@@ -81,16 +81,7 @@ const EventRegistration = () => {
                     </label>
                 </div>
                 <Tags />
-                <div>
-                    <div className="tag">
-                        <div className="">
-                            <div className="tag_text">
-                                タグの追加
-                                <svg xmlns="http://www.w3.org/2000/svg" className="tag_svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm5 11H7v-2h10v2z" /></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </>
     );
