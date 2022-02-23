@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -11,7 +13,7 @@ type User struct {
 	ProfileImageURL string `gorm:"not null;"`
 	BadgeID         uint
 	Badge           Badge
-	JoinedEvents    []Event `gorm:"many2many:event_parcitipants;"`
+	JoinedEvents    []Event `gorm:"many2many:event_participants;"`
 }
 
 type Event struct {
@@ -23,7 +25,7 @@ type Event struct {
 	Image        Image
 	OrganizerID  uint `gorm:"not null"`
 	Organizer    User
-	DateTime     string `gorm:"not null"`
+	DateTime     time.Time `gorm:"not null;type:datetime(0)"`
 	FeedBacks    []Feedback
 	StreamURL    string
 	Tags         []Tag  `gorm:"many2many:event_tags;"`

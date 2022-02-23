@@ -81,7 +81,7 @@ type EventWithIDGetResponse struct {
 		ProfileImageURL string `json:"profileImageURL"`
 	} `json:"organizer"`
 	DateTime     string   `json:"datetime"`
-	Parcitipants uint     `json:"participants"`
+	Participants uint     `json:"participants"`
 	StreamURL    string   `json:"streamURL"`
 	Tags         []string `json:"tags"`
 }

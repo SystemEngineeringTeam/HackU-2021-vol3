@@ -1,13 +1,17 @@
 package dboperation
 
 import (
-	"flag"
 	"log"
+	"time"
 
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/models"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+)
+
+const (
+	timeFormat = "2006-01-02T15:04:05+09:00"
 )
 
 func init() {
@@ -99,7 +103,7 @@ func init() {
 			Document:    "test",
 			ImageID:     1,
 			OrganizerID: u.ID,
-			DateTime:    "2020-01-01T00:00:00+09:00",
+			DateTime:    time.Now(),
 			Tags:        t,
 			StatusID:    1,
 			Participants: []models.User{
@@ -122,13 +126,13 @@ func init() {
 
 func connect() *gorm.DB {
 	// connect to the database
-	flag.Parse()
+	// flag.Parse()
 
 	dsn := "docker:docker@tcp(localhost:33063)/app-db?charset=utf8mb4&parseTime=True&loc=Local"
 
-	if flag.Arg(0) == "production" {
-		dsn = "root:root@tcp(localhost:3306)/app-db?charset=utf8mb4&parseTime=True&loc=Local"
-	}
+	// if flag.Arg(0) == "production" {
+	// 	dsn = "root:root@tcp(localhost:3306)/app-db?charset=utf8mb4&parseTime=True&loc=Local"
+	// }
 
 	gormDB, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {

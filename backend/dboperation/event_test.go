@@ -62,7 +62,7 @@ func TestCreateEvent(t *testing.T) {
 // }
 
 func TestSelectEvents(t *testing.T) {
-	events, err := SelectEvents("", "schedule", []string{"test", "test2"}, 1)
+	events, err := SelectEvents("", "schedule", []string{}, 1)
 	if err != nil {
 		t.Error(err)
 	}
@@ -72,12 +72,13 @@ func TestSelectEvents(t *testing.T) {
 	}
 }
 
-func TestSelectEvent(t *testing.T) {
+func TestSelectEventByID(t *testing.T) {
 	event, err := SelectEventByID(1)
 	if err != nil {
 		t.Error(err)
 	}
-	fmt.Println(event)
+	fmt.Println(event.Participants)
+
 }
 
 func TestUpdateStreamURL(t *testing.T) {
