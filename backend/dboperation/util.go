@@ -20,8 +20,17 @@ func init() {
 
 	var c int64
 	if db.Model(&models.Image{}).Count(&c); c == 0 {
-		db.Create(&models.Image{
-			ImageURL: "https://via.placeholder.com/140x100",
+		db.Create([]models.Image{
+			{ImageURL: "cloud-service"},
+			{ImageURL: "computer"},
+			{ImageURL: "database-storage"},
+			{ImageURL: "devops"},
+			{ImageURL: "graphic-design"},
+			{ImageURL: "microchip"},
+			{ImageURL: "security"},
+			{ImageURL: "server"},
+			{ImageURL: "smartphone"},
+			{ImageURL: "web"},
 		})
 	}
 
