@@ -1,6 +1,6 @@
-import React from 'react';
-import ConfirmAddEvent from './ConfirmAddEvent';
-import ImageSelect from './ImageSelect';
+import React from "react";
+import ConfirmAddEvent from "./Event/ConfirmAddEvent";
+import ImageSelect from "./ImageSelect";
 import Tags from './Tags';
 const EventRegistration = () => {
     type TagProps = {
@@ -81,10 +81,12 @@ const EventRegistration = () => {
                     </label>
                 </div>
                 <Tags />
-
             </div>
-        </>
-    );
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default EventRegistration;

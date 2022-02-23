@@ -1,5 +1,5 @@
 import BeforeScreenToReturn from "../../components/BeforeScreenToReturn";
-import EventRegistration from "../../components/EventRegistration";
+import EventRegistration from "../../components/Event/EventRegistration";
 import Layout from "../../components/Layout";
 const event = () => {
   return (
