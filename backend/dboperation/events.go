@@ -84,7 +84,7 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 	status = "%" + status + "%"
 
 	var events []models.Event
-	if err := db.Debug().Model(&events).Preload("Tags").Joins("Status").Joins("Organizer").Where("title like ?", keyword).Where("Status like ?", status).Order("id").Find(&events).Error; err != nil {
+	if err := db.Debug().Model(&events).Preload("Participants").Preload("Tags").Joins("Status").Joins("Organizer").Where("title like ?", keyword).Where("Status like ?", status).Order("id").Find(&events).Error; err != nil {
 		return nil, err
 	}
 
@@ -118,12 +118,14 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 		}
 
 		r := models.EventGetResponse{
-			ID:        e.ID,
-			Title:     e.Title,
-			ImageURL:  e.Image.ImageURL,
-			Organizer: e.Organizer.Name,
-			DateTime:  e.DateTime,
-			Tags:      tags,
+			ID:           e.ID,
+			Title:        e.Title,
+			ImageURL:     e.Image.ImageURL,
+			Organizer:    e.Organizer.Name,
+			DateTime:     e.DateTime,
+			Tags:         tags,
+			Participants: len(e.Participants),
+			Status:       e.Status.Status,
 		}
 
 		eventsResponse = append(eventsResponse, r)

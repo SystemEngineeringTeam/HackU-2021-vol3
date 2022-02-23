@@ -27,7 +27,7 @@ type Event struct {
 	FeedBacks    []Feedback
 	StreamURL    string
 	Tags         []Tag  `gorm:"many2many:event_tags;"`
-	Parcitipants []User `gorm:"many2many:event_parcitipants;"`
+	Participants []User `gorm:"many2many:event_participants;"`
 	StatusID     uint   `gorm:"not null"`
 	Status       Status
 }

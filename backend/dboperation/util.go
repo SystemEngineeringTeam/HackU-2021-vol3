@@ -102,7 +102,7 @@ func init() {
 			DateTime:    "2020-01-01T00:00:00+09:00",
 			Tags:        t,
 			StatusID:    1,
-			Parcitipants: []models.User{
+			Participants: []models.User{
 				u2,
 			},
 		}
