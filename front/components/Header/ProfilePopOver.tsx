@@ -3,7 +3,7 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 import { getAuth, getIdToken, signOut } from "firebase/auth";
 import Image from "next/image";
 import { Fragment } from "react";
-import { firebaseApp } from "../utils/firebase";
+import { firebaseApp } from "../../utils/firebase";
 
 const solutions = [
   {
@@ -42,7 +42,7 @@ const ProfilePopOver = (props: Props) => {
   };
 
   return (
-    <div className="top-16 left-60 px-4 w-full max-w-sm">
+    <div className="top-16 left-60 px-4 mt-1 w-full max-w-sm">
       <Popover className="relative">
         {({ open }) => (
           <>
@@ -52,20 +52,15 @@ const ProfilePopOver = (props: Props) => {
                 text-white group inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 rounded-full w-8 h-8 
                 `}
             >
-              <button
-                className={`${open ? "" : "text-opacity-70"}
-                  h-10 w-10  group-hover:text-opacity-80 transition ease-in-out duration-150`}
-              >
-                <div>
-                  <Image
-                    src={props.profileImg}
-                    alt=""
-                    width="50px"
-                    height="50px"
-                    className="rounded-full"
-                  />
-                </div>
-              </button>
+              <div>
+                <Image
+                  src={props.profileImg}
+                  alt=""
+                  width="50px"
+                  height="50px"
+                  className="rounded-full"
+                />
+              </div>
             </Popover.Button>
             <Transition
               as={Fragment}
