@@ -43,10 +43,11 @@ type EventPutRequest struct {
 }
 
 type FeedbackGetResponse struct {
-	EventID     int    `json:"eventID"`
-	Comment     string `json:"comment"`
-	Stars       int    `json:"stars"`
-	CommentedBy string `json:"commentedBy"`
+	EventID         int    `json:"eventID"`
+	Comment         string `json:"comment"`
+	Stars           int    `json:"stars"`
+	CommentedBy     string `json:"commentedBy"`
+	ProfileImageURL string `json:"profileImageURL"`
 }
 
 type FeedbackPostRequest struct {
