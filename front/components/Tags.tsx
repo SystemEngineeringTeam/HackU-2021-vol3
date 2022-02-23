@@ -15,13 +15,16 @@ export default function Tags() {
     function onClickTag(tag: string) {
         setTags(tags.concat({ id: tags.length, tag }));
     }
+    function DeleteClickTag(id: number) {
+        setTags(tags.filter(tag => tag.id !== id));
+    }
     return (
         <>
 
             <div className="flex justify-start">
                 {tags.map((tag) => (
                     <Fragment key={tag.id}>
-                        <div className="tag">
+                        <div className="tag" onClick={() => DeleteClickTag(tag.id)}>
                             <div className="tag_text">
                                 {tag.tag}
                                 <svg xmlns="http://www.w3.org/2000/svg" className="tag_svg" width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm5 11H7v-2h10v2z" /></svg>
