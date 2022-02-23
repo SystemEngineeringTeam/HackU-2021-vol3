@@ -357,6 +357,12 @@
     height: 30em;
 }
 
+#widthSelectAdmin {
+    width: 40em;
+    height: 20em;
+}
+
+
 
 .ImageSelectText {
     font-weight: bold;

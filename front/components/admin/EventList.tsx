@@ -1,5 +1,6 @@
 import Image from "next/image";
 import FrontendImage from "../../public/EventImage/web.png";
+import PostUrl from "./PostUrl";
 
 const EventList = () => {
     const log = () => {
@@ -39,14 +40,7 @@ const EventList = () => {
                                 </div>
                             </div>
                             <div className="flex justify-end">
-                                <button
-                                    className="py-2 px-10 mt-2 mr-3 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded-md border-2 border-slate-200"
-                                    type="button"
-
-                                >
-                                    配信者側画面へ
-                                </button>
-
+                                <PostUrl />
                             </div>
                             <div className="flex justify-end">
                                 <button
