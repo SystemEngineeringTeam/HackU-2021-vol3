@@ -6,30 +6,11 @@ import { AuthContext } from "../Auth";
 import EventReviw from "./EventReview";
 import Star from "./Star";
 
-type Event = {
-  id: number;
-  title: string;
-  description: string;
-  imageURL: string;
-  organizer: {
-    id: number;
-    name: string;
-    profileImageURL: string;
-  };
-  datetime: string;
-  participants: number;
-  tags: string[];
-  document: string;
-  streamURL: string;
-};
-
 const EventAfterDetail = ({ totalStars = 5 }) => {
   const [selectedStars, setSelectedStars] = useState(3);
   const { currentUser, currentIdToken } = useContext(AuthContext);
   const { pid } = useRouter().query;
   const comment = useRef<HTMLTextAreaElement>(null);
-
-  console.log(pid);
 
   const regsiterReview = () => {
     axios.interceptors.request.use((request) => {
@@ -42,7 +23,7 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
     if (currentIdToken) {
       console.log(currentIdToken);
       axios
-        .post(`/event/feedback/${pid}`, {
+        .post(`/event/${pid}/feedback`, {
           stars: selectedStars,
           comment: comment.current?.value,
         })

@@ -8,9 +8,13 @@ const EventReviw = () => {
   const isReady = router.isReady;
   const { pid } = router.query;
 
-  // useEffect(() => {
-  //   axios.get(`event/${pid}`).then((res)=>{}));
-  // }, []);
+  useEffect(() => {
+    if (isReady) {
+      axios.get(`/event/${pid}/feedback`).then((res) => {
+        console.log(res);
+      });
+    }
+  }, [isReady]);
 
   return (
     <div>
