@@ -43,7 +43,7 @@ type EventPutRequest struct {
 }
 
 type FeedbackGetResponse struct {
-	EventID         int    `json:"eventID"`
+	ID              int    `json:"id"`
 	Comment         string `json:"comment"`
 	Stars           int    `json:"stars"`
 	CommentedBy     string `json:"commentedBy"`
