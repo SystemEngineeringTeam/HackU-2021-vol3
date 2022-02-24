@@ -145,7 +145,7 @@ func connect() *gorm.DB {
 	dsn := "docker:docker@tcp(localhost:33063)/app-db?charset=utf8mb4&parseTime=True&loc=Local"
 
 	if flag.Arg(0) == "production" {
-		dsn = "docker:docker@tcp(localhost:3306)/app-db?charset=utf8mb4&parseTime=True&loc=Local"
+		dsn = "docker:docker@tcp(db:3306)/app-db?charset=utf8mb4&parseTime=True&loc=Local"
 	}
 
 	gormDB, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})

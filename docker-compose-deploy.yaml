@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "app-db"
+      MYSQL_USER: "docker"
+      MYSQL_PASSWORD: "docker"
+    restart: always
+  app:
+    build: backend/
+    restart: always
+    ports:
+      - "8080:80"
+
