@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 	"time"
@@ -55,7 +56,14 @@ func main() {
 	router.Path("/event/register/{id:[0-9]+}").Methods("POST").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.RegisterIdPostHandler))
 	router.Path("/event/register/{id:[0-9]+}").Methods("DELETE").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.RegisterIdDeteleHandler))
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	flag.Parse()
+
+	port := ":8080"
+	if flag.Arg(0) == "production" {
+		port = ":80"
+	}
+
+	log.Fatal(http.ListenAndServe(port, router))
 }
 
 func timer() {
