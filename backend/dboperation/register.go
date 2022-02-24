@@ -6,13 +6,18 @@ import (
 
 func JoinEvent(eventID, userID int) error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
 	event := models.Event{}
 	event.ID = uint(eventID)
 	user := models.User{}
 	user.ID = uint(userID)
 
-	if err := db.Model(&event).Association("Parcitipants").Append(&user); err != nil {
+	if err := db.Model(&event).Association("Participants").Append(&user); err != nil {
 		return err
 	}
 
@@ -21,45 +26,76 @@ func JoinEvent(eventID, userID int) error {
 
 func LeaveEvent(eventID, userID int) error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
 	event := models.Event{}
 	event.ID = uint(eventID)
 	user := models.User{}
 	user.ID = uint(userID)
 
-	if err := db.Model(&event).Association("Parcitipants").Delete(&user); err != nil {
+	if err := db.Model(&event).Association("Participants").Delete(&user); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func SelectRegisteredEvents(userID int) ([]models.Event, error) {
+func SelectJoinedEvents(firebaseUID string) ([]models.UsersEventResponse, error) {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return nil, err
+	}
+	defer closer.Close()
 
 	user := models.User{}
-	user.ID = uint(userID)
 
-	var events []models.Event
-
-	if err := db.Model(&user).Association("JoinedEvents").Find(&events); err != nil {
+	if err := db.Model(&models.User{}).Preload("JoinedEvents").Preload("JoinedEvents.Image").Where("firebase_uid = ?", firebaseUID).First(&user).Error; err != nil {
 		return nil, err
+	}
+
+	var events []models.UsersEventResponse
+	for _, e := range user.JoinedEvents {
+		events = append(events, models.UsersEventResponse{
+			ID:           e.ID,
+			Title:        e.Title,
+			ImageURL:     e.Image.ImageURL,
+			Participants: len(e.Participants),
+			DateTime:     e.DateTime.Format(timeFormat),
+		})
 	}
 
 	return events, nil
 }
 
-func SelectHostedEvents(userID int) ([]models.Event, error) {
+func SelectHostedEvents(firebaseUID string) ([]models.UsersEventResponse, error) {
 	db := connect()
-
-	user := models.User{}
-	user.ID = uint(userID)
+	closer, err := db.DB()
+	if err != nil {
+		return nil, err
+	}
+	defer closer.Close()
 
 	var events []models.Event
 
-	if err := db.Model(&models.Event{}).Joins("Organizer").Where("Organizer.id = ?", userID).Find(&events).Error; err != nil {
+	if err := db.Model(&models.Event{}).Joins("Organizer").Joins("Image").Where("Organizer.firebase_uid = ?", firebaseUID).Find(&events).Error; err != nil {
 		return nil, err
 	}
 
-	return events, nil
+	var response []models.UsersEventResponse
+	for _, e := range events {
+		response = append(response, models.UsersEventResponse{
+			ID:           e.ID,
+			Title:        e.Title,
+			ImageURL:     e.Image.ImageURL,
+			Participants: len(e.Participants),
+			DateTime:     e.DateTime.Format(timeFormat),
+		})
+	}
+
+	return response, nil
 }

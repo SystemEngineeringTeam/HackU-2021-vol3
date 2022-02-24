@@ -19,24 +19,24 @@ func TestLeaveEvent(t *testing.T) {
 	}
 }
 
-func TestSelectRegisteredEvents(t *testing.T) {
-	e, err := SelectRegisteredEvents(4)
-	if err != nil {
-		t.Error(err)
-	}
-
-	for _, v := range e {
-		fmt.Println(v.Title)
-	}
-}
-
-func TestSelectHostedEvents(t *testing.T) {
-	e, err := SelectHostedEvents(2)
+func TestSelectJoinedEvents(t *testing.T) {
+	e, err := SelectJoinedEvents("test2")
 	if err != nil {
 		t.Error(err)
 	}
 
 	for _, i := range e {
-		fmt.Println(i.ID, i.Title)
+		fmt.Println(i.Title, i.ImageURL)
+	}
+}
+
+func TestSelectHostedEvents(t *testing.T) {
+	e, err := SelectHostedEvents("test")
+	if err != nil {
+		t.Error(err)
+	}
+
+	for _, i := range e {
+		fmt.Println(i.ID, i.Title, i.ImageURL)
 	}
 }
