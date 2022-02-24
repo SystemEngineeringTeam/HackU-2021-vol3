@@ -33,7 +33,7 @@ const EventList = () => {
     if (currentIdToken) {
       console.log(currentIdToken);
       axios
-        .get(`/events/hosted`)
+        .get(`/event/hosted`)
         .then((res) => {
           //成功したのでuserは存在する
           console.log(res);
@@ -47,19 +47,25 @@ const EventList = () => {
     // eslint-disable-next-line
   }, [currentIdToken]);
 
+  console.log(hostEvents);
+
   return (
     <>
       <div className="flex justify-center">
-        {hostEvents.map((event) => {
-          <PostedEvent
-            id={event.id}
-            title={event.title}
-            imageURL={event.title}
-            participants={event.participants}
-            datetime={event.datetime}
-            key={event.id}
-          />;
-        })}
+        {hostEvents ? (
+          hostEvents.map((event) => {
+            <PostedEvent
+              id={event.id}
+              title={event.title}
+              imageURL={event.title}
+              participants={event.participants}
+              datetime={event.datetime}
+              key={event.id}
+            />;
+          })
+        ) : (
+          <div />
+        )}
       </div>
     </>
   );

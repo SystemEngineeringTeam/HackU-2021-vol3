@@ -86,6 +86,7 @@ const Home = () => {
               status={"開催中"}
               participants={10}
             />
+
             {/* <Event
               id={1}
               title={"インフラ勉強会"}
