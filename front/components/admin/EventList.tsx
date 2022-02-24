@@ -58,7 +58,7 @@ const EventList = () => {
               <PostedEvent
                 id={event.id}
                 title={event.title}
-                imageURL={event.title}
+                imageURL={event.imageURL}
                 participants={event.participants}
                 datetime={event.datetime}
                 key={event.id}

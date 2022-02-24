@@ -92,7 +92,7 @@ const NewEventDetail = () => {
       <div className="flex justify-center items-center mr-48 ">
         <div className="mr-14">
           <Image
-            src={`/${event.imageURL}`}
+            src={`/EventImage/${event.imageURL}.png`}
             height="110px"
             width="135 px"
             alt="infra"
