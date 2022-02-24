@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
-export default function Tags() {
+export default function Tags(props: any) {
     //配列の型宣言
     type Tag = {
         id: number,
@@ -11,12 +11,33 @@ export default function Tags() {
     const [tags, setTags] = useState<Tag[]>([
     ]);
 
+    const TagID = [
+        { id: 1, tag: 'FRONTEND' },
+        { id: 2, tag: 'BACKEND' },
+        { id: 3, tag: 'INFRA' },
+        { id: 4, tag: 'NETWORK' },
+        { id: 5, tag: 'SECURITY' },
+        { id: 6, tag: 'MOBILE' },
+        { id: 7, tag: 'DESIGN' },
+        { id: 8, tag: 'CLOUD' },
+        { id: 9, tag: 'HARDWARE' },
+        { id: 10, tag: 'DEVOPS' },
+        { id: 11, tag: 'STUDENT' },
+        { id: 12, tag: 'BEGINNER' },
+        { id: 13, tag: 'WOMAN' },
+        { id: 14, tag: "COMPANY" },
+        { id: 15, tag: "GROUP" }
+    ];
     //クリックしたタグをsetTagにpushする
-    function onClickTag(tag: string) {
-        setTags(tags.concat({ id: tags.length, tag }));
+    function onClickTag(PropsTag: string) {
+        setTags(tags.concat({ id: tags.length, tag: PropsTag }));
+        const resFiter = TagID.filter(tag => tag.tag === PropsTag);
+        props.TagHandleChange(resFiter[0].id);
     }
-    function DeleteClickTag(id: number) {
-        setTags(tags.filter(tag => tag.id !== id));
+    function DeleteClickTag(PropsID: number) {
+        setTags(tags.filter(tag => tag.id !== PropsID));
+        const resFiter = TagID.filter(tag => tag.id === PropsID);
+        props.TagRemoveChange(resFiter[0].id);
     }
     return (
         <>

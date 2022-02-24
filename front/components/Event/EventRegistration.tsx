@@ -1,26 +1,128 @@
-import React from "react";
+import axios from 'axios';
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import ImageSelect from "../ImageSelect";
 import Tags from "../Tags";
 import ConfirmAddEvent from "./ConfirmAddEvent";
 const EventRegistration = () => {
   type TagProps = {
     key: number;
-    value: string;
   };
-  const [tags, setTags] = React.useState<TagProps[]>([]);
+
+
+
+  //A set of functions to hold the title 
+  const [title, setTitle] = React.useState<string>("");
+  function TitleHandleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setTitle(event.target.value);
+    console.log(event.target.value);
+  }
+
+
+
+  //A set of functions that hold information that provides an overview
+  const [description, setDescription] = React.useState<string>("");
+  const textRowCount = description ? description.split('\n').length : 0;
+  const rows = textRowCount + 1;
+  function DescriptionHandleChange(event: any) {
+    if (event != undefined) {
+      setDescription(event.target.value);
+      console.log(event.target.value);
+    }
+  }
+
+
+  //Maintaining image information in a set of functions
+  const [image, setImage] = React.useState<string>("");
+  function ImageHandleChange(props: any) {
+    if (props != undefined) {
+      setImage(props);
+      console.log(props);
+    }
+  }
+
+  // A set of functions to hold file information
   const [file, setFile] = React.useState<File | null>(null);
-  const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [fileMd, setFileMd] = React.useState<string>("");
+  function onFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     console.log(e.target.files);
     if (e.target.files) {
       setFile(e.target.files[0]);
+      readTextFile(e.target.files[0]);
     }
   };
+  const readTextFile = (file: File) => {
+    const reader = new FileReader();
+    let ReadText: string = "";
+    reader.onload = (e: any) => {
+      ReadText = e.target.result;
+      console.log(ReadText);
+      setFileMd(ReadText);
+    };
+    reader.readAsText(file);
+  };
+
+
+  //A set of functions to hold date and time information
+  const [date, setDate] = React.useState<string>("");
+  function DateHandleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setDate(event.target.value);
+    console.log(event.target.value);
+  }
+
+  const [time, setTime] = React.useState<string>("");
+  function TimeHandleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setTime(event.target.value);
+    console.log(event.target.value);
+  }
+
+  // Functions for processing tags
+  const [tags, setTags] = React.useState([]);
+  const [tagID, setTagID] = useState<number[]>([]);
+  type Tag = {
+    id: number,
+    tag: string,
+  }
+  function TagHandleChange(props: number) {
+    let tmp = tagID;
+    tmp.push(props);
+    setTagID(tmp);
+  }
+  function TagRemoveChange(props: number) {
+    let tmp = tagID;
+    tmp.splice(props, 1);
+    setTagID(tmp);
+  }
+
+  // Function to call the Post method(axios)
+  function PostForm() {
+    //axios
+    const data = {
+      title: title,
+      description: description,
+      image: image,
+      file: fileMd,
+      date: date,
+      time: time,
+      tags: tagID
+    };
+
+    axios
+      .post('http://localhost:8080/event', data)
+      .then(response => {
+        console.log('response body:', response.data);
+        router.push("/")
+      });
+  }
+  const router = useRouter(); //useRouterフックを定義している
+
+
   return (
     <>
       <div className="container">
         <div className="all_title">
           <h1 className="h1_title">イベントの詳細</h1>
-          <ConfirmAddEvent />
+          <ConfirmAddEvent PostForm={() => { PostForm() }} />
         </div>
         <div className="input_1_1">
           <label className="input_1_2">
@@ -30,6 +132,9 @@ const EventRegistration = () => {
             </div>
             <input
               type="text"
+              id="FormTitle"
+              value={title}
+              onChange={TitleHandleChange}
               placeholder="勉強会について説明するタイトルを描きましょう"
             />
           </label>
@@ -41,12 +146,15 @@ const EventRegistration = () => {
               <p className="input_title_2_2">(必須)</p>
             </div>
             <textarea
+              value={description}
+              rows={rows}
+              onChange={DescriptionHandleChange}
               className="InputTextArea"
               placeholder="勉強会について説明する内容を紹介しましょう"
             />
           </label>
         </div>
-        <ImageSelect />
+        <ImageSelect ImageHandleChange={(props: any) => { ImageHandleChange(props) }} />
         <div className="input_4_1">
           <label className="input_4_2">
             <div className="input_title_4">
@@ -76,6 +184,7 @@ const EventRegistration = () => {
                   type="file"
                   id="onFileInputChange"
                   onChange={onFileInputChange}
+                  accept=".md"
                 />
               </label>
             </div>
@@ -90,17 +199,17 @@ const EventRegistration = () => {
               <p className="input_title_5_2">(必須)</p>
             </div>
             <div className="flex gap-4 datetime_input">
-              <div>
-                <input type="date" name="date" id="date" />
+              <div className="rounded-sm border border-black">
+                <input type="date" value={date} onChange={DateHandleChange} name="date" id="date" />
               </div>
-              <div>
-                <input type="time" name="time" id="time" />
+              <div className="rounded-sm border border-black">
+                <input type="time" value={time} onChange={TimeHandleChange} name="time" id="time" />
               </div>
             </div>
             <input type="text" readOnly />
           </label>
         </div>
-        <Tags />
+        <Tags TagRemoveChange={(props: number) => { TagRemoveChange(props) }} TagHandleChange={(props: number) => { TagHandleChange(props) }} />
       </div>
     </>
   );
