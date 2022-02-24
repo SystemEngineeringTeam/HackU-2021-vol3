@@ -90,10 +90,10 @@ const EventRegistration = () => {
               <p className="input_title_5_2">(必須)</p>
             </div>
             <div className="flex gap-4 datetime_input">
-              <div className="rounded-sm border border-black">
+              <div>
                 <input type="date" name="date" id="date" />
               </div>
-              <div className="rounded-sm border border-black">
+              <div>
                 <input type="time" name="time" id="time" />
               </div>
             </div>
