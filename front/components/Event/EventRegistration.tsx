@@ -8,19 +8,61 @@ const EventRegistration = () => {
     value: string;
   };
   const [tags, setTags] = React.useState<TagProps[]>([]);
+
+
+  //A set of functions to hold the title 
+  const [title, setTitle] = React.useState<string>("");
+  function TitleHandleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setTitle(event.target.value);
+    console.log(event.target.value);
+  }
+
+
+
+  //A set of functions that hold information that provides an overview
+  const [description, setDescription] = React.useState<string>("");
+  const textRowCount = description ? description.split('\n').length : 0;
+  const rows = textRowCount + 1;
+  function DescriptionHandleChange(event: any) {
+    if (event != undefined) {
+      setDescription(event.target.value);
+      console.log(event.target.value);
+    }
+  }
+
+
+
+  // A set of functions for holding file information.
   const [file, setFile] = React.useState<File | null>(null);
-  const onFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function onFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     console.log(e.target.files);
     if (e.target.files) {
       setFile(e.target.files[0]);
+      readTextFile(e.target.files[0]);
+
     }
   };
+  const readTextFile = (file: File) => {
+    const reader = new FileReader();
+    let ReadText: string = "";
+    reader.onload = (e: any) => {
+      ReadText = e.target.result;
+      console.log(ReadText);
+    };
+    reader.readAsText(file);
+  };
+
+  // Function to call the Post method
+  function PostForm() {
+    console.log()
+  }
+
   return (
     <>
       <div className="container">
         <div className="all_title">
           <h1 className="h1_title">イベントの詳細</h1>
-          <ConfirmAddEvent />
+          <ConfirmAddEvent PostForm={() => { PostForm() }} />
         </div>
         <div className="input_1_1">
           <label className="input_1_2">
@@ -30,6 +72,9 @@ const EventRegistration = () => {
             </div>
             <input
               type="text"
+              id="FormTitle"
+              value={title}
+              onChange={TitleHandleChange}
               placeholder="勉強会について説明するタイトルを描きましょう"
             />
           </label>
@@ -41,6 +86,9 @@ const EventRegistration = () => {
               <p className="input_title_2_2">(必須)</p>
             </div>
             <textarea
+              value={description}
+              rows={rows}
+              onChange={DescriptionHandleChange}
               className="InputTextArea"
               placeholder="勉強会について説明する内容を紹介しましょう"
             />
@@ -76,6 +124,7 @@ const EventRegistration = () => {
                   type="file"
                   id="onFileInputChange"
                   onChange={onFileInputChange}
+                  accept=".md"
                 />
               </label>
             </div>
