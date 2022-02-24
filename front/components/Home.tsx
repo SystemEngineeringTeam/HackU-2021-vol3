@@ -1,6 +1,6 @@
 import { getAuth, getIdToken, signOut } from "firebase/auth";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { axiosInstance as axios } from "../utils/api";
 import { firebaseApp } from "../utils/firebase";
@@ -19,7 +19,7 @@ type Event = {
   datetime: string;
   tags: string[];
   status: string;
-  parcitipants: number;
+  participants: number;
 };
 
 const Home = () => {
@@ -39,6 +39,16 @@ const Home = () => {
   //   console.log(res);
   // });
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const res = await axios.get("/event");
+      setEvents([...res.data]);
+    };
+    fetchEvents();
+  }, []);
+
+  console.log(events);
+
   return (
     <Layout>
       <div className="flex">
@@ -51,7 +61,7 @@ const Home = () => {
           </div>
           <div className="my-4 border-4" />
           <div className="grid grid-cols-12 gap-4">
-            {/* {events.map((event) => (
+            {events.map((event) => (
               <Event
                 key={event.id}
                 id={event.id}
@@ -61,9 +71,9 @@ const Home = () => {
                 datetime={event.datetime}
                 tags={event.tags}
                 status={event.status}
-                parcitipants={event.parcitipants}
+                participants={event.participants}
               />
-            ))} */}
+            ))}
             {/* <Event /> */}
 
             <Event
@@ -74,9 +84,9 @@ const Home = () => {
               datetime={"2020/10/10"}
               tags={["インフラ", "フロント"]}
               status={"開催中"}
-              parcitipants={10}
+              participants={10}
             />
-            <Event
+            {/* <Event
               id={1}
               title={"インフラ勉強会"}
               imageURL={"/infra.png"}
@@ -135,7 +145,7 @@ const Home = () => {
               tags={["インフラ", "フロント"]}
               status={"開催中"}
               parcitipants={10}
-            />
+            /> */}
             <div className="flex col-span-4 col-start-4 justify-around pt-4 text-lg ">
               <button className="p-1 border-2 border-gray-400">前へ</button>
 
