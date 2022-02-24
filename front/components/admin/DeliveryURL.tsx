@@ -57,7 +57,16 @@ const DeliveryURL = (props: Props) => {
           <div className="flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 justify-center items-center outline-none focus:outline-none">
             <div className="relative my-6 mx-auto w-auto max-w-3xl">
               <div className="flex flex-col justify-center items-center w-[700px] h-80 bg-white rounded-lg border-0 outline-none focus:outline-none shadow-lg">
-                <div className="flex w-[700px]">
+                <div className="flex justify-start mb-4 ml-4 w-[700px] ">
+                  <button
+                    className=""
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <Image src="/batu.png" alt="" width="25px" height="25px" />
+                  </button>
+                </div>
+                <div className="flex w-[700px] ">
                   <div className="mb-4 ml-14 text-5xl">設定</div>
                 </div>
                 <div className="flex">
