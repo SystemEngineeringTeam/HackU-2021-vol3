@@ -1,6 +1,8 @@
-import axios from 'axios';
+
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { axiosInstance as axios } from "../../utils/api";
+import { AuthContext } from "../Auth";
 import ImageSelect from "../ImageSelect";
 import Tags from "../Tags";
 import ConfirmAddEvent from "./ConfirmAddEvent";
@@ -97,23 +99,33 @@ const EventRegistration = () => {
   // Function to call the Post method(axios)
   function PostForm() {
     //axios
+    //date time型に変換
+    let dateTime = new Date(date + " " + time);
+
     const data = {
       title: title,
       description: description,
       image: image,
       file: fileMd,
-      date: date,
-      time: time,
+      dateTime: dateTime,
       tags: tagID
     };
-
-    axios
-      .post('http://localhost:8080/event', data)
-      .then(response => {
-        console.log('response body:', response.data);
-        router.push("/")
-      });
+    axios.interceptors.request.use((request) => {
+      if (currentIdToken && request.headers != null) {
+        request.headers = { Authorization: `Bearer ${currentIdToken}` };
+      }
+      return request;
+    });
+    if (currentIdToken) {
+      axios
+        .post('http://localhost:8080/event', data)
+        .then(response => {
+          console.log('response body:', response.data);
+          router.push("/")
+        });
+    }
   }
+  const { currentUser, currentIdToken } = useContext(AuthContext);
   const router = useRouter(); //useRouterフックを定義している
 
 
