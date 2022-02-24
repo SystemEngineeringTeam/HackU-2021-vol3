@@ -11,7 +11,7 @@ import Security from "../public/EventImage/security.png";
 import ServerImage from "../public/EventImage/server.png";
 import SmartPhone from "../public/EventImage/smartphone.png";
 import WebImage from "../public/EventImage/web.png";
-const ImageSelect = () => {
+const ImageSelect = (props: any) => {
   type ImageType = {
     key: string;
     src: StaticImageData;
@@ -96,9 +96,11 @@ const ImageSelect = () => {
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     images.find((image) => {
       if (image.key === e.target.value) {
+        props.ImageHandleChange(e.target.value);
         setImage(image);
       }
     });
+
     setImageList(e.target.value);
   }
 

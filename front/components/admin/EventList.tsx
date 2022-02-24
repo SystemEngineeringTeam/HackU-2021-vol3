@@ -19,7 +19,7 @@ const EventList = () => {
   };
   const { currentUser, currentIdToken } = useContext(AuthContext);
   const [hostEvents, setHostEvents] = useState<hostEvent[]>([]);
-
+  
   useEffect(() => {
     //新規ユーザか判定するAPIを叩く
     //新規ユーザならisNewUserをtrueにする
@@ -68,6 +68,7 @@ const EventList = () => {
         ) : (
           <div />
         )}
+
       </div>
     </>
   );
