@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import ImageSelect from "../ImageSelect";
 import Tags from "../Tags";
 import ConfirmAddEvent from "./ConfirmAddEvent";
 const EventRegistration = () => {
   type TagProps = {
     key: number;
-    value: string;
   };
-  const [tags, setTags] = React.useState<TagProps[]>([]);
+
 
 
   //A set of functions to hold the title 
@@ -31,15 +30,23 @@ const EventRegistration = () => {
   }
 
 
+  //Maintaining image information in a set of functions
+  const [image, setImage] = React.useState<string>("");
+  function ImageHandleChange(props: any) {
+    if (props != undefined) {
+      setImage(props);
+      console.log(props);
+    }
+  }
 
-  // A set of functions for holding file information.
+  // A set of functions to hold file information
   const [file, setFile] = React.useState<File | null>(null);
+  const [fileMd, setFileMd] = React.useState<string>("");
   function onFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     console.log(e.target.files);
     if (e.target.files) {
       setFile(e.target.files[0]);
       readTextFile(e.target.files[0]);
-
     }
   };
   const readTextFile = (file: File) => {
@@ -48,13 +55,46 @@ const EventRegistration = () => {
     reader.onload = (e: any) => {
       ReadText = e.target.result;
       console.log(ReadText);
+      setFileMd(ReadText);
     };
     reader.readAsText(file);
   };
 
-  // Function to call the Post method
+
+  //A set of functions to hold date and time information
+  const [date, setDate] = React.useState<string>("");
+  function DateHandleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setDate(event.target.value);
+    console.log(event.target.value);
+  }
+
+  const [time, setTime] = React.useState<string>("");
+  function TimeHandleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setTime(event.target.value);
+    console.log(event.target.value);
+  }
+
+  // Functions for processing tags
+  const [tags, setTags] = React.useState([]);
+  const [tagID, setTagID] = useState<number[]>([]);
+  type Tag = {
+    id: number,
+    tag: string,
+  }
+  function TagHandleChange(props: number) {
+    let tmp = tagID;
+    tmp.push(props);
+    setTagID(tmp);
+  }
+  function TagRemoveChange(props: number) {
+    let tmp = tagID;
+    tmp.splice(props, 1);
+    setTagID(tmp);
+  }
+
+  // Function to call the Post method(axios)
   function PostForm() {
-    console.log()
+    //axios
   }
 
   return (
@@ -63,6 +103,7 @@ const EventRegistration = () => {
         <div className="all_title">
           <h1 className="h1_title">イベントの詳細</h1>
           <ConfirmAddEvent PostForm={() => { PostForm() }} />
+          <button onClick={() => console.log(tagID)}>戻る</button>
         </div>
         <div className="input_1_1">
           <label className="input_1_2">
@@ -94,7 +135,7 @@ const EventRegistration = () => {
             />
           </label>
         </div>
-        <ImageSelect />
+        <ImageSelect ImageHandleChange={(props: any) => { ImageHandleChange(props) }} />
         <div className="input_4_1">
           <label className="input_4_2">
             <div className="input_title_4">
@@ -140,16 +181,16 @@ const EventRegistration = () => {
             </div>
             <div className="flex gap-4 datetime_input">
               <div className="rounded-sm border border-black">
-                <input type="date" name="date" id="date" />
+                <input type="date" value={date} onChange={DateHandleChange} name="date" id="date" />
               </div>
               <div className="rounded-sm border border-black">
-                <input type="time" name="time" id="time" />
+                <input type="time" value={time} onChange={TimeHandleChange} name="time" id="time" />
               </div>
             </div>
             <input type="text" readOnly />
           </label>
         </div>
-        <Tags />
+        <Tags TagRemoveChange={(props: number) => { TagRemoveChange(props) }} TagHandleChange={(props: number) => { TagHandleChange(props) }} />
       </div>
     </>
   );

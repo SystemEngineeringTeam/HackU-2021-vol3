@@ -4,11 +4,11 @@ const ConfirmAddEvent = (props: any) => {
     const [addEventShowModal, setShowModal] = React.useState<boolean>(false);
     function handleCloseModal() {
         props.PostForm();
-        setShowModal(true);
+        setShowModal(false);
     }
     return (
         <>
-            <button className="button_save" onClick={() => handleCloseModal()}>保存</button>
+            <button className="button_save" onClick={() => setShowModal(true)}>保存</button>
             {
                 addEventShowModal ? (
                     <>
@@ -30,7 +30,7 @@ const ConfirmAddEvent = (props: any) => {
                                             <button
                                                 className="absolute top-72 left-52 py-2 px-11 font-bold text-white bg-blue-500 hover:bg-blue-400 rounded-md"
                                                 type="button"
-                                                onClick={() => setShowModal(false)}
+                                                onClick={() => handleCloseModal()}
                                             >
                                                 登録
                                             </button>
