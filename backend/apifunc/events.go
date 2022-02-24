@@ -232,16 +232,15 @@ func FeedbackPostHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func EventHostedHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	userID, _ := strconv.Atoi(vars["user_id"])
-
-	//fmt.Println(vars, userID)
-
-	events, err := dboperation.SelectHostedEvents(userID)
+	result, err := verifyCheck(r)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
 	}
+
+	uid := result["FirebaseUID"]
+
+	events, _ := dboperation.SelectHostedEvents(uid)
 
 	j, err := json.Marshal(events)
 	if err != nil {
@@ -252,16 +251,13 @@ func EventHostedHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func EventJoinedHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	userID, _ := strconv.Atoi(vars["user_id"])
-
-	//fmt.Println(vars, userID)
-
-	events, err := dboperation.SelectRegisteredEvents(userID)
+	result, err := verifyCheck(r)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
 	}
+
+	events, _ := dboperation.SelectJoinedEvents(result["FirebaseUID"])
 
 	j, err := json.Marshal(events)
 	if err != nil {
