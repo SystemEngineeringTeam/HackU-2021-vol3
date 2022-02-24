@@ -123,7 +123,6 @@ const EventRegistration = () => {
         <div className="all_title">
           <h1 className="h1_title">イベントの詳細</h1>
           <ConfirmAddEvent PostForm={() => { PostForm() }} />
-          <button onClick={() => console.log(tagID)}>戻る</button>
         </div>
         <div className="input_1_1">
           <label className="input_1_2">
