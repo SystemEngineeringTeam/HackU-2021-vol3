@@ -143,7 +143,7 @@ func SelectEventByID(id int) (models.EventWithIDGetResponse, error) {
 	db := connect()
 
 	var event models.Event
-	if err := db.Model(&event).Joins("Organizer").Preload("Tags").Where("events.id = ?", id).First(&event).Error; err != nil {
+	if err := db.Model(&event).Joins("Organizer").Joins("Image").Preload("Tags").Where("events.id = ?", id).First(&event).Error; err != nil {
 		return models.EventWithIDGetResponse{}, err
 	}
 
