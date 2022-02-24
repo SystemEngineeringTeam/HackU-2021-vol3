@@ -32,7 +32,6 @@ const Home = () => {
     const fetchEvents = async () => {
       const res = await axios.get(`/event?page=${page}`);
       setEvents([...res.data]);
-
       console.log(res.data);
     };
     fetchEvents();

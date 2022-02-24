@@ -45,11 +45,9 @@ const EventDetail = () => {
   });
 
   const router = useRouter();
-
   const isReady = router.isReady;
   const { pid } = router.query;
   const { currentUser, currentIdToken } = useContext(AuthContext);
-
   console.log(event);
 
   useEffect(() => {

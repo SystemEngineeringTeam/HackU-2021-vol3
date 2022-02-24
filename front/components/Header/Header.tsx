@@ -62,19 +62,18 @@ const Header = () => {
   return (
     <div>
       <header className="flex justify-between h-16 bg-original-green">
-        <div className="mt-4 ml-5">
+        <div className="mt-2 ml-5">
           <Link href="/">
             <a
               className="inline-flex gap-2.5 items-center text-2xl font-bold text-black md:text-3xl"
               aria-label="logo"
             >
               <Image
-                src="/study.png"
+                src="/ssr.png"
                 alt="Landscape picture"
-                width="30px"
-                height="30px"
+                width="100px"
+                height="50px"
               />
-              <div className="text-white ">Benkyo</div>
             </a>
           </Link>
         </div>
@@ -108,7 +107,7 @@ const Header = () => {
         {/* <div className="hidden gap-2.5 -ml-8 sm:flex-row sm:justify-center lg:flex lg:justify-start" /> */}
         <div className="flex justify-between">
           <div>
-            <button className="py-2 px-6 mt-3 mr-4 text-lg font-bold text-white bg-original-deep-gray hover:bg-gray-600 rounded-md">
+            <button className="py-2 px-6 mt-3 mr-4 text-lg font-bold text-white hover:bg-gray-600 rounded-md bg-original-deep-gray">
               Add
             </button>
           </div>

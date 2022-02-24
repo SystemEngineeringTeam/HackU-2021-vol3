@@ -3,6 +3,8 @@ import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../components/Auth";
 import Layout from "../components/Layout";
+import Notify from "../components/Notify";
+
 import { axiosInstance as axios } from "../utils/api";
 
 const App = () => {
@@ -47,6 +49,7 @@ const App = () => {
           <button onClick={click} className="border-2 border-black">
             post
           </button>
+          <Notify />
         </div>
       </Layout>
     </>
