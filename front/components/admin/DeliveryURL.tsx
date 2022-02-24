@@ -33,6 +33,7 @@ const DeliveryURL = (props: Props) => {
     if (currentIdToken) {
       axios
         .post(`/event/${id}`, { streamURL: inputRef.current?.value })
+
         .then((res) => {
           console.log(res);
         })

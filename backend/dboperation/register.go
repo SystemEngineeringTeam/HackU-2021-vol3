@@ -6,6 +6,11 @@ import (
 
 func JoinEvent(eventID, userID int) error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
 	event := models.Event{}
 	event.ID = uint(eventID)
@@ -21,6 +26,11 @@ func JoinEvent(eventID, userID int) error {
 
 func LeaveEvent(eventID, userID int) error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
 	event := models.Event{}
 	event.ID = uint(eventID)
@@ -36,6 +46,11 @@ func LeaveEvent(eventID, userID int) error {
 
 func SelectJoinedEvents(firebaseUID string) ([]models.UsersEventResponse, error) {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return nil, err
+	}
+	defer closer.Close()
 
 	user := models.User{}
 
@@ -59,6 +74,11 @@ func SelectJoinedEvents(firebaseUID string) ([]models.UsersEventResponse, error)
 
 func SelectHostedEvents(firebaseUID string) ([]models.UsersEventResponse, error) {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return nil, err
+	}
+	defer closer.Close()
 
 	var events []models.Event
 

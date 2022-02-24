@@ -14,7 +14,9 @@ type Props = {
 
 const PostedEvent = (props: Props) => {
   const { id, title, imageURL, participants, datetime } = props;
+
   console.log(`/EventImage/${imageURL}.png`);
+
   const log = () => {
     console.log("log");
   };
