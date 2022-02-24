@@ -89,3 +89,11 @@ type EventWithIDGetResponse struct {
 type StreamURLPostRequest struct {
 	StreamURL string `json:"streamURL"`
 }
+
+type UsersEventResponse struct {
+	ID           uint   `json:"id"`
+	Title        string `json:"title"`
+	ImageURL     string `json:"imageURL"`
+	Participants int    `json:"participants"`
+	DateTime     string `json:"datetime"`
+}
