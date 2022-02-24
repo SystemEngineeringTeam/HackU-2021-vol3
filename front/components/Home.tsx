@@ -32,6 +32,8 @@ const Home = () => {
     const fetchEvents = async () => {
       const res = await axios.get(`/event?page=${page}`);
       setEvents([...res.data]);
+
+      console.log(res.data);
     };
     fetchEvents();
   }, []);
@@ -81,7 +83,6 @@ const Home = () => {
                 participants={event.participants}
               />
             ))}
-            {/* <Event /> */}
 
             <div className="flex col-span-7 col-start-3 justify-around pt-4 text-lg ">
               <button

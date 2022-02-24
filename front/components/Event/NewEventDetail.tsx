@@ -29,21 +29,20 @@ type Event = {
 const NewEventDetail = () => {
   const [event, setEvent] = useState<Event>({
     id: 1,
-    title: "インフラ勉強会",
-    description:
-      "説明時には順番で語られるビジネスモデル、UXデザイン（ペルソナ→ジャーニー、UIモックアップこれらは会議室では行き来を繰り返しほぼ同時に形になることが",
-    imageURL: "infra.png",
+    title: "",
+    description: "",
+    imageURL: "",
     organizer: {
       id: 1,
-      name: "山田太郎",
+      name: "",
       profileImageURL:
         "https://lh3.googleusercontent.com/a-/AOh14GiymahR6RP1EQWxI903C1KL089dD_SBewtNdicu=s96-c",
     },
     datetime: "",
     participants: 0,
-    tags: ["ss", "ss"],
-    document: "ss",
-    streamURL: "ss",
+    tags: ["ss"],
+    document: "",
+    streamURL: "",
   });
 
   const router = useRouter();
