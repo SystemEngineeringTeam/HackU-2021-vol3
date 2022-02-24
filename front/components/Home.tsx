@@ -24,20 +24,10 @@ type Event = {
 
 const Home = () => {
   const { currentUser, currentIdToken } = useContext(AuthContext);
-
   const [events, setEvents] = useState<Event[]>([]);
 
-  // axios.get("/event").then((res) => {
-  //   setEvents([...res.data]);
-  // });
-
-  // axios.get("/test").then((res) => {
-  //   console.log(res);
-  // });
-
-  // axios.get("/event").then((res) => {
-  //   console.log(res);
-  // });
+  
+ 
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -85,7 +75,7 @@ const Home = () => {
               <button className="px-2 border-2 border-gray-400">4</button>
               <button className="px-2 border-2 border-gray-400">5</button>
               <div>...</div>
-              <button className="border-2 border-gray-400">次へ</button>
+              <button className="border-2 border-gray-400" >次へ</button>
             </div>
           </div>
         </div>
