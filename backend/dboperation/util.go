@@ -40,12 +40,19 @@ func init() {
 
 	if db.Model(&models.Tag{}).Count(&c); c == 0 {
 		db.Create([]models.Tag{
-			{
-				Tag: "Go",
-			},
-			{
-				Tag: "Node",
-			},
+			{Tag: "FRONTED"},
+			{Tag: "BACKEND"},
+			{Tag: "INFRA"},
+			{Tag: "NETWORK"},
+			{Tag: "SECURITY"},
+			{Tag: "MOBILE"},
+			{Tag: "DESIGN"},
+			{Tag: "CLOUD"},
+			{Tag: "HARDWARE"},
+			{Tag: "DEVOPS"},
+			{Tag: "STUDENT"},
+			{Tag: "BEGINNER"},
+			{Tag: "WOMAN"},
 		})
 	}
 
