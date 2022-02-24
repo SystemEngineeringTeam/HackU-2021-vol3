@@ -3,12 +3,15 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/SystemEngineeringTeam/HackU-2021-vol3/apifunc"
+	"github.com/SystemEngineeringTeam/HackU-2021-vol3/dboperation"
 	"github.com/gorilla/mux"
 )
 
 func main() {
+	go timer()
 	//ルーターの定義
 	router := mux.NewRouter()
 
@@ -53,4 +56,10 @@ func main() {
 	router.Path("/event/register/{id:[0-9]+}").Methods("DELETE").HandlerFunc(apifunc.AllowCorsMiddleware(apifunc.RegisterIdDeteleHandler))
 
 	log.Fatal(http.ListenAndServe(":8080", router))
+}
+
+func timer() {
+	for range time.Tick(time.Hour) {
+		dboperation.UpdateEventStatus()
+	}
 }

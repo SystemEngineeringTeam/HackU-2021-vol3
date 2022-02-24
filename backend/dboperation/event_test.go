@@ -99,3 +99,17 @@ func TestUpdateStreamURL(t *testing.T) {
 	db.Where("id = ?", 1).First(&event)
 	fmt.Println(event)
 }
+
+func TestUpdateStatus(t *testing.T) {
+	err := UpdateEventStatus()
+	if err != nil {
+		t.Error(err)
+	}
+
+	db := connect()
+
+	var event models.Event
+	db.Where("id = ?", 1).First(&event)
+	fmt.Println(event)
+
+}

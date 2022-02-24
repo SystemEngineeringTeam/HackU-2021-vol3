@@ -183,7 +183,17 @@ func UpdateStreamURL(id int, streamURL string) error {
 	}
 	event.ID = uint(id)
 
-	if err := db.Table("events").Where("id=?", id).Update("stream_url", streamURL).Error; err != nil {
+	if err := db.Table("events").Where("id=?", id).Update("stream_url", streamURL).Update("status_id", 2).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func UpdateEventStatus() error {
+	db := connect()
+
+	if err := db.Model(&models.Event{}).Where("status_id=2").Update("status_id", 3).Error; err != nil {
 		return err
 	}
 
