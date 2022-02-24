@@ -26,7 +26,7 @@ func TestSelectJoinedEvents(t *testing.T) {
 	}
 
 	for _, i := range e {
-		fmt.Println(i.Title)
+		fmt.Println(i.Title, i.ImageURL)
 	}
 }
 
@@ -37,6 +37,6 @@ func TestSelectHostedEvents(t *testing.T) {
 	}
 
 	for _, i := range e {
-		fmt.Println(i.ID, i.Title)
+		fmt.Println(i.ID, i.Title, i.ImageURL)
 	}
 }

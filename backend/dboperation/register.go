@@ -39,7 +39,7 @@ func SelectJoinedEvents(firebaseUID string) ([]models.UsersEventResponse, error)
 
 	user := models.User{}
 
-	if err := db.Model(&models.User{}).Preload("JoinedEvents").Where("firebase_uid = ?", firebaseUID).First(&user).Error; err != nil {
+	if err := db.Model(&models.User{}).Preload("JoinedEvents").Preload("JoinedEvents.Image").Where("firebase_uid = ?", firebaseUID).First(&user).Error; err != nil {
 		return nil, err
 	}
 
@@ -62,7 +62,7 @@ func SelectHostedEvents(firebaseUID string) ([]models.UsersEventResponse, error)
 
 	var events []models.Event
 
-	if err := db.Model(&models.Event{}).Joins("Organizer").Where("Organizer.firebase_uid = ?", firebaseUID).Find(&events).Error; err != nil {
+	if err := db.Model(&models.Event{}).Joins("Organizer").Joins("Image").Where("Organizer.firebase_uid = ?", firebaseUID).Find(&events).Error; err != nil {
 		return nil, err
 	}
 
