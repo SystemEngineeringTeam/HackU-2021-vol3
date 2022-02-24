@@ -6,6 +6,11 @@ import (
 
 func SelectAllImages() ([]models.Image, error) {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return nil, err
+	}
+	defer closer.Close()
 
 	var images []models.Image
 	if err := db.Model(&images).Scan(&images).Error; err != nil {

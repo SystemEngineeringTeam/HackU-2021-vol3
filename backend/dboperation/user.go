@@ -8,6 +8,11 @@ import (
 
 func Auth(firebaseUID string) error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
 	var user models.User
 	db.Where("firebase_uid = ?", firebaseUID).First(&user)
@@ -21,6 +26,11 @@ func Auth(firebaseUID string) error {
 
 func GetUserByFirebaseUID(firebaseUID string) (models.User, error) {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return models.User{}, err
+	}
+	defer closer.Close()
 
 	var user models.User
 	if err := db.Where("firebase_uid = ?", firebaseUID).First(&user).Error; err != nil {
@@ -31,6 +41,11 @@ func GetUserByFirebaseUID(firebaseUID string) (models.User, error) {
 
 func CreateUser(name, profileImageURL, firebaseUID string) error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
 	user := models.User{
 		Name:            name,
@@ -47,8 +62,12 @@ func CreateUser(name, profileImageURL, firebaseUID string) error {
 
 func UpdateUser(name, profileImageURL, firebaseUID string) error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
-	var err error
 	// 名前のみ，プロフィール画像のみの変更に対応(必要ないかも)
 	if name == "" && profileImageURL != "" {
 		err = db.Model(&models.User{}).Where("firebase_uid = ?", firebaseUID).Update("profile_image_url", profileImageURL).Error
@@ -67,6 +86,11 @@ func UpdateUser(name, profileImageURL, firebaseUID string) error {
 
 func SelectUserByID(id int) (models.UserIdGetResponse, error) {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return models.UserIdGetResponse{}, err
+	}
+	defer closer.Close()
 
 	var user models.User
 	if err := db.Where("id = ?", id).First(&user).Error; err != nil {
