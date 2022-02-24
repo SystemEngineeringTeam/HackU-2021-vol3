@@ -19,7 +19,7 @@ const EventList = () => {
   };
   const { currentUser, currentIdToken } = useContext(AuthContext);
   const [hostEvents, setHostEvents] = useState<hostEvent[]>([]);
-
+  
   useEffect(() => {
     //新規ユーザか判定するAPIを叩く
     //新規ユーザならisNewUserをtrueにする
@@ -33,7 +33,7 @@ const EventList = () => {
     if (currentIdToken) {
       console.log(currentIdToken);
       axios
-        .get(`/events/hosted`)
+        .get(`/event/hosted`)
         .then((res) => {
           //成功したのでuserは存在する
           console.log(res);
@@ -47,19 +47,28 @@ const EventList = () => {
     // eslint-disable-next-line
   }, [currentIdToken]);
 
+  console.log(hostEvents);
+
   return (
     <>
-      <div className="flex justify-center">
-        {hostEvents.map((event) => {
-          <PostedEvent
-            id={event.id}
-            title={event.title}
-            imageURL={event.title}
-            participants={event.participants}
-            datetime={event.datetime}
-            key={event.id}
-          />;
-        })}
+      <div className="flex flex-col justify-start items-center">
+        {hostEvents ? (
+          hostEvents.map((event) => {
+            return (
+              <PostedEvent
+                id={event.id}
+                title={event.title}
+                imageURL={event.imageURL}
+                participants={event.participants}
+                datetime={event.datetime}
+                key={event.id}
+              />
+            );
+          })
+        ) : (
+          <div />
+        )}
+
       </div>
     </>
   );

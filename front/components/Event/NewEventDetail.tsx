@@ -29,20 +29,20 @@ type Event = {
 const NewEventDetail = () => {
   const [event, setEvent] = useState<Event>({
     id: 1,
-    title: "インフラ勉強会",
-    description:
-      "説明時には順番で語られるビジネスモデル、UXデザイン（ペルソナ→ジャーニー、UIモックアップこれらは会議室では行き来を繰り返しほぼ同時に形になることが",
-    imageURL: "infra.png",
+    title: "",
+    description: "",
+    imageURL: "",
     organizer: {
       id: 1,
-      name: "山田太郎",
-      profileImageURL: "fukuda.png",
+      name: "",
+      profileImageURL:
+        "https://lh3.googleusercontent.com/a-/AOh14GiymahR6RP1EQWxI903C1KL089dD_SBewtNdicu=s96-c",
     },
     datetime: "",
     participants: 0,
-    tags: ["ss", "ss"],
-    document: "ss",
-    streamURL: "ss",
+    tags: ["ss"],
+    document: "",
+    streamURL: "",
   });
 
   const router = useRouter();
@@ -54,7 +54,7 @@ const NewEventDetail = () => {
     console.log(pid);
     if (isReady) {
       axios
-        .get(`event/1`)
+        .get(`event/${pid}`)
         .then((res) => {
           console.log(res);
           setEvent(res.data);
@@ -86,16 +86,12 @@ const NewEventDetail = () => {
     }
   };
 
-  event.tags.map((tag) => {
-    console.log(tag);
-  });
-
   return (
     <div className="flex flex-col mt-6">
       <div className="flex justify-center items-center mr-48 ">
         <div className="mr-14">
           <Image
-            src={`/${event.imageURL}`}
+            src={`/EventImage/${event.imageURL}.png`}
             height="110px"
             width="135 px"
             alt="infra"
@@ -112,9 +108,9 @@ const NewEventDetail = () => {
       <div className="flex mt-20">
         <div className="flex flex-col ml-10 w-8/12 h-[600px]">
           <div className="flex flex-col gap-24 justify-start h-[600px] md:ml-20 lg:ml-32 xl:ml-56">
-            <div className="flex flex-col gap-8 text-3xl">
+            <div className="flex flex-col gap-8 text-3xl ">
               <div className="font-bold">details</div>
-              <div className="text-2xl">{event.description}</div>
+              <div className=" text-2xl break-all ">{event.description}</div>
             </div>
             <div className="flex flex-col items-end mr-20 text-2xl ">
               <button
@@ -129,10 +125,11 @@ const NewEventDetail = () => {
         <div className="flex flex-col mx-auto mt-4 w-72 ">
           <div className="flex items-center mb-1 ml-4">
             <Image
-              src={`/${event.organizer.profileImageURL}`}
+              src={`${event.organizer.profileImageURL}`}
               height="40px"
               width="40 px"
               alt="infra"
+              className="rounded-full"
             />
             <div className="ml-4 text-2xl">{event.organizer.name}</div>
           </div>
@@ -144,13 +141,17 @@ const NewEventDetail = () => {
           <div className="text-xl">
             <div className="mt-12 ">Tags </div>
             <div className="flex gap-4">
-              {event.tags.map((tag, index) => {
-                return (
-                  <button className="rounded-md border-2" key={index}>
-                    {tag}
-                  </button>
-                );
-              })}
+              {event.tags ? (
+                event.tags.map((tag, index) => {
+                  return (
+                    <button className="rounded-md border-2" key={index}>
+                      {tag}
+                    </button>
+                  );
+                })
+              ) : (
+                <div />
+              )}
             </div>
           </div>
           <div className="border border-black" />

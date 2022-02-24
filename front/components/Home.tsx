@@ -1,6 +1,7 @@
 import { getAuth, getIdToken, signOut } from "firebase/auth";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 
 import { axiosInstance as axios } from "../utils/api";
 import { firebaseApp } from "../utils/firebase";
@@ -19,25 +20,43 @@ type Event = {
   datetime: string;
   tags: string[];
   status: string;
-  parcitipants: number;
+  participants: number;
 };
 
 const Home = () => {
   const { currentUser, currentIdToken } = useContext(AuthContext);
-
   const [events, setEvents] = useState<Event[]>([]);
+  const [page, setPage] = useState<number>(1);
 
-  // axios.get("/event").then((res) => {
-  //   setEvents([...res.data]);
-  // });
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const res = await axios.get(`/event?page=${page}`);
+      setEvents([...res.data]);
 
-  // axios.get("/test").then((res) => {
-  //   console.log(res);
-  // });
+      console.log(res.data);
+    };
+    fetchEvents();
+  }, []);
 
-  // axios.get("/event").then((res) => {
-  //   console.log(res);
-  // });
+  const countUpPage = () => {
+    const fetchEvents = async () => {
+      const res = await axios.get(`/event?page=${page + 1}`);
+      setEvents([...res.data]);
+    };
+    fetchEvents().catch((err) => {
+      console.log(err);
+    });
+    setPage(page + 1);
+  };
+
+  const countDownPage = () => {
+    const fetchEvents = async () => {
+      const res = await axios.get(`/event?page=${page - 1}`);
+      setEvents([...res.data]);
+    };
+    fetchEvents();
+    setPage(page - 1);
+  };
 
   return (
     <Layout>
@@ -51,7 +70,7 @@ const Home = () => {
           </div>
           <div className="my-4 border-4" />
           <div className="grid grid-cols-12 gap-4">
-            {/* {events.map((event) => (
+            {events.map((event) => (
               <Event
                 key={event.id}
                 id={event.id}
@@ -61,91 +80,30 @@ const Home = () => {
                 datetime={event.datetime}
                 tags={event.tags}
                 status={event.status}
-                parcitipants={event.parcitipants}
+                participants={event.participants}
               />
-            ))} */}
-            {/* <Event /> */}
+            ))}
 
-            <Event
-              id={1}
-              title={"インフラ勉強会"}
-              imageURL={"/infra.png"}
-              organizer={"福田春樹"}
-              datetime={"2020/10/10"}
-              tags={["インフラ", "フロント"]}
-              status={"開催中"}
-              parcitipants={10}
-            />
-            <Event
-              id={1}
-              title={"インフラ勉強会"}
-              imageURL={"/infra.png"}
-              organizer={"福田春樹"}
-              datetime={"2020/10/10"}
-              tags={["インフラ", "フロント"]}
-              status={"開催中"}
-              parcitipants={10}
-            />
-            <Event
-              id={1}
-              title={"インフラ勉強会"}
-              imageURL={"/infra.png"}
-              organizer={"福田春樹"}
-              datetime={"2020/10/10"}
-              tags={["インフラ", "フロント"]}
-              status={"開催中"}
-              parcitipants={10}
-            />
-            <Event
-              id={1}
-              title={"インフラ勉強会"}
-              imageURL={"/infra.png"}
-              organizer={"福田春樹"}
-              datetime={"2020/10/10"}
-              tags={["インフラ", "フロント"]}
-              status={"開催中"}
-              parcitipants={10}
-            />
-            <Event
-              id={1}
-              title={"インフラ勉強会"}
-              imageURL={"/infra.png"}
-              organizer={"福田春樹"}
-              datetime={"2020/10/10"}
-              tags={["インフラ", "フロント"]}
-              status={"開催中"}
-              parcitipants={10}
-            />
-            <Event
-              id={1}
-              title={"インフラ勉強会"}
-              imageURL={"/infra.png"}
-              organizer={"福田春樹"}
-              datetime={"2020/10/10"}
-              tags={["インフラ", "フロント"]}
-              status={"開催中"}
-              parcitipants={10}
-            />
-            <Event
-              id={1}
-              title={"インフラ勉強会"}
-              imageURL={"/infra.png"}
-              organizer={"福田春樹"}
-              datetime={"2020/10/10"}
-              tags={["インフラ", "フロント"]}
-              status={"開催中"}
-              parcitipants={10}
-            />
-            <div className="flex col-span-4 col-start-4 justify-around pt-4 text-lg ">
-              <button className="p-1 border-2 border-gray-400">前へ</button>
+            <div className="flex col-span-7 col-start-3 justify-around pt-4 text-lg ">
+              <button
+                className="p-1 border-2 border-gray-400"
+                onClick={countDownPage}
+              >
+                前へ
+              </button>
 
-              <button className="px-2 border-2 border-gray-400">1</button>
+              {/* <button className="px-2 border-2 border-gray-400">1</button>
               <button className="px-2 border-2 border-gray-400">2</button>
               <button className="px-2 border-2 border-gray-400">3</button>
               <button className="px-2 border-2 border-gray-400">4</button>
               <button className="px-2 border-2 border-gray-400">5</button>
-              <div>...</div>
-              <button className="border-2 border-gray-400">次へ</button>
+              <div>...</div> */}
+              <button
+                className="p-1 border-2 border-gray-400"
+                onClick={countUpPage}
+              >
+                次へ
+              </button>
             </div>
           </div>
         </div>

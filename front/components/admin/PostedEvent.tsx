@@ -15,6 +15,8 @@ type Props = {
 const PostedEvent = (props: Props) => {
   const { id, title, imageURL, participants, datetime } = props;
 
+  console.log(`/EventImage/${imageURL}.png`);
+
   const log = () => {
     console.log("log");
   };
@@ -40,7 +42,7 @@ const PostedEvent = (props: Props) => {
           <div className="absolute my-2 ml-12">
             <Image
               className="h-auto"
-              src={FrontendImage}
+              src={`/EventImage/${imageURL}.png`}
               alt="FrontendImage"
               width={100}
               height={100}

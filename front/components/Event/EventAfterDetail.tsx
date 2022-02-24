@@ -43,31 +43,30 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
 
   const [event, setEvent] = useState<Event>({
     id: 1,
-    title: "インフラ勉強会",
-    description:
-      "説明時には順番で語られるビジネスモデル、UXデザイン（ペルソナ→ジャーニー、UIモックアップこれらは会議室では行き来を繰り返しほぼ同時に形になることが",
-    imageURL: "infra.png",
+    title: "",
+    description: "",
+    imageURL: "",
     organizer: {
       id: 1,
-      name: "山田太郎",
-      profileImageURL: "fukuda.png",
+      name: "",
+      profileImageURL: "/fukuda.png",
     },
     datetime: "",
     participants: 0,
-    tags: ["ss", "ss"],
-    document: "ss",
-    streamURL: "ss",
+    tags: [""],
+    document: "",
+    streamURL: "",
   });
 
   useEffect(() => {
     if (isReady) {
       axios.get(`/event/${pid}/feedback`).then((res) => {
         console.log(res);
-        setReviews(res.data);
+        setReviews([...res.data]);
       });
 
       axios
-        .get(`event/1`)
+        .get(`event/${pid}`)
         .then((res) => {
           console.log(res);
           setEvent(res.data);
@@ -108,7 +107,12 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
     <div className="flex flex-col mt-6">
       <div className="flex justify-center items-center mr-48 ">
         <div className="mr-14">
-          <Image src={`/infra.png`} height="110px" width="135 px" alt="infra" />
+          <Image
+            src={`/EventImage/${event.imageURL}.png`}
+            height="110px"
+            width="135 px"
+            alt="infra"
+          />
         </div>
         <div className="flex flex-col items-center">
           <div className="text-2xl">
@@ -152,17 +156,18 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
           </div>
         </div>
         <div className="flex flex-col mx-auto mt-4 w-72 ">
-          <div className="flex items-center mb-2">
+          <div className="flex items-center mb-2 ml-10">
             <Image
-              src={`/fukuda.png`}
+              src={`${event.organizer.profileImageURL}`}
               height="40px"
               width="40 px"
               alt="infra"
+              className="rounded-full"
             />
             <div className="ml-4 text-2xl">{event.organizer.name}</div>
           </div>
           <div className="border border-black " />
-          <div className="mt-14 mb-2 text-xl text-center">
+          <div className="mt-14 mr-12 mb-2 text-xl text-center">
             参加予定人数 {event.participants}人
           </div>
           <div className="border border-black" />

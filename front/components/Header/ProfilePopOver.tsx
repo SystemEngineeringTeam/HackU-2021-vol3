@@ -1,7 +1,9 @@
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { getAuth, getIdToken, signOut } from "firebase/auth";
+import { route } from "next/dist/server/router";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
 import { firebaseApp } from "../../utils/firebase";
 
@@ -33,12 +35,21 @@ type Props = {
 };
 
 const ProfilePopOver = (props: Props) => {
+  const router = useRouter();
+
   const logOut = () => {
     const auth = getAuth(firebaseApp);
 
     signOut(auth).then(() => {
       console.log("logout");
     });
+  };
+
+  const admin = () => {
+    router.push("/admin");
+  };
+  const changeName = () => {
+    console.log("changeName");
   };
 
   return (
