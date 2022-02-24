@@ -1,5 +1,6 @@
 import { getAuth, getIdToken, signOut } from "firebase/auth";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
 import { axiosInstance as axios } from "../utils/api";
@@ -25,19 +26,35 @@ type Event = {
 const Home = () => {
   const { currentUser, currentIdToken } = useContext(AuthContext);
   const [events, setEvents] = useState<Event[]>([]);
-
-  
- 
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const res = await axios.get("/event");
+      const res = await axios.get(`/event?page=${page}`);
       setEvents([...res.data]);
     };
     fetchEvents();
   }, []);
 
-  console.log(events);
+  const countUpPage = () => {
+    const fetchEvents = async () => {
+      const res = await axios.get(`/event?page=${page + 1}`);
+      setEvents([...res.data]);
+    };
+    fetchEvents().catch((err) => {
+      console.log(err);
+    });
+    setPage(page + 1);
+  };
+
+  const countDownPage = () => {
+    const fetchEvents = async () => {
+      const res = await axios.get(`/event?page=${page - 1}`);
+      setEvents([...res.data]);
+    };
+    fetchEvents();
+    setPage(page - 1);
+  };
 
   return (
     <Layout>
@@ -66,16 +83,26 @@ const Home = () => {
             ))}
             {/* <Event /> */}
 
-            <div className="flex col-span-4 col-start-4 justify-around pt-4 text-lg ">
-              <button className="p-1 border-2 border-gray-400">前へ</button>
+            <div className="flex col-span-7 col-start-3 justify-around pt-4 text-lg ">
+              <button
+                className="p-1 border-2 border-gray-400"
+                onClick={countDownPage}
+              >
+                前へ
+              </button>
 
-              <button className="px-2 border-2 border-gray-400">1</button>
+              {/* <button className="px-2 border-2 border-gray-400">1</button>
               <button className="px-2 border-2 border-gray-400">2</button>
               <button className="px-2 border-2 border-gray-400">3</button>
               <button className="px-2 border-2 border-gray-400">4</button>
               <button className="px-2 border-2 border-gray-400">5</button>
-              <div>...</div>
-              <button className="border-2 border-gray-400" >次へ</button>
+              <div>...</div> */}
+              <button
+                className="p-1 border-2 border-gray-400"
+                onClick={countUpPage}
+              >
+                次へ
+              </button>
             </div>
           </div>
         </div>
