@@ -16,8 +16,14 @@ type Props = {
 const Event = (props: Props) => {
   const router = useRouter();
 
-  const log = () => {
-    router.push(`/event/${props.id}`);
+  const transitionPage = () => {
+    if (props.status === "onair") {
+      router.push(`/delivery/${props.id}`);
+    } else if (props.status === "schedule") {
+      router.push(`/event/${props.id}`);
+    } else {
+      router.push(`/event/after/${props.id}`);
+    }
   };
 
   const status = () => {
@@ -45,7 +51,7 @@ const Event = (props: Props) => {
   return (
     <button
       className="col-span-7 col-start-3 mt-2 h-20 bg-original-gray rounded-lg shadow-md"
-      onClick={log}
+      onClick={transitionPage}
     >
       <div className="flex justify-between mt-2 h-16 rounded-lg">
         <div className="flex basis-4/6 bg-white rounded-lg shadow-sm">
