@@ -1,6 +1,8 @@
 package dboperation
 
 import (
+	"flag"
+	"fmt"
 	"log"
 	"time"
 
@@ -16,7 +18,11 @@ const (
 
 func init() {
 	db := connect()
-	db.Exec("set names utf8mb4;")
+	closer, err := db.DB()
+	if err != nil {
+		return
+	}
+	defer closer.Close()
 
 	if err := db.AutoMigrate(&models.Image{}, &models.Tag{}, &models.Badge{}, &models.User{}, &models.Status{}, &models.Event{}, &models.Feedback{}); err != nil {
 		log.Fatal(err)
@@ -129,21 +135,24 @@ func init() {
 		})
 	}
 
+	fmt.Println("Database initialized")
 }
 
 func connect() *gorm.DB {
 	// connect to the database
-	// flag.Parse()
+	flag.Parse()
 
 	dsn := "docker:docker@tcp(localhost:33063)/app-db?charset=utf8mb4&parseTime=True&loc=Local"
 
-	// if flag.Arg(0) == "production" {
-	// 	dsn = "root:root@tcp(localhost:3306)/app-db?charset=utf8mb4&parseTime=True&loc=Local"
-	// }
+	if flag.Arg(0) == "production" {
+		dsn = "docker:docker@tcp(localhost:3306)/app-db?charset=utf8mb4&parseTime=True&loc=Local"
+	}
 
 	gormDB, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Println("Connected to the database")
 	return gormDB
 }

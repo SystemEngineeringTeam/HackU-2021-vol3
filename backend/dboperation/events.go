@@ -9,6 +9,11 @@ import (
 
 func CreateEvent(e models.EventPostRequest, firebaseUID string) error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
 	u, err := GetUserByFirebaseUID(firebaseUID)
 	if err != nil {
@@ -46,6 +51,11 @@ func CreateEvent(e models.EventPostRequest, firebaseUID string) error {
 
 func UpdateEvent(e models.EventPutRequest, id int) error {
 	// db := connect()
+	// closer, err := db.DB()
+	// if err != nil {
+	// 	return err
+	// }
+	// defer closer.Close()
 
 	// event := models.Event{
 	// 	ID:          id,
@@ -83,6 +93,11 @@ func UpdateEvent(e models.EventPutRequest, id int) error {
 
 func SelectEvents(keyword, status string, tags []string, page int) ([]models.EventGetResponse, error) {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return nil, err
+	}
+	defer closer.Close()
 
 	keyword = "%" + keyword + "%"
 
@@ -141,6 +156,11 @@ func SelectEvents(keyword, status string, tags []string, page int) ([]models.Eve
 
 func SelectEventByID(id int) (models.EventWithIDGetResponse, error) {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return models.EventWithIDGetResponse{}, err
+	}
+	defer closer.Close()
 
 	var event models.Event
 	if err := db.Model(&event).Joins("Organizer").Joins("Image").Preload("Tags").Where("events.id = ?", id).First(&event).Error; err != nil {
@@ -177,6 +197,11 @@ func SelectEventByID(id int) (models.EventWithIDGetResponse, error) {
 
 func UpdateStreamURL(id int, streamURL string) error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
 	event := models.Event{
 		StreamURL: streamURL,
@@ -192,6 +217,11 @@ func UpdateStreamURL(id int, streamURL string) error {
 
 func UpdateEventStatus() error {
 	db := connect()
+	closer, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer closer.Close()
 
 	if err := db.Model(&models.Event{}).Where("status_id=2").Update("status_id", 3).Error; err != nil {
 		return err
