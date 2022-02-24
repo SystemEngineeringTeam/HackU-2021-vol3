@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import ImageSelect from "../ImageSelect";
 import Tags from "../Tags";
@@ -95,7 +97,25 @@ const EventRegistration = () => {
   // Function to call the Post method(axios)
   function PostForm() {
     //axios
+    const data = {
+      title: title,
+      description: description,
+      image: image,
+      file: fileMd,
+      date: date,
+      time: time,
+      tags: tagID
+    };
+
+    axios
+      .post('http://localhost:8080/event', data)
+      .then(response => {
+        console.log('response body:', response.data);
+        router.push("/")
+      });
   }
+  const router = useRouter(); //useRouterフックを定義している
+
 
   return (
     <>
