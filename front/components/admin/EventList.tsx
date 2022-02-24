@@ -51,17 +51,19 @@ const EventList = () => {
 
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex flex-col justify-start items-center">
         {hostEvents ? (
           hostEvents.map((event) => {
-            <PostedEvent
-              id={event.id}
-              title={event.title}
-              imageURL={event.title}
-              participants={event.participants}
-              datetime={event.datetime}
-              key={event.id}
-            />;
+            return (
+              <PostedEvent
+                id={event.id}
+                title={event.title}
+                imageURL={event.title}
+                participants={event.participants}
+                datetime={event.datetime}
+                key={event.id}
+              />
+            );
           })
         ) : (
           <div />

@@ -1,5 +1,6 @@
 import moment from "moment";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 type Props = {
   id: number;
@@ -13,8 +14,10 @@ type Props = {
 };
 
 const Event = (props: Props) => {
+  const router = useRouter();
+
   const log = () => {
-    console.log("log");
+    router.push(`/event/${props.id}`);
   };
 
   const status = () => {
