@@ -37,10 +37,10 @@ const Delivary = () => {
       const fetch = async () => {
         const res = await axiosInstance.get(`event/${pid}`);
 
+        console.log(res.data.imageURL);
         setDocument(res.data.document);
-        console.log(res.data.document);
 
-        res.data.streamURL = "https://www.youtube.com/watch?v=t9_HOvCU8GM";
+        // res.data.streamURL = "https://www.youtube.com/watch?v=t9_HOvCU8GM";
         const liveIDs = res.data.streamURL.split("=");
 
         setliveID(liveIDs[1]);
