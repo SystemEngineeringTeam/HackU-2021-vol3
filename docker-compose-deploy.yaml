@@ -13,6 +13,7 @@ services:
       MYSQL_PASSWORD: "docker"
     volumes:
       - db_data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
 
     restart: always
   app:

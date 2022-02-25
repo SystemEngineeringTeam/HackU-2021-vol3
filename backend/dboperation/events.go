@@ -27,10 +27,18 @@ func CreateEvent(e models.EventPostRequest, firebaseUID string) error {
 		tags = append(tags, dt)
 	}
 
-	dt, err := time.Parse(timeFormat, e.DateTime)
+	jst, err := time.LoadLocation("Asia/Tokyo")
 	if err != nil {
 		return err
 	}
+
+	dt, err := time.ParseInLocation(timeFormat, e.DateTime, jst)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(dt, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
 	event := models.Event{
 		Title:       e.Title,
 		Description: e.Description,
