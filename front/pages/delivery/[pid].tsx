@@ -30,6 +30,7 @@ const Delivary = () => {
   let nextPageToken: string = "";
   // const [comments, setComments] = useState<string[]>([]);
   const [comment, setComment] = useState<string>("");
+
   const [document, setDocument] = useState<string>("");
 
   //https://www.youtube.com/watch?v=t9_HOvCU8GM
@@ -108,6 +109,7 @@ const Delivary = () => {
         }
       });
   };
+
 
   const notify = (comment: string) => {
     /* @ts-ignore */

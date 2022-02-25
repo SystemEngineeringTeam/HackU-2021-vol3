@@ -1,6 +1,7 @@
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
+import Router from "next/router";
 import FrontendImage from "../../public/EventImage/web.png";
 import DeliveryURL from "./DeliveryURL";
 
@@ -15,17 +16,13 @@ type Props = {
 const PostedEvent = (props: Props) => {
   const { id, title, imageURL, participants, datetime } = props;
 
-  console.log(`/EventImage/${imageURL}.png`);
-
-  const log = () => {
-    console.log("log");
+  const transitionPage = (id: number) => {
+    Router.push(`/event/${id}`);
   };
+
   return (
-    <button
-      className="flex justify-center mt-10 w-8/12 rounded-lg shadow-md "
-      onClick={log}
-    >
-      <div className="w-full bg-original-gray rounded-lg border-2 border-slate-200">
+    <button className="flex justify-center mt-10 w-8/12 rounded-lg shadow-md ">
+      <div className="w-full rounded-lg border-2 border-slate-200 bg-original-gray">
         <div className="rounded-lg shadow-sm">
           <div className=" flex flex-col text-left ">
             <div className="flex-auto ml-7">開催日程</div>
@@ -60,6 +57,9 @@ const PostedEvent = (props: Props) => {
             <button
               className="py-2 px-8 mt-2 mr-3 font-bold text-gray-800 bg-white hover:bg-gray-200 rounded-md border-2 border-slate-200"
               type="button"
+              onClick={() => {
+                transitionPage(id);
+              }}
             >
               <div className="px-2">勉強会内容の確認</div>
             </button>
