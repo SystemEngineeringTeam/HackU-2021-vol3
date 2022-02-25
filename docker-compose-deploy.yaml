@@ -1,4 +1,8 @@
 version: "3.7"
+volumes:
+  db_data:
+    driver: local
+
 services:
   db:
     image: mariadb:latest
@@ -7,10 +11,19 @@ services:
       MYSQL_DATABASE: "app-db"
       MYSQL_USER: "docker"
       MYSQL_PASSWORD: "docker"
+    volumes:
+      - db_data:/var/lib/mysql
+
     restart: always
   app:
-    build: backend/
+    image: golang:1.17-alpine
     restart: always
     ports:
       - "8080:80"
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+    command: ["/bin/sh", "-c", "go build -o /app/app && /app/app production"]
 
