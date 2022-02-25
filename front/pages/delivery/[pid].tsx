@@ -28,14 +28,17 @@ const Delivary = () => {
   const [autoDismiss, setAutoDismiss] = React.useState(5);
   const [activeLiveChatID, setActiveLiveChatID] = useState("");
   const [nextPageToken, setNextPageToken] = useState<string>("");
-  const [comments, setComments] = useState<TextMessageObject[]>([]);
+
+  const [document, setDocument] = useState<string>("");
 
   //https://www.youtube.com/watch?v=t9_HOvCU8GM
   useEffect(() => {
     if (isReady) {
       const fetch = async () => {
         const res = await axiosInstance.get(`event/${pid}`);
-        console.log(res);
+
+        setDocument(res.data.document);
+        console.log(res.data.document);
 
         res.data.streamURL = "https://www.youtube.com/watch?v=t9_HOvCU8GM";
         const liveIDs = res.data.streamURL.split("=");
@@ -43,73 +46,76 @@ const Delivary = () => {
         setliveID(liveIDs[1]);
         //動画IDからライブコメントIDを取得する
         const resYoutube = await axios.get(
-          `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyDvs5shgzFHiQz6vQO6mIyk7zZ9ic0jl4s&id=${liveIDs}&part=liveStreamingDetails`
+          `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyD1-aA4T8r0P_o-yNEQGhObFBYS3WWVKec&id=${liveIDs}&part=liveStreamingDetails`
         );
 
         setActiveLiveChatID(
           resYoutube.data.items[0].liveStreamingDetails.activeLiveChatId
         );
       };
-      console.log("hello");
 
       fetch();
     }
     // eslint-disable-next-line
   }, [isReady]);
 
-  useEffect(() => {
-    setInterval(questionCheck, 10000);
-  });
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     notify("typeScriptのところがわかりません");
+  //   }, 30000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
-  const questionCheck = async () => {
-    //コメントを取得
-    axios
-      .get("https://www.googleapis.com/youtube/v3/liveChat/messages", {
-        params: {
-          key: "AIzaSyAWufHsGJN1P2jPmGpTL2WJZbC2Go91140",
-          part: "snippet",
-          liveChatId: activeLiveChatID,
-          pageToken: nextPageToken,
-        },
-      })
-      .then((res) => {
-        const textMessageObjectArray: TextMessageObject[] = [];
-        for (let index = 0; index < res["data"]["items"].length; index++) {
-          const element =
-            res["data"]["items"][index]["snippet"]["textMessageDetails"][
-              "messageText"
-            ];
-          if (element[0] === "?") {
-            notify(element);
-          }
+  // const questionCheck = async () => {
+  //   //コメントを取得
+  //   axios
+  //     .get("https://www.googleapis.com/youtube/v3/liveChat/messages", {
+  //       params: {
+  //         key: "AIzaSyD1-aA4T8r0P_o-yNEQGhObFBYS3WWVKec",
+  //         part: "snippet",
+  //         liveChatId: activeLiveChatID,
+  //         pageToken: nextPageToken,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setNextPageToken(res["data"]["nextPageToken"]);
+  //       console.log("出力");
+  //       console.log(res.data);
+  //       notify("ok");
 
-          console.log(
-            res["data"]["items"][index]["snippet"]["textMessageDetails"][
-              "messageText"
-            ]
-          );
-          const id = res["data"]["items"][index]["id"];
-          textMessageObjectArray.push({ id: id, text: element });
-        }
-        console.log(textMessageObjectArray);
-        setComments([...comments, ...textMessageObjectArray]);
-        setNextPageToken(res["data"]["nextPageToken"]);
-      });
-  };
+  //       // 配列の長さが0じゃない時
+  //       if (res["data"]["items"].length != 0) {
+  //         console.log(
+  //           "data=" +
+  //             res["data"]["items"][0]["snippet"]["textMessageDetails"][
+  //               "messageText"
+  //             ]
+  //         );
+
+  //         if (
+  //           res["data"]["items"][0]["snippet"]["textMessageDetails"][
+  //             "messageText"
+  //           ][0] === "?"
+  //         ) {
+  //           setComments(
+  //             res["data"]["items"][0]["snippet"]["textMessageDetails"][
+  //               "messageText"
+  //             ]
+  //           );
+  //         }
+  //       }
+  //     });
+  // };
 
   const notify = (comment: string) => {
     /* @ts-ignore */
     ref.current.addNotification({
       title,
-      message,
+      message: comment,
       level: "info",
       position: "tl",
       uid,
       autoDismiss,
-      action: {
-        label: comment,
-        // callback: () => window.open("https://twitter.com/crohaco"),
-      },
     });
     setUid(uid + 1);
   };
@@ -129,7 +135,7 @@ const Delivary = () => {
               allowFullScreen
             />
           </div>
-          <button onClick={questionCheck}>ok</button>
+
           <div className="flex">
             <iframe
               width="1200"
@@ -144,7 +150,7 @@ const Delivary = () => {
         <NotificationSystem ref={ref} />
         <div />
         <div className="border-4 border-blue-400" />
-        <Document />
+        <Document document={document} />
       </div>
     </Layout>
   );

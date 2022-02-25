@@ -19,7 +19,7 @@ const EventList = () => {
   };
   const { currentUser, currentIdToken } = useContext(AuthContext);
   const [hostEvents, setHostEvents] = useState<hostEvent[]>([]);
-  
+
   useEffect(() => {
     //新規ユーザか判定するAPIを叩く
     //新規ユーザならisNewUserをtrueにする
@@ -31,7 +31,6 @@ const EventList = () => {
     });
 
     if (currentIdToken) {
-      console.log(currentIdToken);
       axios
         .get(`/event/hosted`)
         .then((res) => {
@@ -46,8 +45,6 @@ const EventList = () => {
     }
     // eslint-disable-next-line
   }, [currentIdToken]);
-
-  console.log(hostEvents);
 
   return (
     <>
@@ -68,7 +65,6 @@ const EventList = () => {
         ) : (
           <div />
         )}
-
       </div>
     </>
   );

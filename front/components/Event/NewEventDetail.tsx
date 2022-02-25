@@ -83,6 +83,9 @@ const NewEventDetail = () => {
         .catch((err) => {
           console.log(err);
         });
+
+      alert("参加登録しました");
+      // router.push("/");
     }
   };
 
@@ -140,11 +143,14 @@ const NewEventDetail = () => {
           <div className="border border-black" />
           <div className="text-xl">
             <div className="mt-12 ">Tags </div>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-2">
               {event.tags ? (
                 event.tags.map((tag, index) => {
                   return (
-                    <button className="rounded-md border-2" key={index}>
+                    <button
+                      className="rounded-md border-2 border-gray-300 "
+                      key={index}
+                    >
                       {tag}
                     </button>
                   );

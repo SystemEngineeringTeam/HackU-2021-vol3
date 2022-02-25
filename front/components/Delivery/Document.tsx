@@ -6,7 +6,11 @@ import styled from "styled-components";
 import { scrollFadeIn } from "../ScrollFadeIn";
 import CodeBlock from "./CodeBlock";
 
-const Document = () => {
+type Props = {
+  document: string;
+};
+
+const Document = (props: Props) => {
   const router = useRouter();
   const { pid } = router.query;
 
@@ -16,31 +20,7 @@ const Document = () => {
   );
   const [pageIndex, setPageIndex] = React.useState<number>(0);
 
-  const body = `
-# タイトル1
-* おはよう。
-* おはよう。
-* おはよう。
-* おはよう。
-
-* おはよう.
-## タイトル2
-1. こんにちは。
-2. こんにちは。
-3. こんにちは。
-1. こんにちは。
-2. こんにちは。
-3. こんにちは。
-1. こんにちは。
-2. こんにちは。
-3. こんにちは。
-## タイトル3
-#### こんばんは
-#### こんばんは
-#### こんばんは
-#### こんばんは
-#### こんばんは
-#### こんばんは`;
+  const body = props.document;
 
   useEffect(() => {
     const documentSplit = body.split("\n## ");
@@ -50,7 +30,7 @@ const Document = () => {
       const documentSingle = `## ${documentSplit[index]}`;
       documentArray.push(documentSingle);
     }
-    console.log(documentArray);
+
     setDocumentCollection(documentArray);
 
     scrollFadeIn();
