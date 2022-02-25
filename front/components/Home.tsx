@@ -106,7 +106,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="h-[950px] border-4" />
+        <div className="h-[1050px] border-4" />
         <div className="flex flex-col justify-start w-3/12 ">
           <div className=" ">
             <Sidebar />
