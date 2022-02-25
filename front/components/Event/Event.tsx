@@ -42,7 +42,7 @@ const Event = (props: Props) => {
     } else {
       return (
         <div className="text-center text-original-black bg-white rounded-lg border-2 border-black shadow-lg">
-          開催前
+          終了
         </div>
       );
     }

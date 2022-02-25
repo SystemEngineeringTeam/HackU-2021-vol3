@@ -26,7 +26,8 @@
     "react-toastify": "^8.2.0",
     "react-transition-group": "^4.4.2",
     "remark-gfm": "^3.0.1",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "youtube-chat": "^2.1.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.2",
