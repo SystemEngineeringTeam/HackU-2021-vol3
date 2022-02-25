@@ -31,6 +31,7 @@ const DeliveryURL = (props: Props) => {
     });
 
     if (currentIdToken) {
+      console.log(inputRef.current?.value);
       axios
         .post(`/event/${id}`, { streamURL: inputRef.current?.value })
 
@@ -77,6 +78,7 @@ const DeliveryURL = (props: Props) => {
                       className="w-[600px] h-28 text-2xl text-center rounded-lg border border-black focus:outline-none focus:placeholder:opacity-0 "
                       placeholder="勉強会を配信するYoutubeのURLを入力しましょう"
                       value={inputRef.current?.value}
+                      ref={inputRef}
                     />
                     <div className="flex absolute top-1 left-6 gap-2">
                       <div className="font-bold">配信URL</div>

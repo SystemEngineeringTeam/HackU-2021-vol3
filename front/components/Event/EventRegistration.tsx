@@ -111,7 +111,7 @@ const EventRegistration = () => {
       return request;
     });
     axios
-      .post('http://localhost:8080/event', {
+      .post('/event', {
         title: title,
         description: description,
         document: fileMd,

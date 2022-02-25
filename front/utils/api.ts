@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
   },
-  baseURL: "https://hacku-backend.japaneast.cloudapp.azure.com",
+  baseURL: "http://localhost:8080",
 });
 
 export { axiosInstance };

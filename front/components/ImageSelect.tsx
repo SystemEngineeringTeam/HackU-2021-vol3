@@ -24,52 +24,52 @@ const ImageSelect = (props: any) => {
       alt: "",
     },
     {
-      key: "1",
+      key: "10",
       src: WebImage,
       alt: "Web",
     },
     {
-      key: "2",
+      key: "3",
       src: DatabaseImage,
       alt: "Database",
     },
     {
-      key: "3",
+      key: "8",
       src: ServerImage,
       alt: "Server",
     },
     {
-      key: "4",
+      key: "2",
       src: ComputerImage,
       alt: "NetWork",
     },
     {
-      key: "5",
+      key: "7",
       src: Security,
       alt: "Security",
     },
     {
-      key: "6",
+      key: "9",
       src: SmartPhone,
       alt: "SmartPhone",
     },
     {
-      key: "7",
+      key: "5",
       src: GraphicDesign,
       alt: "GraphicDesign",
     },
     {
-      key: "8",
+      key: "1",
       src: CloudServiceImage,
       alt: "CloudService",
     },
     {
-      key: "9",
+      key: "6",
       src: Microchip,
       alt: "Microchip",
     },
     {
-      key: "10",
+      key: "4",
       src: DevOpsImage,
       alt: "DevOps",
     },
@@ -160,16 +160,16 @@ const ImageSelect = (props: any) => {
                           required
                         >
                           <option value="0" hidden />
-                          <option value="1">フロントエンド</option>
-                          <option value="2">バックエンド</option>
-                          <option value="3">インフラ</option>
-                          <option value="4">ネットワーク</option>
-                          <option value="5">セキュリティー</option>
-                          <option value="6">モバイル</option>
-                          <option value="7">デザイン</option>
-                          <option value="8">クラウド</option>
-                          <option value="9">ハードウェア</option>
-                          <option value="10">DEVOPS</option>
+                          <option value="10">フロントエンド</option>
+                          <option value="3">バックエンド</option>
+                          <option value="8">インフラ</option>
+                          <option value="2">ネットワーク</option>
+                          <option value="7">セキュリティー</option>
+                          <option value="9">モバイル</option>
+                          <option value="5">デザイン</option>
+                          <option value="1">クラウド</option>
+                          <option value="6">ハードウェア</option>
+                          <option value="4">DEVOPS</option>
                         </select>
                       </div>
                     </div>
