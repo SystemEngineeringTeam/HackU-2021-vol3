@@ -9,8 +9,14 @@ services:
       MYSQL_PASSWORD: "docker"
     restart: always
   app:
-    build: backend/
+    image: golang:1.17-alpine
     restart: always
     ports:
       - "8080:80"
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+    command: ["/bin/sh", "-c", "go build -o /app/app && /app/app production"]
 
