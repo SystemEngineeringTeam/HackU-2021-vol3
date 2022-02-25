@@ -1,4 +1,5 @@
 
+import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useState, useContext } from "react";
 import { axiosInstance as axios } from "../../utils/api";
@@ -96,37 +97,35 @@ const EventRegistration = () => {
     setTagID(tmp);
   }
 
-  // Function to call the Post method(axios)
-  function PostForm() {
-    //axios
-    //date time型に変換
-    let dateTime = new Date(date + " " + time);
 
-    const data = {
-      title: title,
-      description: description,
-      image: image,
-      file: fileMd,
-      dateTime: dateTime,
-      tags: tagID
-    };
+
+  // Function to call the Post method(axios)
+  const { currentUser, currentIdToken } = useContext(AuthContext);
+  const router = useRouter(); //useRouterフックを定義している
+  function PostForm() {
+    let dateTime = moment(date + " " + time).format();
     axios.interceptors.request.use((request) => {
       if (currentIdToken && request.headers != null) {
         request.headers = { Authorization: `Bearer ${currentIdToken}` };
       }
       return request;
     });
-    if (currentIdToken) {
-      axios
-        .post('http://localhost:8080/event', data)
-        .then(response => {
-          console.log('response body:', response.data);
-          router.push("/")
-        });
-    }
+    axios
+      .post('http://localhost:8080/event', {
+        title: title,
+        description: description,
+        document: fileMd,
+        imageID: parseInt(image),
+        datetime: dateTime,
+        tags: tagID,
+      })
+      .then(response => {
+        console.log('response body:', response.data);
+        router.push("/")
+      });
+
   }
-  const { currentUser, currentIdToken } = useContext(AuthContext);
-  const router = useRouter(); //useRouterフックを定義している
+
 
 
   return (
