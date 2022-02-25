@@ -28,7 +28,6 @@ const Delivary = () => {
   const [autoDismiss, setAutoDismiss] = React.useState(5);
   const [activeLiveChatID, setActiveLiveChatID] = useState("");
   const [nextPageToken, setNextPageToken] = useState<string>("");
-
   const [document, setDocument] = useState<string>("");
 
   //https://www.youtube.com/watch?v=t9_HOvCU8GM
@@ -38,9 +37,8 @@ const Delivary = () => {
         const res = await axiosInstance.get(`event/${pid}`);
 
         setDocument(res.data.document);
-        console.log(res.data.document);
 
-        res.data.streamURL = "https://www.youtube.com/watch?v=t9_HOvCU8GM";
+        // res.data.streamURL = "https://www.youtube.com/watch?v=t9_HOvCU8GM";
         const liveIDs = res.data.streamURL.split("=");
 
         setliveID(liveIDs[1]);
@@ -79,25 +77,17 @@ const Delivary = () => {
   //     })
   //     .then((res) => {
   //       setNextPageToken(res["data"]["nextPageToken"]);
-  //       console.log("出力");
-  //       console.log(res.data);
+
   //       notify("ok");
 
   //       // 配列の長さが0じゃない時
   //       if (res["data"]["items"].length != 0) {
-  //         console.log(
-  //           "data=" +
-  //             res["data"]["items"][0]["snippet"]["textMessageDetails"][
-  //               "messageText"
-  //             ]
-  //         );
-
   //         if (
   //           res["data"]["items"][0]["snippet"]["textMessageDetails"][
   //             "messageText"
   //           ][0] === "?"
   //         ) {
-  //           setComments(
+  //           setMessage(
   //             res["data"]["items"][0]["snippet"]["textMessageDetails"][
   //               "messageText"
   //             ]
