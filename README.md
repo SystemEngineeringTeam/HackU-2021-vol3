@@ -1,7 +1,7 @@
 ![Version](https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000)
 [![Twitter: set\_official](https://img.shields.io/twitter/follow/set\_official.svg?style=social)](https://twitter.com/set\_official)
 ![issue](https://img.shields.io/github/issues/SystemEngineeringTeam/HackU-2021-vol3?style=flat-square)
-[![SUSHI-WARE LICENSE](https://img.shields.io/badge/license-SUSHI--WARE%F0%9F%8D%A3-blue.svg)](https://github.com/MakeNowJust/sushi-ware)
+[![SUSHI-WARE LICENSE](https://img.shields.io/badge/license-SUSHI--WARE%F0%9F%8D%A3-blue.svg)](https://github.com/SystemEngineeringTeam/HackU-2021-vol3/blob/main/LICENSE.%F0%9F%8D%A3.md)
 
 # Welcome to S.S.R. (Shared Study Room) 👋
 
