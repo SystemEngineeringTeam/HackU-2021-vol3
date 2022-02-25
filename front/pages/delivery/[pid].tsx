@@ -1,12 +1,19 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, createRef } from "react";
 import ReactMarkdown from "react-markdown";
+import NotificationSystem from "react-notification-system";
 import CommentaryArea from "../../components/Delivery/CommentaryArea";
 import DeliveryScreen from "../../components/Delivery/DeliveryScreen";
 import Document from "../../components/Delivery/Document";
 import Layout from "../../components/Layout";
 import { axiosInstance } from "../../utils/api";
+
+type TextMessageObject = {
+  id: string;
+  text: string;
+};
 
 const Delivary = () => {
   const router = useRouter();
@@ -14,37 +21,109 @@ const Delivary = () => {
   const isReady = router.isReady;
   const [liveID, setliveID] = useState<string>("");
 
-  //https://www.youtube.com/watch?v=t9_HOvCU8GM
+  const ref = React.createRef();
+  const [title, setTitle] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [uid, setUid] = React.useState(0);
+  const [autoDismiss, setAutoDismiss] = React.useState(5);
+  const [activeLiveChatID, setActiveLiveChatID] = useState("");
+  const [nextPageToken, setNextPageToken] = useState<string>("");
 
+  const [document, setDocument] = useState<string>("");
+
+  //https://www.youtube.com/watch?v=t9_HOvCU8GM
   useEffect(() => {
-    console.log(pid);
     if (isReady) {
       const fetch = async () => {
         const res = await axiosInstance.get(`event/${pid}`);
+
+        setDocument(res.data.document);
+        console.log(res.data.document);
+
         res.data.streamURL = "https://www.youtube.com/watch?v=t9_HOvCU8GM";
         const liveIDs = res.data.streamURL.split("=");
-        console.log(liveIDs[1]);
+
         setliveID(liveIDs[1]);
-        // const resYoutube = await axios.get(
-        //   `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyDvs5shgzFHiQz6vQO6mIyk7zZ9ic0jl4s&id=${liveIDs}&part=liveStreamingDetails`
-        // );
-        // console.log(resYoutube);
-        // console.log(
-        //   resYoutube.data.items[0].liveStreamingDetails.activeLiveChatId
-        // );
+        //動画IDからライブコメントIDを取得する
+        const resYoutube = await axios.get(
+          `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyD1-aA4T8r0P_o-yNEQGhObFBYS3WWVKec&id=${liveIDs}&part=liveStreamingDetails`
+        );
+
+        setActiveLiveChatID(
+          resYoutube.data.items[0].liveStreamingDetails.activeLiveChatId
+        );
       };
+
       fetch();
     }
-
     // eslint-disable-next-line
   }, [isReady]);
 
-  console.log(liveID);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     notify("typeScriptのところがわかりません");
+  //   }, 30000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  // const questionCheck = async () => {
+  //   //コメントを取得
+  //   axios
+  //     .get("https://www.googleapis.com/youtube/v3/liveChat/messages", {
+  //       params: {
+  //         key: "AIzaSyD1-aA4T8r0P_o-yNEQGhObFBYS3WWVKec",
+  //         part: "snippet",
+  //         liveChatId: activeLiveChatID,
+  //         pageToken: nextPageToken,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setNextPageToken(res["data"]["nextPageToken"]);
+  //       console.log("出力");
+  //       console.log(res.data);
+  //       notify("ok");
+
+  //       // 配列の長さが0じゃない時
+  //       if (res["data"]["items"].length != 0) {
+  //         console.log(
+  //           "data=" +
+  //             res["data"]["items"][0]["snippet"]["textMessageDetails"][
+  //               "messageText"
+  //             ]
+  //         );
+
+  //         if (
+  //           res["data"]["items"][0]["snippet"]["textMessageDetails"][
+  //             "messageText"
+  //           ][0] === "?"
+  //         ) {
+  //           setComments(
+  //             res["data"]["items"][0]["snippet"]["textMessageDetails"][
+  //               "messageText"
+  //             ]
+  //           );
+  //         }
+  //       }
+  //     });
+  // };
+
+  const notify = (comment: string) => {
+    /* @ts-ignore */
+    ref.current.addNotification({
+      title,
+      message: comment,
+      level: "info",
+      position: "tl",
+      uid,
+      autoDismiss,
+    });
+    setUid(uid + 1);
+  };
 
   return (
     <Layout>
       <div className="flex">
-        <div className="flex flex-col w-3/5 ">
+        <div className="flex flex-col w-3/5">
           <div className="flex">
             <iframe
               width="1200"
@@ -56,6 +135,7 @@ const Delivary = () => {
               allowFullScreen
             />
           </div>
+
           <div className="flex">
             <iframe
               width="1200"
@@ -66,9 +146,11 @@ const Delivary = () => {
             />
           </div>
         </div>
+        {/* @ts-ignore */}
+        <NotificationSystem ref={ref} />
         <div />
         <div className="border-4 border-blue-400" />
-        <Document />
+        <Document document={document} />
       </div>
     </Layout>
   );
