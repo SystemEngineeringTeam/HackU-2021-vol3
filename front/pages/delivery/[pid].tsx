@@ -1,5 +1,5 @@
 import { async } from "@firebase/util";
-import axios from "axios";
+import axios, { Axios, AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState, createRef } from "react";
 import ReactMarkdown from "react-markdown";
@@ -21,13 +21,16 @@ const Delivary = () => {
   const isReady = router.isReady;
   const [liveID, setliveID] = useState<string>("");
 
-  const ref = React.createRef();
+  const ref = React.createRef<NotificationSystem.System>();
   const [title, setTitle] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const [uid, setUid] = React.useState(0);
-  const [autoDismiss, setAutoDismiss] = React.useState(5);
-  const [activeLiveChatID, setActiveLiveChatID] = useState("");
-  const [nextPageToken, setNextPageToken] = useState<string>("");
+  let uid = 0;
+  // const [activeLiveChatID, setActiveLiveChatID] = useState("");
+  let activeLiveChatID = "";
+  let nextPageToken: string = "";
+  // const [comments, setComments] = useState<string[]>([]);
+  const [comment, setComment] = useState<string>("");
+
   const [document, setDocument] = useState<string>("");
 
   //https://www.youtube.com/watch?v=t9_HOvCU8GM
@@ -48,9 +51,9 @@ const Delivary = () => {
           `https://www.googleapis.com/youtube/v3/videos?key=AIzaSyD1-aA4T8r0P_o-yNEQGhObFBYS3WWVKec&id=${liveIDs}&part=liveStreamingDetails`
         );
 
-        setActiveLiveChatID(
-          resYoutube.data.items[0].liveStreamingDetails.activeLiveChatId
-        );
+        activeLiveChatID =
+          resYoutube.data.items[0].liveStreamingDetails.activeLiveChatId;
+        console.log(activeLiveChatID);
       };
 
       fetch();
@@ -58,57 +61,69 @@ const Delivary = () => {
     // eslint-disable-next-line
   }, [isReady]);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     notify("typeScriptのところがわかりません");
-  //   }, 30000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      questionCheck();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
-  // const questionCheck = async () => {
-  //   //コメントを取得
-  //   axios
-  //     .get("https://www.googleapis.com/youtube/v3/liveChat/messages", {
-  //       params: {
-  //         key: "AIzaSyD1-aA4T8r0P_o-yNEQGhObFBYS3WWVKec",
-  //         part: "snippet",
-  //         liveChatId: activeLiveChatID,
-  //         pageToken: nextPageToken,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setNextPageToken(res["data"]["nextPageToken"]);
+  useEffect(() => {
+    if (comment !== "") {
+      let q = comment.slice(1);
+      notify(q);
+    }
+  }, [comment]);
 
-  //       notify("ok");
+  const questionCheck = async () => {
+    //コメントを取得
+    let params = {
+      key: "AIzaSyD1-aA4T8r0P_o-yNEQGhObFBYS3WWVKec",
+      part: "snippet",
+      liveChatId: activeLiveChatID,
+      pageToken: nextPageToken,
+    };
+    console.log(params);
+    axios
+      .get("https://www.googleapis.com/youtube/v3/liveChat/messages", {
+        params: params,
+      })
+      .then((res) => {
+        nextPageToken = res["data"]["nextPageToken"];
 
-  //       // 配列の長さが0じゃない時
-  //       if (res["data"]["items"].length != 0) {
-  //         if (
-  //           res["data"]["items"][0]["snippet"]["textMessageDetails"][
-  //             "messageText"
-  //           ][0] === "?"
-  //         ) {
-  //           setMessage(
-  //             res["data"]["items"][0]["snippet"]["textMessageDetails"][
-  //               "messageText"
-  //             ]
-  //           );
-  //         }
-  //       }
-  //     });
-  // };
+        // 配列の長さが0じゃない時
+        if (res["data"]["items"].length != 0) {
+          res["data"]["items"].forEach((element: any) => {
+            console.log(
+              element["snippet"]["textMessageDetails"]["messageText"]
+            );
+
+            if (
+              element["snippet"]["textMessageDetails"]["messageText"][0] === "?"
+            ) {
+              setComment(
+                element["snippet"]["textMessageDetails"]["messageText"]
+              );
+            }
+          });
+        }
+      });
+  };
+
 
   const notify = (comment: string) => {
     /* @ts-ignore */
-    ref.current.addNotification({
+    const notification = ref.current;
+    notification?.addNotification({
       title,
       message: comment,
       level: "info",
       position: "tl",
-      uid,
-      autoDismiss,
+      uid: uid,
+      autoDismiss: 30,
     });
-    setUid(uid + 1);
+    console.log(uid);
+    uid++;
   };
 
   return (
