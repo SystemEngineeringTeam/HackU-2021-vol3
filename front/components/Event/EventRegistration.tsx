@@ -104,6 +104,7 @@ const EventRegistration = () => {
   const router = useRouter(); //useRouterフックを定義している
   function PostForm() {
     let dateTime = moment(date + " " + time).format();
+    moment(dateTime).subtract(9, "hours");
     axios.interceptors.request.use((request) => {
       if (currentIdToken && request.headers != null) {
         request.headers = { Authorization: `Bearer ${currentIdToken}` };
