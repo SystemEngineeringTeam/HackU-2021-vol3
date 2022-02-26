@@ -29,13 +29,13 @@ const Event = (props: Props) => {
   const status = () => {
     if (props.status === "schedule") {
       return (
-        <div className="text-center text-original-black bg-white rounded-lg border-2 border-black shadow-lg">
+        <div className="text-center bg-white rounded-lg border-2 border-black shadow-lg text-original-black">
           開催前
         </div>
       );
     } else if (props.status === "onair") {
       return (
-        <div className="text-center text-original-red bg-white rounded-lg border-2 border-original-red">
+        <div className="text-center bg-white rounded-lg border-2 text-original-red border-original-red">
           配信中
         </div>
       );
@@ -50,7 +50,7 @@ const Event = (props: Props) => {
 
   return (
     <button
-      className="col-span-7 col-start-3 mt-2 h-20 bg-original-gray rounded-lg shadow-md"
+      className="col-span-7 col-start-3 mt-2 h-20 rounded-lg shadow-md bg-original-gray"
       onClick={transitionPage}
     >
       <div className="flex justify-between mt-2 h-16 rounded-lg">
