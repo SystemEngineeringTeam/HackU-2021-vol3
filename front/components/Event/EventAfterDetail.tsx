@@ -196,7 +196,7 @@ const EventAfterDetail = ({ totalStars = 5 }) => {
               width="50 px"
               alt="infra"
             />
-            <div className="mt-2 ml-3 text-2xl">58</div>
+            <div className="mt-2 ml-3 text-2xl">{reviews.length}</div>
           </div>
           <div className="flex ml-72">
             <div className="flex flex-col ">
